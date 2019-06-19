@@ -1,0 +1,536 @@
+/* ---------------------------------
+------------- 4.7 Collapses */
+
+.panel {
+    background: transparent;
+}
+
+.accordion-group.panel {
+    margin-bottom:1.5em;
+    border:none;
+    border-radius:0;
+    box-shadow:none;
+    -webkit-box-shadow:none;
+}
+
+.accordion-header {
+    padding:0.5em 0;
+    position: relative;
+}
+
+.accordion-header:after {
+    content: '';
+    position: absolute;
+    left:0;
+    top:50%;
+    display: block;
+    width:100%;
+    height:1px;
+    margin-top:-0.5px;
+    background: #e7e7e7;
+    z-index: 0;
+}
+
+.accordion-title {
+    display: inline-block;
+    background: #fff;
+    position: relative;
+    z-index: 1;
+    font-size:1.2em;
+    padding:0 15px;
+    margin-left:20px;
+}
+
+.accordion-body-wrapper {
+    padding:25px 0 10px 35px;
+    position: relative;
+}
+
+.accordion-body-wrapper:before {
+    content:'';
+    position: absolute;
+    display: block;
+    width:1px;
+    height: 90%;
+    left:9.5px;
+    top:5%;
+    background: #e7e7e7;
+}
+
+.yellow .accordion-title,
+.orange .accordion-title,
+.red .accordion-title,
+.lightblue .accordion-title,
+.blue .accordion-title,
+.lightgreen .accordion-title,
+.green .accordion-title,
+.purple .accordion-title {
+    color:#fff;
+    border-radius: 4px;
+    padding-bottom:4px;
+    box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.05);
+    -webkit-box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.05);
+}
+
+.orange .accordion-title {
+    box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.12);
+    -webkit-box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.12);
+}
+
+.red .accordion-title,
+.purple .accordion-title,
+.blue .accordion-title,
+.green .accordion-title {
+    box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.3);
+    -webkit-box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.3);
+}
+
+.lightblue .accordion-title,
+.lightgreen .accordion-title {
+    box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.13);
+    -webkit-box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.13);
+}
+
+.yellow .accordion-header:after,
+.yellow .accordion-body-wrapper:before,
+.yellow .accordion-title {
+    background: #f8d61b;
+}
+
+.orange .accordion-header:after,
+.orange .accordion-body-wrapper:before,
+.orange .accordion-title  {
+    background: #f49d14;
+}
+
+.red .accordion-header:after,
+.red .accordion-body-wrapper:before,
+.red .accordion-title  {
+    background: #c90e31;
+}
+
+.lightblue .accordion-header:after,
+.lightblue .accordion-body-wrapper:before,
+.lightblue .accordion-title  {
+    background: #1bc4f5;
+}
+
+.blue .accordion-header:after,
+.blue .accordion-body-wrapper:before,
+.blue .accordion-title  {
+    background: #1e53d8;
+}
+
+.lightgreen .accordion-header:after,
+.lightgreen .accordion-body-wrapper:before,
+.lightgreen .accordion-title  {
+    background: #09d33d;
+}
+
+.green .accordion-header:after,
+.green .accordion-body-wrapper:before,
+.green .accordion-title  {
+    background: #0b9a0b;
+}
+
+.purple .accordion-header:after,
+.purple .accordion-body-wrapper:before,
+.purple .accordion-title  {
+    background: #7f01c8;
+}
+
+.accordion-btn {
+    display: block;
+    width:40px;
+    height:40px;
+    background-color: #f1f1f1;
+    background-image: url('../../sprites/accordion-btns.png');
+    background-repeat: no-repeat;
+    border-radius:4px;
+    box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.05);
+    -webkit-box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.05);
+    position: absolute;
+    right:0;
+    top:50%;
+    z-index: 10;
+    margin-top:-20px;
+    transition:all 0.35s;
+    -webkit-transition:all 0.35s;
+    -moz-transition:all 0.35s;
+    -ms-transition:all 0.35s;
+    -o-transition:all 0.35s;
+}
+
+.accordion-btn:hover,
+.accordion-btn:active,
+.accordion-btn:focus,
+.accordion-btn.open {
+    background-color:#e6e6e6;
+}
+
+.accordion-btn.open {
+    background-position: -40px 0;
+}
+
+.yellow .accordion-btn,
+.accordion-btn.yellow {
+    background-color: #f8d61b;
+    background-position: 0 -40px;
+}
+
+.yellow .accordion-btn:hover,
+.yellow .accordion-btn:active,
+.yellow .accordion-btn:focus,
+.accordion-btn.yellow:hover,
+.accordion-btn.yellow:active,
+.accordion-btn.yellow:focus,
+.accordion-btn.yellow.open,
+.yellow .accordion-btn.open {
+    background-color:#f0cf18;
+}
+
+.orange .accordion-btn,
+.accordion-btn.orange {
+    background-color: #f49d14;
+    background-position: 0 -40px;
+    box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.12);
+    -webkit-box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.12);
+}
+
+.orange .accordion-btn:hover,
+.orange .accordion-btn:active,
+.orange .accordion-btn:focus,
+.accordion-btn.orange:hover,
+.accordion-btn.orange:active,
+.accordion-btn.orange:focus,
+.accordion-btn.orange.open,
+.orange .accordion-btn.open {
+    background-color:#d5860a;
+}
+
+.red .accordion-btn,
+.accordion-btn.red {
+    background-color: #c90e31;
+    background-position: 0 -40px;
+    box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.3);
+    -webkit-box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.3);
+}
+
+.red .accordion-btn:hover,
+.red .accordion-btn:active,
+.red .accordion-btn:focus,
+.accordion-btn.red:hover,
+.accordion-btn.red:active,
+.accordion-btn.red:focus,
+.accordion-btn.red.open,
+.red .accordion-btn.open {
+    background-color:#a30b28;
+}
+
+.purple .accordion-btn,
+.accordion-btn.purple {
+    background-color: #7f01c8;
+    background-position: 0 -40px;
+    box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.3);
+    -webkit-box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.3);
+}
+
+.purple .accordion-btn:hover,
+.purple .accordion-btn:active,
+.purple .accordion-btn:focus,
+.accordion-btn.purple:hover,
+.accordion-btn.purple:active,
+.accordion-btn.purple:focus,
+.accordion-btn.purple.open,
+.purple .accordion-btn.open {
+    background-color:#6e01ad;
+}
+
+.blue .accordion-btn,
+.accordion-btn.blue {
+    background-color: #1e53d8;
+    background-position: 0 -40px;
+    box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.3);
+    -webkit-box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.3);
+}
+
+.blue .accordion-btn:hover,
+.blue .accordion-btn:active,
+.blue .accordion-btn:focus,
+.accordion-btn.blue:hover,
+.accordion-btn.blue:active,
+.accordion-btn.blue:focus,
+.accordion-btn.blue.open,
+.blue .accordion-btn.open {
+    background-color:#1945b4;
+}
+
+.green .accordion-btn,
+.accordion-btn.green {
+    background-color: #0b9a0b;
+    background-position: 0 -40px;
+    box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.3);
+    -webkit-box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.3);
+}
+
+.green .accordion-btn:hover,
+.green .accordion-btn:active,
+.green .accordion-btn:focus,
+.accordion-btn.green:hover,
+.accordion-btn.green:active,
+.accordion-btn.green:focus,
+.accordion-btn.green.open,
+.green .accordion-btn.open {
+    background-color:#0b890b;
+}
+
+.lightblue .accordion-btn,
+.accordion-btn.lightblue {
+    background-color: #1bc4f5;
+    background-position: 0 -40px;
+    box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.13);
+    -webkit-box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.13);
+}
+
+.lightblue .accordion-btn:hover,
+.lightblue .accordion-btn:active,
+.lightblue .accordion-btn:focus,
+.accordion-btn.lightblue:hover,
+.accordion-btn.lightblue:active,
+.accordion-btn.lightblue:focus,
+.accordion-btn.lightblue.open,
+.lightblue .accordion-btn.open {
+    background-color:#0aaedd;
+}
+
+.lightgreen .accordion-btn,
+.accordion-btn.lightgreen {
+    background-color: #09d33d;
+    background-position: 0 -40px;
+    box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.13);
+    -webkit-box-shadow:inset 0 -4px 0 rgba(0,0,0, 0.13);
+}
+
+.lightgreen .accordion-btn:hover,
+.lightgreen .accordion-btn:active,
+.lightgreen .accordion-btn:focus,
+.accordion-btn.lightgreen:hover,
+.accordion-btn.lightgreen:active,
+.accordion-btn.lightgreen:focus,
+.accordion-btn.lightgreen.open,
+.lightgreen .accordion-btn.open  {
+    background-color:#07ac32;
+}
+
+.accordion-btn.open.yellow,
+.accordion-btn.open.orange,
+.accordion-btn.open.blue,
+.accordion-btn.open.lightblue,
+.accordion-btn.open.green,
+.accordion-btn.open.lightgreen,
+.accordion-btn.open.purple,
+.accordion-btn.open.red,
+.lightgreen .accordion-btn.open,
+.green .accordion-btn.open,
+.yellow .accordion-btn.open,
+.red .accordion-btn.open,
+.lightblue .accordion-btn.open,
+.blue .accordion-btn.open,
+.orange .accordion-btn.open,
+.purple .accordion-btn.open {
+    background-position: -40px -40px;
+}
+
+/* Block Collapses */
+/* important for smooth animation */
+.accordion-panel-group .accordion-body .accordion-body-wrapper {
+    padding:20px 0;
+}
+
+.accordion-body p {
+    text-indent: 20px;
+}
+
+.accordion-body ul {
+    padding-left:20px;
+}
+
+.accordion-body ul li {
+    color:#6d6c67;
+    padding:5px 0;
+}
+
+.accordion-panel-group.panel  {
+    margin-bottom: 0;
+}
+
+.accordion-panel-title {
+    font-size:1.2em;
+    color:#5a5a5a;
+    margin-bottom:0;
+    display:block;
+    padding:10px 20px;
+    border:1px solid #eee;
+    border-radius:6px;
+    background: #f7f7f7;
+    position: relative;
+    transition:all 0.4s;
+    -webkit-transition:all 0.4s;
+    -moz-transition:all 0.4s;
+    -ms-transition:all 0.4s;
+    -o-transition:all 0.4s;
+}
+
+.accordion-panel-title > i {
+    min-width:23px;
+    margin-right:15px;
+    font-size:20px;
+}
+
+.accordion-panel-title:hover {
+    color:#3a3a3a;
+    background: #f2f2f2;
+    border-color:#dbdbdb;
+}
+
+.red .accordion-panel-title,
+.accordion-panel-title.red {
+    background:#c90e31;
+    border-color:#a30b28;
+    color:#fff;
+}
+
+.red .accordion-panel-title:hover,
+.accordion-panel-title.red:hover {
+    background:#a30b28;
+    border-color:#78081d;
+}
+
+.orange .accordion-panel-title,
+.accordion-panel-title.orange {
+    background:#f49d14;
+    color:#fff;
+    border-color:#d5860a;
+}
+
+.orange .accordion-panel-title:hover,
+.accordion-panel-title.orange:hover {
+    background:#d5860a;
+    border-color:#a96b08;
+}
+
+.yellow .accordion-panel-title,
+.accordion-panel-title.yellow {
+    background:#f8d61b;
+    color:#fff;
+    border-color:#f0cf18;
+}
+
+.yellow .accordion-panel-title:hover,
+.accordion-panel-title.yellow:hover {
+    background:#f0cf18;
+    border-color:#ddbc05;
+}
+
+.lightblue .accordion-panel-title,
+.accordion-panel-title.lightblue {
+    background:#1bc4f5;
+    color:#fff;
+    border-color:#0aaedd;
+}
+
+.lightblue .accordion-panel-title:hover,
+.accordion-panel-title.lightblue:hover {
+    background:#0aaedd;
+    border-color:#088bb2;
+}
+
+.blue .accordion-panel-title,
+.accordion-panel-title.blue {
+    background:#1e53d8;
+    color:#fff;
+    border-color:#1945b4;
+}
+
+.blue .accordion-panel-title:hover,
+.accordion-panel-title.blue:hover {
+    background:#1945b4;
+    border-color:#13368c;
+}
+
+.purple .accordion-panel-title,
+.accordion-panel-title.purple {
+    background:#7f01c8;
+    color:#fff;
+    border-color:#6e01ad;
+}
+
+.purple .accordion-panel-title:hover,
+.accordion-panel-title.purple:hover {
+    background:#6e01ad;
+    border-color:#6704a0;
+}
+
+.lightgreen .accordion-panel-title,
+.accordion-panel-title.lightgreen {
+    background:#09d33d;
+    color:#fff;
+    border-color:#07ac32;
+}
+
+.lightgreen .accordion-panel-title:hover,
+.accordion-panel-title.lightgreen:hover {
+    background:#07ac32;
+    border-color:#058025;
+}
+
+.green .accordion-panel-title,
+.accordion-panel-title.green {
+    background:#0b9a0b;
+    color:#fff;
+    border-color:#0b890b;
+}
+
+.green .accordion-panel-title:hover,
+.accordion-panel-title.green:hover {
+    background:#0b890b;
+    border-color:#066506;
+}
+
+.accordion-panel-body .accordion-body-wrapper {
+    padding:25px 0;
+}
+
+.accordion-panel-body  ul {
+    padding-left:20px;
+}
+
+.accordion-panel-body ul li {
+    color:#6d6c67;
+    padding:2.5px 0;
+}
+
+.accordion-panel-body .fa-ul {
+    padding-left:2.1em;
+}
+
+.accordion-btn-group {
+    padding-bottom:15px;
+    border-bottom:1px solid rgba(213,213,213, 0.7);
+}
+
+.accordion-btn-body-container .accordion-body-wrapper {
+    padding:10px 0;
+}
+
+.accordion-body-wrapper li:last-child,
+.accordion-body-wrapper p:last-child {
+    margin-bottom: 0;
+}
+
+
+.accordion-panel .accordion-body-wrapper:before {
+    display:none;
+}
+
+/* End collapse */
