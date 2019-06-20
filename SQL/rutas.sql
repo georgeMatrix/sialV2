@@ -4,13 +4,13 @@ Navicat MySQL Data Transfer
 Source Server         : localhost2018
 Source Server Version : 100136
 Source Host           : localhost:3306
-Source Database       : sial
+Source Database       : sialv2
 
 Target Server Type    : MYSQL
 Target Server Version : 100136
 File Encoding         : 65001
 
-Date: 2019-06-13 11:41:09
+Date: 2019-06-19 12:09:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;

@@ -17,9 +17,9 @@
                         <div class="table-responsive">
                         <table class="table table-hover table-sm">
                             <thead>
-                            <th>Seccion</th>
-                            <th>Listado</th>
-                            <th>Nuevo</th>
+                            <th><h1>Seccion</h1></th>
+                            <th><h1>Listado</h1></th>
+                            <th><h1>Nuevo</h1></th>
                             </thead>
                             <tr>
                                 <td><h2>Cliente</h2></td>
@@ -39,17 +39,23 @@
                             <tr>
                                 <td><h2>Rutas</h2></td>
                                 <td><a href="{{route('rutas.index')}}" class="btn btn-info btn-block">Listado Rutas</a></td>
-                                <td><a href="{{route('rutas.create')}}" class="btn btn-info btn-block">Nuevo Rutas</a></td>
+                                <td><a href="{{route('rutas.create')}}" class="btn btn-info btn-block">Nuevas Rutas</a></td>
                             </tr>
                             <tr>
                                 <td><h2>Unidades</h2></td>
                                 <td><a href="{{route('unidades.index')}}" class="btn btn-info btn-block">Listado Unidades</a></td>
-                                <td><a href="{{route('unidades.create')}}" class="btn btn-info btn-block">Nuevo Unidad</a></td>
+                                <td><a href="{{route('unidades.create')}}" class="btn btn-info btn-block">Nueva Unidad</a></td>
                             </tr>
                             <tr>
                                 <td><h2>Usuarios</h2></td>
                                 <td><a href="{{route('usuarios.index')}}" class="btn btn-info btn-block">Listado Usuarios</a></td>
                                 <td><a href="{{route('usuarios.create')}}" class="btn btn-info btn-block">Nuevos Usuarios</a></td>
+                            </tr>
+
+                            <tr>
+                                <td><h2>Carta Porte</h2></td>
+                                <td><a href="{{route('cartaPorte.index')}}" class="btn btn-info btn-block">Listado Carta Porte</a></td>
+                                <td><a href="{{route('cartaPorte.create')}}" class="btn btn-info btn-block">Nueva Carta Porte</a></td>
                             </tr>
                         </table>
                         </div>

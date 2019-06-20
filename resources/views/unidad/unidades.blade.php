@@ -50,7 +50,11 @@
                             @endforeach
                             <td>{{$unidad->nombre}}</td>
                             <td>{{$unidad->economico}}</td>
-                            <td>{{$unidad->tipo}}</td>
+                            @for($j=1; $j<3; $j++)
+                                @if($unidad->tipo == $j)
+                                    <td value="{{$j}}" selected>{{$camiones[$j]}}</td>
+                                @endif
+                            @endfor
                             <td>{{$unidad->marca}}</td>
                             <td>{{$unidad->modelo}}</td>
                             <td>{{$unidad->placas}}</td>

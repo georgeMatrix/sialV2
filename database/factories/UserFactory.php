@@ -105,7 +105,7 @@ $factory->define(\App\Unidades::class, function (Faker $faker) {
         'provedor' => $faker->numberBetween(1,10),
         'nombre' => $faker->name,
         'economico' => $faker->name,
-        'tipo' => $faker->name,
+        'tipo' => $faker->numberBetween(1,2),
         'marca' => $faker->name,
         'modelo' => $faker->name,
         'placas' => $faker->name,

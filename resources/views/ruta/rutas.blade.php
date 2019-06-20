@@ -117,7 +117,7 @@
                                 <div class="accordion-body collapse" id="accordion-three">
                                     <div class="accordion-body-wrapper">
                                         <table class="table table-responsive table-hover table-striped">
-                                            <thead>
+                                            <thead class="table-info">
                                             <tr>
                                                 <th>ID</th>
                                                 <th>RUTAS</th>
@@ -185,7 +185,7 @@
                                 <div class="accordion-body collapse" id="accordion-five">
                                     <div class="accordion-body-wrapper">
                                         <table class="table table-responsive table-hover table-striped">
-                                            <thead>
+                                            <thead class="table-info">
                                             <tr>
                                                 <th>ID</th>
                                                 <th>RUTAS</th>

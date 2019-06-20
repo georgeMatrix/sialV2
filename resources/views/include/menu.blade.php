@@ -64,6 +64,13 @@
                     </a>
                 </li>
 
+                <li class="lightli">
+                    <a href="{{route('cartaPorte.index')}}">
+                        <i class="fa fa-file-alt fa-lg text-danger"></i>
+                        <span class="nav-text">Carta Porte</span>
+                    </a>
+                </li>
+
             </ul>
         </div>
 

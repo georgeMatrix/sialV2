@@ -43,7 +43,10 @@
 
                     <div class="form-group">
                         <h5 for="">Tipo de unidad</h5>
-                        <input maxlength="20" required type="text" name="tipo" id="tipo" class="form-control">
+                        <select name="tipo" id="tipo" class="form-control">
+                            <option value="1">Tractocamion</option>
+                            <option value="2">Remolque</option>
+                        </select>
                     </div>
 
                     <div class="form-group">

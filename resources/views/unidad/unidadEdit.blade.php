@@ -33,7 +33,16 @@
                     <h5 for="">Economico</h5>
                     <input maxlength="10" required type="text" name="economico" id="economico" class="form-control"  value="{{$unidad->economico}}">
                     <h5 for="">Tipo de unidad</h5>
-                    <input maxlength="20" required type="text" name="tipo" id="tipo" class="form-control"  value="{{$unidad->tipo}}">
+                    <select name="tipo" id="tipo" class="form-control">
+                        @for($j=1; $j<3; $j++)
+                            @if($unidad->tipo == $j)
+                                <option value="{{$j}}" selected>{{$camiones[$j]}}</option>
+                            @else
+                                <option value="{{$j}}">{{$camiones[$j]}}</option>
+                            @endif
+                        @endfor
+                    </select>
+
                     <h5 for="">Marca</h5>
                     <input maxlength="20" required type="text" name="marca" id="marca" class="form-control"  value="{{$unidad->marca}}">
                     <h5 for="">Modelo</h5>

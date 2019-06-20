@@ -17,9 +17,11 @@ class UnidadesController extends Controller
      */
     public function index()
     {
+        $camiones = [1=>'Tractocamion', 2=>'Remolque'];
         $provedores = Provedores::all();
         $unidades = Unidades::orderBy('id', 'DESC')->paginate(10);
         return view('unidad/unidades')
+            ->with('camiones', $camiones)
             ->with('unidades' , $unidades)
             ->with('provedores', $provedores);
     }
@@ -31,8 +33,11 @@ class UnidadesController extends Controller
      */
     public function create()
     {
+        $camiones = [1=>'Tractocamion', 2=>'Remolque'];
         $provedores = Provedores::all();
-        return view('unidad/unidadCreate')->with('provedores', $provedores);
+        return view('unidad/unidadCreate')
+            ->with('camiones', $camiones)
+            ->with('provedores', $provedores);
     }
 
     /**
@@ -91,9 +96,13 @@ class UnidadesController extends Controller
      */
     public function edit($id)
     {
+        $camiones = [1=>'Tractocamion', 2=>'Remolque'];
         $provedores = Provedores::all();
         $unidad = Unidades::findOrFail($id);
-        return view('unidad/unidadEdit')->with('unidad', $unidad)->with('provedores', $provedores);
+        return view('unidad/unidadEdit')
+            ->with('camiones', $camiones)
+            ->with('unidad', $unidad)
+            ->with('provedores', $provedores);
     }
 
     /**
