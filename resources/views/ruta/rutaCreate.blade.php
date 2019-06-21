@@ -501,5 +501,5 @@
         </div>
     </div>
     </div>
-    <script src="{{asset('js/rutas/rutas.js')}}"></script>
+    <script src="{{asset('js/ruta/rutaCreate.js')}}"></script>
 @endsection

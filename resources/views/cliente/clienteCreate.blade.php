@@ -118,11 +118,5 @@
         </div>
     </div>
     </div>
-    <script>
-        $(document).ready(function() {
-            $("#formularioCliente").on('submit', function(){
-                $("#guardarCliente").prop("disabled", true);
-            })
-        });
-    </script>
+    <script src="{{asset('js/cliente/cliente.js')}}"></script>
 @endsection

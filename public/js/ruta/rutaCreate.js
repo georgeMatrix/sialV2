@@ -321,9 +321,9 @@ function facturas(){
 function actividadesConsulta(){
     var resultado = [];
     return $.get('/api/evaluacion', function (data) {
-         $.each(data, function(index, value){
-             resultado[index];
-         })
+        $.each(data, function(index, value){
+            resultado[index];
+        })
     });
 }
 
@@ -404,81 +404,81 @@ function datosCxP(){
 
 
 //======SI PASAN LA PRUEBA HACER ESTAS PETICIONES========//
-        //ACTIVIDAD
-        $.ajax({
-            url: "../actividad",
-            type: 'POST',
-            headers: {'X-CSRF-TOKEN':tokenActividadDCxP},
-            contentType: 'application/json',
-            data: JSON.stringify(requestDfacturacion),
-        })
-            .done(function() {
-                console.log("success");
+            //ACTIVIDAD
+            $.ajax({
+                url: "../actividad",
+                type: 'POST',
+                headers: {'X-CSRF-TOKEN':tokenActividadDCxP},
+                contentType: 'application/json',
+                data: JSON.stringify(requestDfacturacion),
             })
-            .fail(function() {
-                console.log("error");
-            });
-        //DATOS CUENTAS POR PAGAR
-        $.ajax({
-            url: $(this).attr('action'),
-            type: 'POST',
-            headers: {'X-CSRF-TOKEN':token},
-            contentType: 'application/json',
-            data: JSON.stringify(request),
-        })
-            .done(function() {
-                resultadoActividades = actividadesConsulta();
-                console.log("success");
-                Swal.fire('Dato Guardado')
-                $('#ruta').prop('selectedIndex',0);
-                $('#concepto').val("")
-                $('#asignacionPrecio').prop('selectedIndex',0);
-                $('#claveProdServCxP').val("")
-                $('#noIdentificacionCxP').val("")
-                $('#cantidadCxP').val("")
-                $('#claveUnidadCxP').val("")
-                $('#unidadCxP').val("")
-                $('#descripcionCxP').val("")
-                $('#valorUnitarioCxP').val("")
-                $('#importeCxP').val("")
-                $('#tivaCxP').val("")
-                $('#tisrCxP').val("")
-                $('#rivaCxP').val("")
-                $('#risrCxP').val("")
+                .done(function() {
+                    console.log("success");
+                })
+                .fail(function() {
+                    console.log("error");
+                });
+            //DATOS CUENTAS POR PAGAR
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                headers: {'X-CSRF-TOKEN':token},
+                contentType: 'application/json',
+                data: JSON.stringify(request),
             })
-            .fail( function( jqXHR, textStatus, errorThrown ) {
+                .done(function() {
+                    resultadoActividades = actividadesConsulta();
+                    console.log("success");
+                    Swal.fire('Dato Guardado')
+                    $('#ruta').prop('selectedIndex',0);
+                    $('#concepto').val("")
+                    $('#asignacionPrecio').prop('selectedIndex',0);
+                    $('#claveProdServCxP').val("")
+                    $('#noIdentificacionCxP').val("")
+                    $('#cantidadCxP').val("")
+                    $('#claveUnidadCxP').val("")
+                    $('#unidadCxP').val("")
+                    $('#descripcionCxP').val("")
+                    $('#valorUnitarioCxP').val("")
+                    $('#importeCxP').val("")
+                    $('#tivaCxP').val("")
+                    $('#tisrCxP').val("")
+                    $('#rivaCxP').val("")
+                    $('#risrCxP').val("")
+                })
+                .fail( function( jqXHR, textStatus, errorThrown ) {
 
-                if (jqXHR.status === 0) {
+                    if (jqXHR.status === 0) {
 
-                    console.log('Not connect: Verify Network.');
+                        console.log('Not connect: Verify Network.');
 
-                } else if (jqXHR.status == 404) {
+                    } else if (jqXHR.status == 404) {
 
-                    console.log('Requested page not found [404]');
+                        console.log('Requested page not found [404]');
 
-                } else if (jqXHR.status == 500) {
+                    } else if (jqXHR.status == 500) {
 
-                    console.log('Internal Server Error [500].');
+                        console.log('Internal Server Error [500].');
 
-                } else if (textStatus === 'parsererror') {
+                    } else if (textStatus === 'parsererror') {
 
-                    console.log('Requested JSON parse failed.');
+                        console.log('Requested JSON parse failed.');
 
-                } else if (textStatus === 'timeout') {
+                    } else if (textStatus === 'timeout') {
 
-                    console.log('Time out error.');
+                        console.log('Time out error.');
 
-                } else if (textStatus === 'abort') {
+                    } else if (textStatus === 'abort') {
 
-                    console.log('Ajax request aborted.');
+                        console.log('Ajax request aborted.');
 
-                } else {
+                    } else {
 
-                    console.log('Uncaught Error: ' + jqXHR.responseText);
+                        console.log('Uncaught Error: ' + jqXHR.responseText);
 
-                }
+                    }
 
-            });
+                });
 //======SI PASAN LA PRUEBA HACER ESTAS PETICIONES========//
         }else
         {

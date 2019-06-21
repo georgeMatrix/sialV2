@@ -121,11 +121,5 @@
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready(function() {
-            $("#formUsuario").on('submit', function(){
-                $("#guardarUsuario").prop("disabled", true);
-            })
-        });
-    </script>
+    <script src="{{asset('js/usuario/usuarioCreate.js')}}"></script>
 @endsection

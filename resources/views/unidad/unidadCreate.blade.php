@@ -102,39 +102,5 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $("#formUnidad").on('submit', function(){
-                $("#guardarCreate").prop("disabled", true);
-            })
-        });
-        jQuery.fn.datepicker.dates['es'] = {
-            days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-            daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
-            daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá"],
-            months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-            monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-            today: "Hoy",
-            clear: "Borrar",
-            format: "dd/mm/yyyy",
-            titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
-            weekStart: 0
-        };
-
-        jQuery('#seguro').datepicker({
-            format: "yyyy/mm/dd",
-            language: "es",
-            autoclose: true
-        });
-        jQuery('#verificacion').datepicker({
-            format: "yyyy/mm/dd",
-            language: "es",
-            autoclose: true
-        });
-        jQuery('#fm').datepicker({
-            format: "yyyy/mm/dd",
-            language: "es",
-            autoclose: true
-        });
-    </script>
+    <script src="{{asset('js/unidad/unidadCreate.js')}}"></script>
 @endsection

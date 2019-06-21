@@ -66,11 +66,5 @@
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready(function() {
-            $("#formProvedor").on('submit', function(){
-                $("#guardarProvedor").prop("disabled", true);
-            })
-        });
-    </script>
+    <script src="{{asset('js/provedor/provedorCreate.js')}}"></script>
 @endsection
