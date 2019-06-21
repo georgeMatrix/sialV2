@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actividad;
 use App\CartaPorte;
+use App\Clientes;
 use App\Cruce;
 use App\Exportacion;
 use App\Internacional;
@@ -23,7 +24,7 @@ class CartaPorteController extends Controller
      */
     public function index()
     {
-        $tipos = ['n'=>'Nacional', 'i'=>'Internacional', 'e'=>'Exportacion', 'c'=>'cruce'];
+        $tipos = ['Nacional', 'Internacional', 'Exportacion', 'Cruce'];
         $cartaPorte = CartaPorte::orderBy('id', 'DESC')->paginate(10);
         return view('cartaPorte/cartasPorte')
             ->with('cartaPorte', $cartaPorte)
@@ -44,7 +45,9 @@ class CartaPorteController extends Controller
         $remolques = Unidades::where("tipo", "=", "2")->get();
         $operadores = Operadores::all();
         $actividades = Actividad::all();
+        $clientes = Clientes::all();
         return view('cartaPorte/cartaPorteCreate')
+            ->with('clientes', $clientes)
             ->with('rutas', $rutas)
             ->with('unidades', $unidades)
             ->with('remolques', $remolques)

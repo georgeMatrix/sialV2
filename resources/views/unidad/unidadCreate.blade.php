@@ -44,8 +44,8 @@
                     <div class="form-group">
                         <h5 for="">Tipo de unidad</h5>
                         <select name="tipo" id="tipo" class="form-control">
-                            <option value="1">Tractocamion</option>
-                            <option value="2">Remolque</option>
+                            <option value="1">TRACTOCAMION</option>
+                            <option value="2">REMOLQUE</option>
                         </select>
                     </div>
 

@@ -112,13 +112,19 @@
                 </div>
                 <input type="hidden" name="modulo10" id="modulo10" value="1" />
 
-                <!--<div class="form-group">
-                    <label>Define Gender</label>
-                    <div class="checkbox">
-                        <input type="checkbox" name="gender" id="gender" checked />
-                    </div>
-                </div>
-                <input type="hidden" name="hidden_gender" id="hidden_gender" value="1" />-->
+                <!-- CAMPOS ESCONDIDOS -->
+                <input type="hidden" value="{{$usuario->modulo01}}" id="moduloUno">
+                <input type="hidden" value="{{$usuario->modulo02}}" id="moduloDos">
+                <input type="hidden" value="{{$usuario->modulo03}}" id="moduloTres">
+                <input type="hidden" value="{{$usuario->modulo04}}" id="moduloCuatro">
+                <input type="hidden" value="{{$usuario->modulo05}}" id="moduloCinco">
+                <input type="hidden" value="{{$usuario->modulo06}}" id="moduloSeis">
+                <input type="hidden" value="{{$usuario->modulo07}}" id="moduloSiete">
+                <input type="hidden" value="{{$usuario->modulo08}}" id="moduloOcho">
+                <input type="hidden" value="{{$usuario->modulo09}}" id="moduloNueve">
+                <input type="hidden" value="{{$usuario->modulo10}}" id="moduloDiez">
+                <!-- CAMPOS ESCONDIDOS -->
+
 
                 <button type="submit" class="btn btn-info">Actualizar</button>
             </form>
@@ -129,7 +135,7 @@
 
         $(document).ready(function(){
 
-            if ({{ json_encode($usuario->modulo01) }} == 1){
+            if ($("#moduloUno").val() == 1){
                 $("#modulo01_1").prop("checked", true)
                 $('#modulo01').val(1)
             }else{
@@ -137,7 +143,7 @@
                 $("#modulo01_1").prop("checked", false)
             }
 
-            if ({{ json_encode($usuario->modulo02) }} == 1){
+            if ($("#moduloDos").val() == 1){
                 $("#modulo02_2").prop("checked", true)
                 $('#modulo02').val(1)
             }else{
@@ -145,7 +151,7 @@
                 $("#modulo02_2").prop("checked", false);
             }
 
-            if ({{ json_encode($usuario->modulo03) }} == 1){
+            if ($("#moduloTres").val() == 1){
                 $("#modulo03_3").prop("checked", true)
                 $('#modulo03').val(1)
             }else{
@@ -153,7 +159,7 @@
                 $("#modulo03_3").prop("checked", false);
             }
 
-            if ({{ json_encode($usuario->modulo04) }} == 1){
+            if ($("#moduloCuatro").val() == 1){
                 $("#modulo04_4").prop("checked", true)
                 $('#modulo04').val(1)
             }else{
@@ -161,7 +167,7 @@
                 $("#modulo04_4").prop("checked", false);
             }
 
-            if ({{ json_encode($usuario->modulo05) }} == 1){
+            if ($("#moduloCinco").val() == 1){
                 $("#modulo05_5").prop("checked", true)
                 $('#modulo05').val(1)
             }else{
@@ -169,7 +175,7 @@
                 $("#modulo05_5").prop("checked", false);
             }
 
-            if ({{ json_encode($usuario->modulo06) }} == 1){
+            if ($("#moduloSeis").val() == 1){
                 $("#modulo06_6").prop("checked", true)
                 $('#modulo06').val(1)
             }else{
@@ -177,7 +183,7 @@
                 $("#modulo06_6").prop("checked", false);
             }
 
-            if ({{ json_encode($usuario->modulo07) }} == 1){
+            if ($("#moduloSiete").val() == 1){
                 $("#modulo07_7").prop("checked", true)
                 $('#modulo07').val(1)
             }else{
@@ -185,7 +191,7 @@
                 $("#modulo07_7").prop("checked", false);
             }
 
-            if ({{ json_encode($usuario->modulo08) }} == 1){
+            if ($("#moduloOcho").val() == 1){
                 $("#modulo08_8").prop("checked", true)
                 $('#modulo08').val(1)
             }else{
@@ -193,14 +199,14 @@
                 $("#modulo08_8").prop("checked", false);
             }
 
-            if ({{ json_encode($usuario->modulo09) }} == 1){
+            if ($("#moduloNueve").val() == 1){
                 $("#modulo09_9").prop("checked", true)
                 $('#modulo09').val(1)
             }else{
                 $('#modulo09').val(0)
                 $("#modulo09_9").prop("checked", false);
             }
-            if ({{ json_encode($usuario->modulo10) }} == 1){
+            if ($("#moduloDiez").val() == 1){
                 $("#modulo10_10").prop("checked", true)
                 $('#modulo10').val(1)
             }else{
@@ -382,8 +388,6 @@
                 }
             });
         }) //Document ready
-
-
 
     </script>
 @endsection

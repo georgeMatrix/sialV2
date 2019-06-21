@@ -41,17 +41,19 @@
                         @foreach($cartaPorte as $cP)
                             <tr>
                                 <td>{{$cP->id}}</td>
-                                @foreach($tipos as $tipo)
-                                    @for($i=0; $i<5; $i++)
-                                        @if($cP->tipo == $tipo[$i])
-                                            <td>{{$tipo}}</td>
-                                        @endif
-                                    @endfor
-                                @endforeach
+                                @if($cP->tipo == 'n')
+                                    <td>{{$tipos[0]}}</td>
+                                @elseif($cP->tipo == 'i')
+                                    <td>{{$tipos[1]}}</td>
+                                @elseif($cP->tipo == 'e')
+                                    <td>{{$tipos[2]}}</td>
+                                @elseif($cP->tipo == 'c')
+                                    <td>{{$tipos[3]}}</td>
+                                @endif
                                 <td>{{$cP->fecha}}</td>
                                 <td>{{$cP->rutaCartaP->nombre}}</td>
-                                <td>{{$cP->unidadesF->nombre}}</td>
-                                <td>{{$cP->remolques}}</td>
+                                <td>{{$cP->unidadesF->economico}}</td>
+                                <td>{{$cP->remolquesF->economico}}</td>
                                 <td>{{$cP->operadorF->nombre_corto}}</td>
                                 <td>{{$cP->referencia}}</td>
                                 <td>{{$cP->fechaDeEmbarque}}</td>

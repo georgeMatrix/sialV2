@@ -37,6 +37,15 @@
                     </div>
 
                     <div class="form-group">
+                        <h5 for="">Cliente</h5>
+                            <select name="clientes" id="clientes" class="form-control">
+                                @foreach($clientes as $cliente)
+                                <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
+                                @endforeach
+                            </select>
+                    </div>
+
+                    <div class="form-group">
                         <h5 for="">Ruta</h5>
                         <select required name="rutas" id="rutas" class="form-control">
                         @foreach($rutas as $ruta)
@@ -91,53 +100,10 @@
                         </div>
                     </div>
 
-
-
                     <button id="guardarCartaPorte" type="submit" class="btn btn-info"><i class="far fa-save"></i> Guardar</button>
                 </form>
             </div>
         </div>
     </div>
-
-    <script type="text/javascript">
-        jQuery.fn.datepicker.dates['es'] = {
-            days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-            daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
-            daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá"],
-            months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-            monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-            today: "Hoy",
-            clear: "Borrar",
-            format: "dd/mm/yyyy",
-            titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
-            weekStart: 0
-        };
-
-
-        jQuery('#fecha').datepicker({
-            format: "yyyy/mm/dd",
-            timeFormat:  "hh:mm:ss",
-            language: "es",
-            autoclose: true
-        });
-
-        jQuery('#fechaDeEmbarque').datepicker({
-            format: "yyyy/mm/dd",
-            timeFormat:  "hh:mm:ss",
-            language: "es",
-            autoclose: true
-        });
-
-        jQuery('#fechaDeEntrega').datepicker({
-            format: "yyyy/mm/dd",
-            timeFormat:  "hh:mm:ss",
-            language: "es",
-            autoclose: true
-        });
-
-        $("#fecha").keydown(function(e){
-            e.preventDefault();
-        });
-
-    </script>
+    <script src="{{asset('js/cartaPorte/cartaPorte.js')}}"></script>
 @endsection

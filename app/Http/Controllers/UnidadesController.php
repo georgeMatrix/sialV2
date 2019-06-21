@@ -17,7 +17,7 @@ class UnidadesController extends Controller
      */
     public function index()
     {
-        $camiones = [1=>'Tractocamion', 2=>'Remolque'];
+        $camiones = [1=>'TRACTOCAMION', 2=>'REMOLQUE'];
         $provedores = Provedores::all();
         $unidades = Unidades::orderBy('id', 'DESC')->paginate(10);
         return view('unidad/unidades')
@@ -33,7 +33,7 @@ class UnidadesController extends Controller
      */
     public function create()
     {
-        $camiones = [1=>'Tractocamion', 2=>'Remolque'];
+        $camiones = [1=>'TRACTOCAMION', 2=>'REMOLQUE'];
         $provedores = Provedores::all();
         return view('unidad/unidadCreate')
             ->with('camiones', $camiones)
@@ -96,7 +96,7 @@ class UnidadesController extends Controller
      */
     public function edit($id)
     {
-        $camiones = [1=>'Tractocamion', 2=>'Remolque'];
+        $camiones = [1=>'TRACTOCAMION', 2=>'REMOLQUE'];
         $provedores = Provedores::all();
         $unidad = Unidades::findOrFail($id);
         return view('unidad/unidadEdit')

@@ -422,3 +422,245 @@ CREATE TABLE `users` (
 -- ----------------------------
 
 
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost2018
+Source Server Version : 100136
+Source Host           : localhost:3306
+Source Database       : sialv2
+
+Target Server Type    : MYSQL
+Target Server Version : 100136
+File Encoding         : 65001
+
+Date: 2019-06-19 12:10:44
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for actividads
+-- ----------------------------
+DROP TABLE IF EXISTS `actividads`;
+CREATE TABLE `actividads` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `tabla` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ref` int(11) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `descripcion` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `usuario` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of actividads
+-- ----------------------------
+
+
+-- ----------------------------
+-- Records of cruces
+-- ----------------------------
+
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost2018
+Source Server Version : 100136
+Source Host           : localhost:3306
+Source Database       : sialv2
+
+Target Server Type    : MYSQL
+Target Server Version : 100136
+File Encoding         : 65001
+
+Date: 2019-06-20 11:40:36
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for carta_portes
+-- ----------------------------
+DROP TABLE IF EXISTS `carta_portes`;
+CREATE TABLE `carta_portes` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `tipo` char(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fecha` date NOT NULL,
+  `rutas` int(10) unsigned NOT NULL,
+  `unidades` int(10) unsigned NOT NULL,
+  `remolques` int(10) unsigned NOT NULL,
+  `operadores` int(10) unsigned NOT NULL,
+  `referencia` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fechaDeEmbarque` datetime NOT NULL,
+  `fechaDeEntrega` datetime NOT NULL,
+  `ultimoStatus` int(10) unsigned DEFAULT NULL,
+  `fechaStatus` int(10) unsigned DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `carta_portes_rutas_foreign` (`rutas`),
+  KEY `carta_portes_unidades_foreign` (`unidades`),
+  KEY `carta_portes_remolques_foreign` (`remolques`),
+  KEY `carta_portes_operadores_foreign` (`operadores`),
+  KEY `carta_portes_ultimostatus_foreign` (`ultimoStatus`),
+  KEY `carta_portes_fechastatus_foreign` (`fechaStatus`),
+  CONSTRAINT `carta_portes_fechastatus_foreign` FOREIGN KEY (`fechaStatus`) REFERENCES `actividads` (`id`),
+  CONSTRAINT `carta_portes_operadores_foreign` FOREIGN KEY (`operadores`) REFERENCES `operadores` (`id`),
+  CONSTRAINT `carta_portes_remolques_foreign` FOREIGN KEY (`remolques`) REFERENCES `unidades` (`id`),
+  CONSTRAINT `carta_portes_rutas_foreign` FOREIGN KEY (`rutas`) REFERENCES `rutas` (`id`),
+  CONSTRAINT `carta_portes_ultimostatus_foreign` FOREIGN KEY (`ultimoStatus`) REFERENCES `actividads` (`id`),
+  CONSTRAINT `carta_portes_unidades_foreign` FOREIGN KEY (`unidades`) REFERENCES `unidades` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of carta_portes
+-- ----------------------------
+
+
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost2018
+Source Server Version : 100136
+Source Host           : localhost:3306
+Source Database       : sialv2
+
+Target Server Type    : MYSQL
+Target Server Version : 100136
+File Encoding         : 65001
+
+Date: 2019-06-20 11:41:17
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for nacionals
+-- ----------------------------
+DROP TABLE IF EXISTS `nacionals`;
+CREATE TABLE `nacionals` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `cartaPorte` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `nacionals_cartaporte_foreign` (`cartaPorte`),
+  CONSTRAINT `nacionals_cartaporte_foreign` FOREIGN KEY (`cartaPorte`) REFERENCES `carta_portes` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of nacionals
+-- ----------------------------
+
+
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost2018
+Source Server Version : 100136
+Source Host           : localhost:3306
+Source Database       : sialv2
+
+Target Server Type    : MYSQL
+Target Server Version : 100136
+File Encoding         : 65001
+
+Date: 2019-06-20 11:41:10
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for internacionals
+-- ----------------------------
+DROP TABLE IF EXISTS `internacionals`;
+CREATE TABLE `internacionals` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `cartaPorte` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `internacionals_cartaporte_foreign` (`cartaPorte`),
+  CONSTRAINT `internacionals_cartaporte_foreign` FOREIGN KEY (`cartaPorte`) REFERENCES `carta_portes` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of internacionals
+-- ----------------------------
+
+
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost2018
+Source Server Version : 100136
+Source Host           : localhost:3306
+Source Database       : sialv2
+
+Target Server Type    : MYSQL
+Target Server Version : 100136
+File Encoding         : 65001
+
+Date: 2019-06-20 11:41:04
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for exportacions
+-- ----------------------------
+DROP TABLE IF EXISTS `exportacions`;
+CREATE TABLE `exportacions` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `cartaPorte` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `exportacions_cartaporte_foreign` (`cartaPorte`),
+  CONSTRAINT `exportacions_cartaporte_foreign` FOREIGN KEY (`cartaPorte`) REFERENCES `carta_portes` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of exportacions
+-- ----------------------------
+
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost2018
+Source Server Version : 100136
+Source Host           : localhost:3306
+Source Database       : sialv2
+
+Target Server Type    : MYSQL
+Target Server Version : 100136
+File Encoding         : 65001
+
+Date: 2019-06-20 11:40:54
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for cruces
+-- ----------------------------
+DROP TABLE IF EXISTS `cruces`;
+CREATE TABLE `cruces` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `cartaPorte` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `cruces_cartaporte_foreign` (`cartaPorte`),
+  CONSTRAINT `cruces_cartaporte_foreign` FOREIGN KEY (`cartaPorte`) REFERENCES `carta_portes` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+
+
+

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actividad;
+use App\CartaPorte;
 use App\Clientes;
 use App\DatosCporPagar;
 use App\DatosFacturacion;
@@ -14,6 +15,14 @@ use Illuminate\Support\Facades\DB;
 
 class RutasController extends Controller
 {
+    public function rutasClientes(Request $request, $id){
+        if ($request->ajax()){
+            $rutas = CartaPorte::rutas($id);
+            return response()->json($rutas);
+        }
+        //return Rutas::where("clientes", "=", $id)->get(); <====TAMBIEN DE ESTA MANERA FUNCIONA
+    }
+
     public function datosSelect(){
         return Rutas::all();
     }

@@ -20,3 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/uno', 'RutasController@datosSelect');
 
 Route::get('/evaluacion', 'RutasController@datosCporPagar');
+
+Route::get('/rutasClientes/{id}/cartaPorte', 'RutasController@rutasClientes');
