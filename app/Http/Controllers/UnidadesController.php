@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actividad;
+use App\Http\Requests\UnidadRequest;
 use App\Provedores;
 use App\Unidades;
 use DateTime;
@@ -46,7 +47,7 @@ class UnidadesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UnidadRequest $request)
     {
         $unidades = new Unidades();
         $unidades->provedor = $request->provedor;

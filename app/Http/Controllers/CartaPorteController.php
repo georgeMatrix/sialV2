@@ -7,6 +7,7 @@ use App\CartaPorte;
 use App\Clientes;
 use App\Cruce;
 use App\Exportacion;
+use App\Http\Requests\CartaPorteRequest;
 use App\Internacional;
 use App\Nacional;
 use App\Operadores;
@@ -62,7 +63,7 @@ class CartaPorteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CartaPorteRequest $request)
     {
         $cartaPorte = new CartaPorte();
         $cartaPorte->tipo = $request->tipo;
@@ -74,6 +75,7 @@ class CartaPorteController extends Controller
         $cartaPorte->referencia = $request->referencia;
         $cartaPorte->fechaDeEmbarque = $request->fechaDeEmbarque;
         $cartaPorte->fechaDeEntrega = $request->fechaDeEntrega;
+        $cartaPorte->ultimoStatus = new DateTime();
         $cartaPorte->save();
 
         if ($request->tipo == "n"){

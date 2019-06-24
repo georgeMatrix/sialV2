@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actividad;
+use App\Http\Requests\OperadoresRequest;
 use App\Operadores;
 use DateTime;
 use Illuminate\Http\Request;
@@ -36,7 +37,7 @@ class OperadoresController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OperadoresRequest $request)
     {
         $operador = new Operadores();
         $operador->apellido_paterno = $request->apellido_paterno;

@@ -31,10 +31,10 @@ class CreateCartaPortesTable extends Migration
             $table->dateTime('fechaDeEmbarque');
             $table->dateTime('fechaDeEntrega');
 
-            $table->unsignedInteger('ultimoStatus')->nullable();
-            $table->foreign('ultimoStatus')->references('id')->on('actividads');
-            $table->unsignedInteger('fechaStatus')->nullable();
-            $table->foreign('fechaStatus')->references('id')->on('actividads');
+            $table->dateTime('ultimoStatus');
+            //$table->foreign('ultimoStatus')->references('id')->on('actividads');
+            //$table->unsignedInteger('fechaStatus')->nullable();
+            //$table->foreign('fechaStatus')->references('id')->on('actividads');
 
             $table->timestamps();
         });

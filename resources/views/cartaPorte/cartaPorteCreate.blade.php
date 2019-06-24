@@ -23,7 +23,7 @@
                     @endif
                     <div class="form-group">
                     <h5>Tipo</h5>
-                    <select required name="tipo" id="tipo" class="form-control">
+                    <select required name="tipo" id="tipo" class="form-control" value="{{old('tipo')}}">
                         <option value="n">Nacional</option>
                         <option value="i">Internacional</option>
                         <option value="e">Exportacion</option>
@@ -33,12 +33,13 @@
 
                     <div class="form-group">
                         <h5 for="">Fecha</h5>
-                        <input required type="text" required readonly name="fecha" id="fecha" class="form-control">
+                        <input required type="text" required readonly name="fecha" id="fecha" class="form-control {{$errors->has('fecha')?'is-invalid':''}}" value="{{old('fecha')}}">
+                        {!! $errors->first('fecha','<div class="invalid-feedback">:message</div>') !!}
                     </div>
 
                     <div class="form-group">
                         <h5 for="">Cliente</h5>
-                            <select name="clientes" id="clientes" class="form-control">
+                            <select name="clientes" id="clientes" class="form-control" value="{{old('clientes')}}">
                                 @foreach($clientes as $cliente)
                                 <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
                                 @endforeach
@@ -47,7 +48,7 @@
 
                     <div class="form-group">
                         <h5 for="">Ruta</h5>
-                        <select required name="rutas" id="rutas" class="form-control">
+                        <select required name="rutas" id="rutas" class="form-control" value="{{old('rutas')}}">
                         @foreach($rutas as $ruta)
                             <option value="{{$ruta->id}}">{{$ruta->nombre}}</option>
                         @endforeach
@@ -56,7 +57,7 @@
 
                     <div class="form-group">
                         <h5 for="">Unidad</h5>
-                        <select required name="unidad" id="unidad" class="form-control">
+                        <select required name="unidad" id="unidad" class="form-control" value="{{old('unidad')}}">
                             @foreach($unidades as $unidad)
                                 <option value="{{$unidad->id}}">{{$unidad->nombre}}</option>
                             @endforeach
@@ -65,7 +66,7 @@
 
                     <div class="form-group">
                         <h5 for="">Remolque</h5>
-                        <select required name="remolque" id="remolque" class="form-control">
+                        <select required name="remolque" id="remolque" class="form-control" value="{{old('remolque')}}">
                             @foreach($remolques as $remolque)
                                 <option value="{{$remolque->id}}">{{$remolque->nombre}}</option>
                             @endforeach
@@ -74,7 +75,7 @@
 
                     <div class="form-group">
                         <h5 for="">Operador</h5>
-                        <select required name="operador" id="operador" class="form-control">
+                        <select required name="operador" id="operador" class="form-control" value="{{old('operador')}}">
                             @foreach($operadores as $operador)
                                 <option value="{{$operador->id}}">{{$operador->nombre_corto}}</option>
                             @endforeach
@@ -83,20 +84,22 @@
 
                     <div class="form-group">
                         <h5>Referencia</h5>
-                        <input required maxlength="20" type="text" class="form-control" name="referencia" id="referencia">
+                        <input required maxlength="20" type="text" class="form-control" name="referencia" id="referencia" value="{{old('referencia')}}">
                     </div>
 
                     <div class="form-group">
                         <div class="form-group">
                             <h5 for="">Fecha de Embarque</h5>
-                            <input type="text" required readonly name="fechaDeEmbarque" id="fechaDeEmbarque" class="form-control">
+                            <input type="text" required readonly name="fechaDeEmbarque" id="fechaDeEmbarque" class="form-control {{$errors->has('fechaDeEmbarque')?'is-invalid':''}}" value="{{old('fechaDeEmbarque')}}">
+                            {!! $errors->first('fechaDeEmbarque','<div class="invalid-feedback">:message</div>') !!}
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="form-group">
                             <h5 for="">Fecha de Entrega</h5>
-                            <input type="text" required readonly name="fechaDeEntrega" id="fechaDeEntrega" class="form-control">
+                            <input type="text" required readonly name="fechaDeEntrega" id="fechaDeEntrega" class="form-control {{$errors->has('fechaDeEntrega')?'is-invalid':''}}" value="{{old('fechaDeEntrega')}}">
+                            {!! $errors->first('fechaDeEntrega','<div class="invalid-feedback">:message</div>') !!}
                         </div>
                     </div>
 

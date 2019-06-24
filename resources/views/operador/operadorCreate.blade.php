@@ -23,43 +23,45 @@
                     @endif
                     <div class="form-group">
                         <h5 for="">Apellido paterno</h5>
-                        <input maxlength="20" required type="text" name="apellido_paterno" id="apellido_paterno" class="form-control">
+                        <input maxlength="20" required type="text" name="apellido_paterno" id="apellido_paterno" class="form-control" value="{{old('apellido_paterno')}}">
                     </div>
 
                     <div class="form-group">
                         <h5 for="">Apellido materno</h5>
-                        <input maxlength="20" required type="text" name="apellido_materno" id="apellido_materno" class="form-control">
+                        <input maxlength="20" required type="text" name="apellido_materno" id="apellido_materno" class="form-control" value="{{old('apellido_materno')}}">
                     </div>
 
                     <div class="form-group">
                         <h5 for="">Nombres</h5>
-                        <input maxlength="50" required type="text" name="nombres" id="nombres" class="form-control">
+                        <input maxlength="50" required type="text" name="nombres" id="nombres" class="form-control" value="{{old('nombres')}}">
                     </div>
 
                     <div class="form-group">
                         <h5 for="">Nombre corto</h5>
-                        <input maxlength="20" required type="text" name="nombre_corto" id="nombre_corto" class="form-control">
+                        <input maxlength="20" required type="text" name="nombre_corto" id="nombre_corto" class="form-control" value="{{old('nombre_corto')}}">
                     </div>
 
                     <div class="form-group">
                         <h5 for="">Numero de licencia</h5>
-                        <input maxlength="20" required type="text" name="licencia" id="licencia" class="form-control">
+                        <input maxlength="20" required type="text" name="licencia" id="licencia" class="form-control" value="{{old('licencia')}}">
                     </div>
 
                     <div class="form-group">
                         <h5 for="">Vigencia de licencia</h5>
                         <!-- <input type="text" class="form-control" id="datapicker">-->
-                        <input type="text" required readonly name="vigencia_licencia" id="vigencia_licencia" class="form-control">
+                        <input type="text" required readonly name="vigencia_licencia" id="vigencia_licencia" class="form-control {{$errors->has('vigencia_licencia')?'is-invalid':''}}" value="{{old('vigencia_licencia')}}">
+                        {!! $errors->first('vigencia_licencia','<div class="invalid-feedback">:message</div>') !!}
                     </div>
 
                     <div class="form-group">
                         <h5 for="">Vigencia de examen medico</h5>
-                        <input type="text" required readonly name="vigencia_medico" id="vigencia_medico" class="form-control">
+                        <input type="text" required readonly name="vigencia_medico" id="vigencia_medico" class="form-control {{$errors->has('vigencia_medico')?'is-invalid':''}}" value="{{old('vigencia_medico')}}">
+                        {!! $errors->first('vigencia_medico','<div class="invalid-feedback">:message</div>') !!}
                     </div>
 
                     <div class="form-group">
                         <h5 for="">Observaciones</h5>
-                        <input maxlength="100" type="text" name="obs" id="obs" class="form-control">
+                        <input maxlength="100" type="text" name="obs" id="obs" class="form-control" value="{{old('obs')}}">
                     </div>
 
                     <button id="guardarOperador" type="submit" class="btn btn-info"><i class="far fa-save"></i> Guardar</button>

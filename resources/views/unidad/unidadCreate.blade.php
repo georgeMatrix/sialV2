@@ -33,12 +33,12 @@
 
                     <div class="form-group">
                         <h5 for="">Nombre de la unidad</h5>
-                        <input maxlength="70" required type="text" name="nombre" id="nombre" class="form-control">
+                        <input maxlength="70" required type="text" name="nombre" id="nombre" class="form-control" value="{{old('nombre')}}">
                     </div>
 
                     <div class="form-group">
                         <h5 for="">Economico</h5>
-                        <input maxlength="10" required type="text" name="economico" id="economico" class="form-control">
+                        <input maxlength="10" required type="text" name="economico" id="economico" class="form-control" value="{{old('economico')}}">
                     </div>
 
                     <div class="form-group">
@@ -51,17 +51,17 @@
 
                     <div class="form-group">
                         <h5 for="">Marca</h5>
-                        <input maxlength="20" required type="text" name="marca" id="marca" class="form-control">
+                        <input maxlength="20" required type="text" name="marca" id="marca" class="form-control" value="{{old('economico')}}">
                     </div>
 
                     <div class="form-group">
                         <h5 for="">Modelo</h5>
-                        <input maxlength="20" required type="text" name="modelo" id="modelo" class="form-control">
+                        <input maxlength="20" required type="text" name="modelo" id="modelo" class="form-control" value="{{old('modelo')}}">
                     </div>
 
                     <div class="form-group">
                         <h5 for="">Placas</h5>
-                        <input maxlength="20" required type="text" name="placas" id="placas" class="form-control">
+                        <input maxlength="20" required type="text" name="placas" id="placas" class="form-control" value="{{old('placas')}}">
                         <div class="invalid-feedback">
                             El campo placas es requerido
                         </div>
@@ -69,32 +69,35 @@
 
                     <div class="form-group">
                         <h5 for="">Numero de serie de chasis</h5>
-                        <input maxlength="30" required type="text" name="serie" id="serie" class="form-control">
+                        <input maxlength="30" required type="text" name="serie" id="serie" class="form-control" value="{{old('serie')}}">
                     </div>
 
                     <div class="form-group">
                         <h5 for="">Numero de serie de motor</h5>
-                        <input maxlength="30" required type="text" name="motor" id="motor" class="form-control">
+                        <input maxlength="30" required type="text" name="motor" id="motor" class="form-control" value="{{old('motor')}}">
                     </div>
 
                     <div class="form-group">
                         <h5 for="">Vencimiento de poliza de seguro</h5>
-                        <input type="text" required readonly name="seguro" id="seguro" class="form-control">
+                        <input type="text" required readonly name="seguro" id="seguro" class="form-control {{$errors->has('seguro')?'is-invalid':''}}" value="{{old('seguro')}}" value="{{old('seguro')}}">
+                        {!! $errors->first('seguro','<div class="invalid-feedback">:message</div>') !!}
                     </div>
 
                     <div class="form-group">
                         <h5 for="">Vencimiento de Verificacion</h5>
-                        <input type="text" required readonly name="verificacion" id="verificacion" class="form-control">
+                        <input type="text" required readonly name="verificacion" id="verificacion" class="form-control {{$errors->has('verificacion')?'is-invalid':''}}" value="{{old('verificacion')}}" value="{{old('verificacion')}}">
+                        {!! $errors->first('verificacion','<div class="invalid-feedback">:message</div>') !!}
                     </div>
 
                     <div class="form-group">
                         <h5 for="">Vencimiento de fisico mecania</h5>
-                        <input type="text" required readonly name="fm" id="fm" class="form-control">
+                        <input type="text" required readonly name="fm" id="fm" class="form-control {{$errors->has('fm')?'is-invalid':''}}" value="{{old('fm')}}">
+                        {!! $errors->first('fm','<div class="invalid-feedback">:message</div>') !!}
                     </div>
 
                     <div class="form-group">
                         <h5 for="">Observaciones</h5>
-                        <input maxlength="100" type="text" name="obs" id="obs" class="form-control">
+                        <input maxlength="100" type="text" name="obs" id="obs" class="form-control" value="{{old('obs')}}">
                     </div>
 
                     <button id="guardarCreate" type="submit" class="btn btn-info">Guardar</button>
