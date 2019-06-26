@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class CartaPorte extends Model
 {
+    protected $fillable = ['tipo', 'fecha','unidades', 'rutas', 'unidades', 'remolque', 'operador', 'referencia', 'fechaDeEmbarque', 'fechaDeEntrega'];
+
     public function rutaCartaP(){
         return $this->belongsTo(Rutas::class, 'rutas');
     }

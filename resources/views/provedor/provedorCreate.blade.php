@@ -22,22 +22,22 @@
                         <input type="hidden" value="{{$id->id+1}}" name="id">
                     @endif
                     <div class="form-group">
-                        <h5 for="">Nombre comercial del provedor</h5>
+                        <h5 for="">Nombre Comercial del Proveedor</h5>
                         <input maxlength="70" required type="text" name="nombre" id="nombre" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <h5 for="">Razon Social del provedor</h5>
+                        <h5 for="">Rázon Social del Proveedor</h5>
                         <input maxlength="70" required type="text" name="razon_social" id="razon_social" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <h5 for="">Rfc</h5>
+                        <h5 for="">RFC</h5>
                         <input maxlength="13" required type="text" name="rfc" id="rfc" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <h5 for="">Direccion</h5>
+                        <h5 for="">Dirección</h5>
                         <input maxlength="100" required type="text" name="direccion" id="direccion" class="form-control">
                     </div>
 
@@ -47,12 +47,12 @@
                     </div>
 
                     <div class="form-group">
-                        <h5 for="">Mail</h5>
+                        <h5 for="">Correo Electrónico de Contacto</h5>
                         <input maxlength="50" required type="email" name="mail" id="mail" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <h5 for="">Dias de Credito</h5>
+                        <h5 for="">Días de Crédito</h5>
                         <input type="number" required min="0" name="credito" id="credito" class="form-control">
                     </div>
 

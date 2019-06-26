@@ -461,10 +461,6 @@ CREATE TABLE `actividads` (
 -- ----------------------------
 
 
--- ----------------------------
--- Records of cruces
--- ----------------------------
-
 /*
 Navicat MySQL Data Transfer
 
@@ -477,7 +473,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100136
 File Encoding         : 65001
 
-Date: 2019-06-20 11:40:36
+Date: 2019-06-24 12:10:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -497,8 +493,7 @@ CREATE TABLE `carta_portes` (
   `referencia` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `fechaDeEmbarque` datetime NOT NULL,
   `fechaDeEntrega` datetime NOT NULL,
-  `ultimoStatus` int(10) unsigned DEFAULT NULL,
-  `fechaStatus` int(10) unsigned DEFAULT NULL,
+  `ultimoStatus` datetime NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -506,13 +501,9 @@ CREATE TABLE `carta_portes` (
   KEY `carta_portes_unidades_foreign` (`unidades`),
   KEY `carta_portes_remolques_foreign` (`remolques`),
   KEY `carta_portes_operadores_foreign` (`operadores`),
-  KEY `carta_portes_ultimostatus_foreign` (`ultimoStatus`),
-  KEY `carta_portes_fechastatus_foreign` (`fechaStatus`),
-  CONSTRAINT `carta_portes_fechastatus_foreign` FOREIGN KEY (`fechaStatus`) REFERENCES `actividads` (`id`),
   CONSTRAINT `carta_portes_operadores_foreign` FOREIGN KEY (`operadores`) REFERENCES `operadores` (`id`),
   CONSTRAINT `carta_portes_remolques_foreign` FOREIGN KEY (`remolques`) REFERENCES `unidades` (`id`),
   CONSTRAINT `carta_portes_rutas_foreign` FOREIGN KEY (`rutas`) REFERENCES `rutas` (`id`),
-  CONSTRAINT `carta_portes_ultimostatus_foreign` FOREIGN KEY (`ultimoStatus`) REFERENCES `actividads` (`id`),
   CONSTRAINT `carta_portes_unidades_foreign` FOREIGN KEY (`unidades`) REFERENCES `unidades` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

@@ -13,6 +13,9 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript" src="{{asset('js/jquery-3.4.1.min.js')}}" charset="UTF-8"></script>
 
+    <!-- ICO -->
+    <link rel="shortcut icon" href="{{asset('robocop.icon')}}">
+
     <!-- Datapicker -->
     <script src="{{asset('js/dataPicker/bootstrap-datepicker.js')}}"></script>
 
@@ -101,6 +104,6 @@
             @yield('content')
         </main>
     </div>
-
+        @yield('scripts')
 </body>
 </html>

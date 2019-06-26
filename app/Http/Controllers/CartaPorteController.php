@@ -13,11 +13,32 @@ use App\Nacional;
 use App\Operadores;
 use App\Rutas;
 use App\Unidades;
+use Barryvdh\DomPDF\Facade as PDF;
 use DateTime;
 use Illuminate\Http\Request;
 
 class CartaPorteController extends Controller
 {
+    public function getPdfCartaPorte($ruta){
+        /*$cartaPorte = CartaPorte::all();
+        $id = $cartaPorte->last();
+        $rutas = Rutas::all();
+        $unidades = Unidades::where("tipo", "=", "1")->get();
+        $remolques = Unidades::where("tipo", "=", "2")->get();
+        $operadores = Operadores::all();
+        $actividades = Actividad::all();
+        $clientes = Clientes::all();*/
+
+        $cartaPorte = CartaPorte::where("id", "=", $ruta)->get();
+        /*echo('<pre>');
+        print_r($cartaPorte);
+        echo('</pre>');
+        die();*/
+        $pdf = PDF::loadView('cartaPorte/cartaPortePDF', ['cartaPorte'=> $cartaPorte]);
+        return $pdf->download('cartaPorte.pdf');
+        //return "llegando".$ruta;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -131,9 +152,21 @@ class CartaPorteController extends Controller
      * @param  \App\CartaPorte  $cartaPorte
      * @return \Illuminate\Http\Response
      */
-    public function edit(CartaPorte $cartaPorte)
+    public function edit($id)
     {
-        //
+        $rutas = Rutas::all();
+        $unidades = Unidades::where("tipo", "=", "1")->get();
+        $remolques = Unidades::where("tipo", "=", "2")->get();
+        $operadores = Operadores::all();
+        $clientes = Clientes::all();
+        $cartaPorte = CartaPorte::findOrFail($id);
+        return view('cartaPorte/cartaPorteEdit')
+            ->with('cartaPorte', $cartaPorte)
+            ->with('clientes', $clientes)
+            ->with('rutas', $rutas)
+            ->with('unidades', $unidades)
+            ->with('remolques', $remolques)
+            ->with('operadores', $operadores);
     }
 
     /**
@@ -143,9 +176,22 @@ class CartaPorteController extends Controller
      * @param  \App\CartaPorte  $cartaPorte
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CartaPorte $cartaPorte)
+    public function update(Request $request, $id)
     {
-        //
+        //return $request;
+        $cartaPorte = $request->except(['_token', '_method']);
+        CartaPorte::where('id', '=', $id)->update($cartaPorte);
+
+        $status = 'actualizado';
+        $actividad = new Actividad();
+        $actividad->tabla = CartaPorte::class;
+        $actividad->ref = $id;
+        $actividad->fecha = new DateTime();
+        $actividad->status = $status;
+        $actividad->descripcion = $status;
+        $actividad->usuario = auth()->user()->name;
+        $actividad->save();
+        return redirect()->route('cartaPorte.index');
     }
 
     /**

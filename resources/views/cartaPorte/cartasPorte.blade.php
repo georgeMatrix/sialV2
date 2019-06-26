@@ -35,6 +35,7 @@
                             <th>FECHA_STATUS</th>
                             <th>ELIMINAR_REGISTRO</th>
                             <th>EDITAR_REGISTRO</th>
+                            <th>PDF</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -60,7 +61,6 @@
                                 <td>{{$cP->fechaDeEntrega}}</td>
                                 <td>{{$cP->ultimoStatus}}</td>
                                 <td>{{$cP->fechaStatus}}</td>
-
                                 <td>
                                     <form method="post" action="{{url('/cartaPorte/'.$cP->id)}}">
                                         {{csrf_field()}}
@@ -71,6 +71,7 @@
                                 <td>
                                     <a href="{{url('/cartaPorte/'.$cP->id.'/edit')}}" class="btn btn-primary"><i class="far fa-edit"></i> Editar</a>
                                 </td>
+                                <td><a href="{{url('pdf/'.$cP->id)}}" class="btn btn-secondary" >PDF</a></td>
                             </tr>
                         </tbody>
                         @endforeach

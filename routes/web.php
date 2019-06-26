@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 //Route::resource('/', 'ClientesController');
 Route::group(['middleware'=>['auth', 'noCache']], function (){
+    Route::get('pdf/{ruta}', 'CartaPorteController@getPdfCartaPorte')->name('cartaPorte');
     Route::resource('clientes', 'ClientesController');
     Route::resource('operadores', 'OperadoresController');
     Route::resource('provedores', 'ProvedoresController');
