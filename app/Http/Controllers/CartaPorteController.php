@@ -8,35 +8,56 @@ use App\Clientes;
 use App\Cruce;
 use App\Exportacion;
 use App\Http\Requests\CartaPorteRequest;
+use App\Importacion;
 use App\Internacional;
 use App\Nacional;
 use App\Operadores;
 use App\Rutas;
 use App\Unidades;
 use Barryvdh\DomPDF\Facade as PDF;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 
 class CartaPorteController extends Controller
 {
-    public function getPdfCartaPorte($ruta){
-        /*$cartaPorte = CartaPorte::all();
-        $id = $cartaPorte->last();
-        $rutas = Rutas::all();
-        $unidades = Unidades::where("tipo", "=", "1")->get();
-        $remolques = Unidades::where("tipo", "=", "2")->get();
-        $operadores = Operadores::all();
-        $actividades = Actividad::all();
-        $clientes = Clientes::all();*/
-
+    public function getPdfCartaPorte($ruta)
+    {
+        setlocale(LC_ALL, "es_ES");
+        $fecha = strtoupper(strftime("%A %d de %B del %Y"));
         $cartaPorte = CartaPorte::where("id", "=", $ruta)->get();
-        /*echo('<pre>');
-        print_r($cartaPorte);
-        echo('</pre>');
-        die();*/
-        $pdf = PDF::loadView('cartaPorte/cartaPortePDF', ['cartaPorte'=> $cartaPorte]);
+        foreach($cartaPorte as $cP){
+
+            if ($cP->tipo == "n"){
+                $nacional = Nacional::all();
+                $tipo = $nacional->last();
+                $letra = "N";
+
+            }
+            elseif ($cP->tipo == "i") {
+                $importacion = Importacion::all();
+                $tipo = $importacion->last();
+                $letra = "I";
+            }
+
+            elseif ($cP->tipo == "e") {
+                $exportacion = Exportacion::all();
+                $tipo = $exportacion->last();
+                $letra = "E";
+
+            }
+
+            elseif ($cP->tipo == "c") {
+                $cruce = Cruce::all();
+                $tipo = $cruce->last();
+                $letra = "C";
+
+            }
+            }
+        $pdf = PDF::loadView('cartaPorte/cartaPortePDF', ['cartaPorte'=> $cartaPorte, 'fecha'=>$fecha, 'tipo'=>$tipo, 'letra'=>$letra]);
         return $pdf->download('cartaPorte.pdf');
-        //return "llegando".$ruta;
+
+        //return view('cartaPorte/cartaPortePDF', ['cartaPorte'=> $cartaPorte, 'fecha'=>$fecha]);
     }
 
     /**
@@ -105,9 +126,9 @@ class CartaPorteController extends Controller
             $nacional->save();
         }
         elseif ($request->tipo == "i") {
-            $internacional = new Internacional();
-            $internacional->cartaPorte = $request->id;
-            $internacional->save();
+            $importacion = new Importacion();
+            $importacion->cartaPorte = $request->id;
+            $importacion->save();
         }
 
         elseif ($request->tipo == "e") {

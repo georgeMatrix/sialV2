@@ -29,6 +29,11 @@
                         <th>NUMERO_DE_LICENCIA</th>
                         <th>VIGENCIA_LICENCIA</th>
                         <th>VIGENCIA_DE_EXAMEN_MEDICO</th>
+                        <th>TELEFONO_DE_CASA</th>
+                        <th>PERSONA_DE_CONTACTO</th>
+                        <th>CELULAR</th>
+                        <th>IMSS</th>
+                        <th>RFC</th>
                         <th>OBSERVACIONES</th>
                         <th>ELIMINAR_REGISTRO</th>
                         <th>EDITAR_REGISTRO</th>
@@ -45,6 +50,11 @@
                             <td>{{$operador->licencia}}</td>
                             <td>{{$operador->vigencia_licencia}}</td>
                             <td>{{$operador->vigencia_medico}}</td>
+                            <td>{{$operador->telefonoCasa}}</td>
+                            <td>{{$operador->personaContacto}}</td>
+                            <td>{{$operador->celular}}</td>
+                            <td>{{$operador->imss}}</td>
+                            <td>{{$operador->rfc}}</td>
                             <td>{{$operador->obs}}</td>
                             <td>
                                 <form method="post" action="{{url('/operadores/'.$operador->id)}}">

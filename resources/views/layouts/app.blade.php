@@ -46,6 +46,11 @@
 
     <!-- SweetAlert 2-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+    <!-- DataTimePicker -->
+    <script type="text/javascript" src="{{asset('datetimepicker/build/jquery.datetimepicker.full.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('datetimepicker/build/jquery.datetimepicker.min.css')}}">
+
 </head>
 <body>
     <div id="app">

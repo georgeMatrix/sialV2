@@ -28,7 +28,16 @@
                     @endforeach
                 </select>
                 <h5 for="">Razon social que factura</h5>
-                <input type="number" required name="facturador" id="facturador" class="form-control"  value="{{$datosF->facturador}}">
+                <select name="facturador" id="facturador" class="form-control">
+                        @if($datosF->facturador == 1)
+                            <option value="1" selected>RUBEN GUTIERREZ VELAZCO</option>
+                            <option value="2">TRANSPORTES LOGIEXPRESS SA DE CV</option>
+                        @else
+                            <option value="1">RUBEN GUTIERREZ VELAZCO</option>
+                            <option value="2" selected>TRANSPORTES LOGIEXPRESS SA DE CV</option>
+                        @endif
+                </select>
+
                 <h5 for="">Asignacion de Precio</h5>
                 <select name="asignacionPrecio" id="asignacionPrecio" class="form-control">
                     @foreach($provedores as $provedor)

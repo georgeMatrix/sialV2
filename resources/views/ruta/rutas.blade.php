@@ -144,7 +144,11 @@
                                                 <tr>
                                                     <td>{{$dt->id}}</td>
                                                     <td>{{$dt->rutasF->nombre}}</td>
-                                                    <td>{{$dt->facturador}}</td>
+                                                    @if($dt->facturador == 1)
+                                                        <td value="1" selected>RUBEN GUTIERREZ VELAZCO</td>
+                                                    @else
+                                                        <td value="2" selected>TRANSPORTES LOGIEXPRESS SA DE CV</td>
+                                                    @endif
                                                     <td>{{$dt->provedoresF->nombre}}</td>
                                                     <td>{{$dt->claveProdServ}}</td>
                                                     <td>{{$dt->noIdentificacion}}</td>

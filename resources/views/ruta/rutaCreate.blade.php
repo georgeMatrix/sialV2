@@ -208,11 +208,10 @@
 
                                 <div class="form-group">
                                     <h5 for="">Razon social que factura</h5>
-                                    <input required type="number" min="0" name="facturador" id="facturador" class="form-control {{$errors->has('facturador')?'is-invalid':''}}"
-                                           value="{{old('facturador')}}">
-                                    <div class="invalid-feedback">
-                                        El campo lugar_exp es requerido
-                                    </div>
+                                    <select name="facturador" id="" class="form-control">
+                                        <option value="1">RUBEN GUTIERREZ VELAZCO</option>
+                                        <option value="2">TRANSPORTES LOGIEXPRESS SA DE CV</option>
+                                    </select>
                                 </div>
 
                                 <div class="form-group">

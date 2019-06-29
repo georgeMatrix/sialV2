@@ -25,7 +25,7 @@
                     <h5>Tipo</h5>
                     <select required name="tipo" id="tipo" class="form-control" value="{{old('tipo')}}">
                         <option value="n">Nacional</option>
-                        <option value="i">Internacional</option>
+                        <option value="i">Importacion</option>
                         <option value="e">Exportacion</option>
                         <option value="c">Cruce</option>
                     </select>
@@ -59,7 +59,7 @@
                         <h5 for="">Unidad</h5>
                         <select required name="unidad" id="unidad" class="form-control" value="{{old('unidad')}}">
                             @foreach($unidades as $unidad)
-                                <option value="{{$unidad->id}}">{{$unidad->nombre}}</option>
+                                <option value="{{$unidad->id}}">{{$unidad->economico}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -68,7 +68,7 @@
                         <h5 for="">Remolque</h5>
                         <select required name="remolque" id="remolque" class="form-control" value="{{old('remolque')}}">
                             @foreach($remolques as $remolque)
-                                <option value="{{$remolque->id}}">{{$remolque->nombre}}</option>
+                                <option value="{{$remolque->id}}">{{$remolque->economico}}</option>
                             @endforeach
                         </select>
                     </div>

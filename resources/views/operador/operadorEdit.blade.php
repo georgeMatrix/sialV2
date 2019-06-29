@@ -32,6 +32,16 @@
                     <input type="text" readonly required name="vigencia_licencia" id="vigencia_licencia" class="form-control"  value="{{$operador->vigencia_licencia}}">
                     <h5 for="">Vigencia de examen medico</h5>
                     <input type="text" readonly required name="vigencia_medico" id="vigencia_medico" class="form-control"  value="{{$operador->vigencia_medico}}">
+                    <h5 for="">Telefono de Casa</h5>
+                    <input type="number" required maxlength="20" name="telefonoCasa" id="telefonoCasa" class="form-control" value="{{$operador->telefonoCasa}}">
+                    <h5 for="">Persona de Contacto</h5>
+                    <input type="text" maxlength="50" required name="personaContacto" id="personaContacto" class="form-control" value="{{$operador->personaContacto}}">
+                    <h5 for="">Celular</h5>
+                    <input type="number" maxlength="20" required name="celular" id="celular" class="form-control" value="{{$operador->celular}}">
+                    <h5 for="">IMSS</h5>
+                    <input type="text" maxlength="13" required name="imss" id="imss" class="form-control" value="{{$operador->imss}}">
+                    <h5 for="">RFC</h5>
+                    <input type="text" maxlength="13" required name="rfc" id="rfc" class="form-control" value="{{$operador->rfc}}">
                     <h5 for="">Observaciones</h5>
                     <input maxlength="100" required type="text" name="obs" id="obs" class="form-control"  value="{{$operador->obs}}">
                     <br>

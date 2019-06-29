@@ -22,6 +22,11 @@ class CreateOperadoresTable extends Migration
             $table->string('licencia');
             $table->date('vigencia_licencia');
             $table->date('vigencia_medico');
+            $table->string('telefonoCasa');
+            $table->string('personaContacto');
+            $table->string('celular');
+            $table->string('imss');
+            $table->string('rfc');
             $table->string('obs')->nullable();
             $table->timestamps();
         });

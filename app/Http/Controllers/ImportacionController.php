@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Internacional;
+use App\Importacion;
 use Illuminate\Http\Request;
 
-class InternacionalController extends Controller
+class ImportacionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class InternacionalController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Internacional  $internacional
+     * @param  \App\Importacion  $importacion
      * @return \Illuminate\Http\Response
      */
-    public function show(Internacional $internacional)
+    public function show(Importacion $importacion)
     {
         //
     }
@@ -52,10 +52,10 @@ class InternacionalController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Internacional  $internacional
+     * @param  \App\Importacion  $importacion
      * @return \Illuminate\Http\Response
      */
-    public function edit(Internacional $internacional)
+    public function edit(Importacion $importacion)
     {
         //
     }
@@ -64,10 +64,10 @@ class InternacionalController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Internacional  $internacional
+     * @param  \App\Importacion  $importacion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Internacional $internacional)
+    public function update(Request $request, Importacion $importacion)
     {
         //
     }
@@ -75,10 +75,10 @@ class InternacionalController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Internacional  $internacional
+     * @param  \App\Importacion  $importacion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Internacional $internacional)
+    public function destroy(Importacion $importacion)
     {
         //
     }

@@ -1,8 +1,10 @@
 
 $(document).ready(function() {
     cambioDeClientesInicio();
-    $("#clientes").change(cambioDeClientes)
+    $("#clientes").change(cambioDeClientes);
 });
+
+
 
 function cambioDeClientes(){
     var clientesId = $(this).val();
@@ -27,40 +29,16 @@ function cambioDeClientesInicio(){
     });
 }
 
-jQuery.fn.datepicker.dates['es'] = {
-    days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-    daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
-    daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá"],
-    months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-    monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-    today: "Hoy",
-    clear: "Borrar",
-    format: "dd/mm/yyyy",
-    titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
-    weekStart: 0
-};
+jQuery.datetimepicker.setLocale('es');
 
-jQuery('#fecha').datepicker({
-    format: "yyyy/mm/dd",
-    timeFormat:  "hh:mm:ss",
-    language: "es",
-    autoclose: true
+jQuery('#fecha').datetimepicker({
+    format:'Y/m/d H:i'
 });
 
-jQuery('#fechaDeEmbarque').datepicker({
-    format: "yyyy/mm/dd",
-    timeFormat:  "hh:mm:ss",
-    language: "es",
-    autoclose: true
+jQuery('#fechaDeEmbarque').datetimepicker({
+    format:'Y/m/d H:i'
 });
 
-jQuery('#fechaDeEntrega').datepicker({
-    format: "yyyy/mm/dd",
-    timeFormat:  "hh:mm:ss",
-    language: "es",
-    autoclose: true
-});
-
-$("#fecha").keydown(function(e){
-    e.preventDefault();
+jQuery('#fechaDeEntrega').datetimepicker({
+    format:'Y/m/d H:i'
 });

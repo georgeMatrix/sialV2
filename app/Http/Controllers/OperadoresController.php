@@ -47,6 +47,11 @@ class OperadoresController extends Controller
         $operador->licencia = $request->licencia;
         $operador->vigencia_licencia = $request->vigencia_licencia;
         $operador->vigencia_medico = $request->vigencia_medico;
+        $operador->telefonoCasa = $request->telefonoCasa;
+        $operador->personaContacto = $request->personaContacto;
+        $operador->celular = $request->celular;
+        $operador->imss = $request->imss;
+        $operador->rfc = $request->rfc;
         $operador->obs = $request->obs;
         $operador->save();
 

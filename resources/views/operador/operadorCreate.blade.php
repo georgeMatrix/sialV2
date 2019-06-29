@@ -60,6 +60,36 @@
                     </div>
 
                     <div class="form-group">
+                        <h5 for="">Telefono de Casa</h5>
+                        <input type="number" required maxlength="20" name="telefonoCasa" id="telefonoCasa" class="form-control {{$errors->has('telefonoCasa')?'is-invalid':''}}" value="{{old('telefonoCasa')}}">
+                        {!! $errors->first('telefonoCasa','<div class="invalid-feedback">:message</div>') !!}
+                    </div>
+
+                    <div class="form-group">
+                        <h5 for="">Persona de Contacto</h5>
+                        <input type="text" maxlength="50" required name="personaContacto" id="personaContacto" class="form-control {{$errors->has('personaContacto')?'is-invalid':''}}" value="{{old('personaContacto')}}">
+                        {!! $errors->first('personaContacto','<div class="invalid-feedback">:message</div>') !!}
+                    </div>
+
+                    <div class="form-group">
+                        <h5 for="">Celular</h5>
+                        <input type="number" maxlength="20" required name="celular" id="celular" class="form-control {{$errors->has('celular')?'is-invalid':''}}" value="{{old('celular')}}">
+                        {!! $errors->first('celular','<div class="invalid-feedback">:message</div>') !!}
+                    </div>
+
+                    <div class="form-group">
+                        <h5 for="">IMSS</h5>
+                        <input type="text" maxlength="13" required name="imss" id="imss" class="form-control {{$errors->has('imss')?'is-invalid':''}}" value="{{old('imss')}}">
+                        {!! $errors->first('imss','<div class="invalid-feedback">:message</div>') !!}
+                    </div>
+
+                    <div class="form-group">
+                        <h5 for="">RFC</h5>
+                        <input type="text" maxlength="13" required name="rfc" id="rfc" class="form-control {{$errors->has('rfc')?'is-invalid':''}}" value="{{old('rfc')}}">
+                        {!! $errors->first('rfc','<div class="invalid-feedback">:message</div>') !!}
+                    </div>
+
+                    <div class="form-group">
                         <h5 for="">Observaciones</h5>
                         <input maxlength="100" type="text" name="obs" id="obs" class="form-control" value="{{old('obs')}}">
                     </div>
