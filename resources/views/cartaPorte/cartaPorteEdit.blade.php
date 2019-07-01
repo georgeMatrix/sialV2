@@ -93,7 +93,7 @@
                         <h5 for="">Operador</h5>
                         <select required name="operadores" id="operadores" class="form-control">
                             @foreach($operadores as $operador)
-                                @if($cartaPorte->remolques == $operador->id)
+                                @if($cartaPorte->operadores == $operador->id)
                                     <option value="{{$operador->id}}" selected>{{$operador->nombre_corto}}</option>
                                 @else
                                     <option value="{{$operador->id}}">{{$operador->nombre_corto}}</option>

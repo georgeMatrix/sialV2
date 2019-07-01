@@ -59,8 +59,17 @@
                                 <td>{{$cP->referencia}}</td>
                                 <td>{{$cP->fechaDeEmbarque}}</td>
                                 <td>{{$cP->fechaDeEntrega}}</td>
-                                <td>{{$cP->ultimoStatus}}</td>
-                                <td>{{$cP->fechaStatus}}</td>
+                                @for($i=0; $i<$cP->id; $i++)
+                                    @if($ultimo[$i]->ref == $cP->id)
+                                    <td>{{$ultimo[$i]->status}}</td>
+                                    @endif
+                                @endfor
+                                @for($i=0; $i<$cP->id; $i++)
+                                    @if($ultimo[$i]->ref == $cP->id)
+                                        <td>{{$ultimo[$i]->fecha}}</td>
+                                    @endif
+                                @endfor
+
                                 <td>
                                     <form method="post" action="{{url('/cartaPorte/'.$cP->id)}}">
                                         {{csrf_field()}}

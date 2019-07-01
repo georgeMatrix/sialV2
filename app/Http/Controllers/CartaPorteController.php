@@ -67,9 +67,29 @@ class CartaPorteController extends Controller
      */
     public function index()
     {
+        $repetido = array();
+        $contador = 0;
         $tipos = ['Nacional', 'Internacional', 'Exportacion', 'Cruce'];
         $cartaPorte = CartaPorte::orderBy('id', 'DESC')->paginate(10);
+        $tamamoActividad = Actividad::where("tabla", "like", "%CartaPorte")->count();
+        if ($tamamoActividad != 0){
+        for($i=1; $i<$tamamoActividad; $i++){
+                $repetido[$contador] = Actividad::where([
+                    ["tabla", "like", "%CartaPorte", "and"],
+                    ["ref", "=", $i]
+                ])->get();
+                $contador++;
+        }
+        $tamRepetido = sizeof($repetido);
+
+        for ($j=0; $j<$tamRepetido; $j++){
+            $ultimo[$j] = $repetido[$j]->last();
+        }
+        }else{
+            $ultimo = array(0 =>0);
+        }
         return view('cartaPorte/cartasPorte')
+            ->with('ultimo', $ultimo)
             ->with('cartaPorte', $cartaPorte)
             ->with('tipos', $tipos);
     }
