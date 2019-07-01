@@ -59,12 +59,13 @@
                                 <td>{{$cP->referencia}}</td>
                                 <td>{{$cP->fechaDeEmbarque}}</td>
                                 <td>{{$cP->fechaDeEntrega}}</td>
-                                @for($i=0; $i<$cP->id; $i++)
+
+                                @for($i=1; $i<=$cP->id; $i++)
                                     @if($ultimo[$i]->ref == $cP->id)
                                     <td>{{$ultimo[$i]->status}}</td>
                                     @endif
                                 @endfor
-                                @for($i=0; $i<$cP->id; $i++)
+                                @for($i=1; $i<=$cP->id; $i++)
                                     @if($ultimo[$i]->ref == $cP->id)
                                         <td>{{$ultimo[$i]->fecha}}</td>
                                     @endif

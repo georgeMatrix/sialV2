@@ -68,26 +68,28 @@ class CartaPorteController extends Controller
     public function index()
     {
         $repetido = array();
-        $contador = 0;
+        $ultimo = array();
         $tipos = ['Nacional', 'Internacional', 'Exportacion', 'Cruce'];
         $cartaPorte = CartaPorte::orderBy('id', 'DESC')->paginate(10);
         $tamamoActividad = Actividad::where("tabla", "like", "%CartaPorte")->count();
-        if ($tamamoActividad != 0){
-        for($i=1; $i<$tamamoActividad; $i++){
-                $repetido[$contador] = Actividad::where([
+        if ($tamamoActividad != 0) {
+            for ($i = 1; $i <= $tamamoActividad; $i++) {
+                $repetido[$i] = Actividad::where([
                     ["tabla", "like", "%CartaPorte", "and"],
                     ["ref", "=", $i]
                 ])->get();
-                $contador++;
-        }
-        $tamRepetido = sizeof($repetido);
+            }
+            $tamRepetido = sizeof($repetido);
+            for ($j = 1; $j <= $tamRepetido; $j++) {
+                if ($repetido[$j]->last() != null){
+                    $ultimo[$j] = $repetido[$j]->last();
+                }
+            }
 
-        for ($j=0; $j<$tamRepetido; $j++){
-            $ultimo[$j] = $repetido[$j]->last();
-        }
         }else{
             $ultimo = array(0 =>0);
         }
+
         return view('cartaPorte/cartasPorte')
             ->with('ultimo', $ultimo)
             ->with('cartaPorte', $cartaPorte)
@@ -137,7 +139,6 @@ class CartaPorteController extends Controller
         $cartaPorte->referencia = $request->referencia;
         $cartaPorte->fechaDeEmbarque = $request->fechaDeEmbarque;
         $cartaPorte->fechaDeEntrega = $request->fechaDeEntrega;
-        $cartaPorte->ultimoStatus = new DateTime();
         $cartaPorte->save();
 
         if ($request->tipo == "n"){
@@ -241,8 +242,19 @@ class CartaPorteController extends Controller
      * @param  \App\CartaPorte  $cartaPorte
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CartaPorte $cartaPorte)
+    public function destroy($id)
     {
-        //
+        CartaPorte::destroy($id);
+
+        $status = 'eliminacion';
+        $actividad = new Actividad();
+        $actividad->tabla = CartaPorte::class;
+        $actividad->ref = $id;
+        $actividad->fecha = new DateTime();
+        $actividad->status = $status;
+        $actividad->descripcion = $status;
+        $actividad->usuario = auth()->user()->name;
+        $actividad->save();
+        return redirect()->route('cartaPorte.index');
     }
 }
