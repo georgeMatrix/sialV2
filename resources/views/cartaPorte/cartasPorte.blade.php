@@ -33,7 +33,6 @@
                             <th>FECHA_ENTREGA</th>
                             <th>ULTIMO_STATUS</th>
                             <th>FECHA_STATUS</th>
-                            <th>ELIMINAR_REGISTRO</th>
                             <th>EDITAR_REGISTRO</th>
                             <th>PDF</th>
                         </tr>
@@ -71,13 +70,13 @@
                                     @endif
                                 @endfor
 
-                                <td>
+                                <!--<td>
                                     <form method="post" action="{{url('/cartaPorte/'.$cP->id)}}">
                                         {{csrf_field()}}
                                         {{method_field('DELETE')}}
                                         <button type="submit" onclick="return confirm('Eliminar');" class="btn btn-danger"><i class="far fa-trash-alt"></i> Eliminar</button>
                                     </form>
-                                </td>
+                                </td>-->
                                 <td>
                                     <a href="{{url('/cartaPorte/'.$cP->id.'/edit')}}" class="btn btn-primary"><i class="far fa-edit"></i> Editar</a>
                                 </td>

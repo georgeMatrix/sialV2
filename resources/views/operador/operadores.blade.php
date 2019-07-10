@@ -35,7 +35,6 @@
                         <th>IMSS</th>
                         <th>RFC</th>
                         <th>OBSERVACIONES</th>
-                        <th>ELIMINAR_REGISTRO</th>
                         <th>EDITAR_REGISTRO</th>
                     </tr>
                     </thead>
@@ -56,13 +55,13 @@
                             <td>{{$operador->imss}}</td>
                             <td>{{$operador->rfc}}</td>
                             <td>{{$operador->obs}}</td>
-                            <td>
+                            <!--<td>
                                 <form method="post" action="{{url('/operadores/'.$operador->id)}}">
                                     {{csrf_field()}}
                                     {{method_field('DELETE')}}
                                     <button type="submit" onclick="return confirm('Eliminar');" class="btn btn-danger"><i class="far fa-trash-alt"></i> Eliminar</button>
                                 </form>
-                            </td>
+                            </td>-->
                             <td>
                                 <a href="{{url('/operadores/'.$operador->id.'/edit')}}" class="btn btn-primary"><i class="far fa-edit"></i> Editar</a>
                             </td>

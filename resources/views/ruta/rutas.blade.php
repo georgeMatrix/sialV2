@@ -59,7 +59,6 @@
                                                     <th>ASIGNACION_DE_PRECIO</th>
                                                     <th>OBSERVACIONES</th>
                                                     <th>DIAS_PARA_RECUPERACION_DE_EVIDENCIAS</th>
-                                                    <th>ELIMINAR_REGISTRO</th>
                                                     <th>EDITAR_REGISTRO</th>
                                                 </tr>
                                                 </thead>
@@ -89,13 +88,13 @@
                                                         <td>{{$ruta->nombre}}</td>
                                                         <td>{{$ruta->obs}}</td>
                                                         <td>{{$ruta->dias_re}}</td>
-                                                        <td>
+                                                        <!--<td>
                                                             <form method="post" action="{{url('/rutas/'.$ruta->id)}}">
                                                                 {{csrf_field()}}
                                                                 {{method_field('DELETE')}}
                                                                 <button type="submit" onclick="return confirm('Eliminar');" class="btn btn-danger"><i class="far fa-trash-alt"></i> Eliminar</button>
                                                             </form>
-                                                        </td>
+                                                        </td>-->
                                                         <td>
                                                             <a href="{{url('/rutas/'.$ruta->id.'/edit')}}" class="btn btn-primary"><i class="far fa-edit"></i> Editar</a>
                                                         </td>
@@ -135,7 +134,6 @@
                                                 <th>TRASLADO_DE_ISR_(PORCENTAJE)</th>
                                                 <th>RETENCION_DE_IVA_(PORCENTAJE)</th>
                                                 <th>RETENCION_DE_ISR_(PORCENTAJE)</th>
-                                                <th>ELIMINAR_REGISTRO</th>
                                                 <th>EDITAR_REGISTRO</th>
                                             </tr>
                                             </thead>
@@ -162,13 +160,13 @@
                                                     <td>{{$dt->tIsr}}</td>
                                                     <td>{{$dt->rIva}}</td>
                                                     <td>{{$dt->rIsr}}</td>
-                                                    <td>
+                                                    <!--<td>
                                                         <form method="post" action="{{url('/datosFacturacions/'.$dt->id)}}">
                                                             {{csrf_field()}}
                                                             {{method_field('DELETE')}}
                                                             <button type="submit" onclick="return confirm('Eliminar');" class="btn btn-danger">Eliminar</button>
                                                         </form>
-                                                    </td>
+                                                    </td>-->
                                                     <td>
                                                         <a href="{{url('/datosFacturacions/'.$dt->id.'/edit')}}" class="btn btn-primary">Editar</a>
                                                     </td>
@@ -207,7 +205,6 @@
                                                 <th>TRASLADO_DE_ISR_(PORCENTAJE)</th>
                                                 <th>RETENCION_DE_IVA_(PORCENTAJE)</th>
                                                 <th>RETENCION_DE_ISR_(PORCENTAJE)</th>
-                                                <th>ELIMINAR_REGISTRO</th>
                                                 <th>EDITAR_REGISTRO</th>
                                             </tr>
                                             </thead>
@@ -230,13 +227,13 @@
                                                     <td>{{$dCxP->tisrCxP}}</td>
                                                     <td>{{$dCxP->rivaCxP}}</td>
                                                     <td>{{$dCxP->risrCxP}}</td>
-                                                    <td>
+                                                    <!--<td>
                                                         <form method="post" action="{{url('/datosCporPagar/'.$dCxP->id)}}">
                                                             {{csrf_field()}}
                                                             {{method_field('DELETE')}}
                                                             <button id="eliminarCxP" type="submit" onclick="return confirm('Eliminar');" class="btn btn-danger">Eliminar</button>
                                                         </form>
-                                                    </td>
+                                                    </td>-->
                                                     <td>
                                                         <a id="editarCxP" href="{{url('/datosCporPagar/'.$dCxP->id.'/edit')}}" class="btn btn-primary" title="En mantenimiento" data-toggle="tooltip">Editar</a>
                                                     </td>

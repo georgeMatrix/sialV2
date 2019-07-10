@@ -208,7 +208,7 @@
 
                                 <div class="form-group">
                                     <h5 for="">Razon social que factura</h5>
-                                    <select name="facturador" id="" class="form-control">
+                                    <select name="facturador" id="facturador" class="form-control">
                                         <option value="1">RUBEN GUTIERREZ VELAZCO</option>
                                         <option value="2">TRANSPORTES LOGIEXPRESS SA DE CV</option>
                                     </select>

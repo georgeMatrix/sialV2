@@ -28,7 +28,6 @@
                         <th>CONTACTO</th>
                         <th>MAIL</th>
                         <th>DIAS_DE_CREDITO</th>
-                        <th>ELIMINAR_REGISTRO</th>
                         <th>EDITAR_REGISTRO</th>
                     </tr>
                     </thead>
@@ -43,13 +42,13 @@
                             <td>{{$provedor->contacto}}</td>
                             <td>{{$provedor->mail}}</td>
                             <td>{{$provedor->credito}}</td>
-                            <td>
+                            <!--<td>
                                 <form method="post" action="{{url('/provedores/'.$provedor->id)}}">
                                     {{csrf_field()}}
                                     {{method_field('DELETE')}}
                                     <button type="submit" onclick="return confirm('Eliminar');" class="btn btn-danger"><i class="far fa-trash-alt"></i> Eliminar</button>
                                 </form>
-                            </td>
+                            </td>-->
                             <td>
                                 <a href="{{url('/provedores/'.$provedor->id.'/edit')}}" class="btn btn-primary"><i class="far fa-edit"></i> Editar</a>
                             </td>

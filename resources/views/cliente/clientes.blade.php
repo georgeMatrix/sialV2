@@ -38,7 +38,6 @@
                         <th>MAIL</th>
                         <th>DIA_DE_REVISION</th>
                         <th>DIA_DE_CREDITO</th>
-                        <th>ELIMINAR_REGISTRO</th>
                         <th>EDITAR_REGISTRO</th>
                     </tr>
                     </thead>
@@ -66,13 +65,13 @@
                                 @endif
                             @endfor
                             <td>{{$cliente->dia_credito}}</td>
-                            <td>
+                            <!--<td>
                                 <form method="post" action="{{url('/clientes/'.$cliente->id)}}">
                                     {{csrf_field()}}
                                     {{method_field('DELETE')}}
                                     <button type="submit" onclick="return confirm('Eliminar');" class="btn btn-danger"><i class="far fa-trash-alt"></i> Eliminar</button>
                                 </form>
-                            </td>
+                            </td>-->
                             <td>
                                 <a href="{{url('/clientes/'.$cliente->id.'/edit')}}" class="btn btn-primary"><i class="far fa-edit"></i> Editar</a>
                             </td>
