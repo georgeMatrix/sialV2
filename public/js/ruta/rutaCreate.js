@@ -186,13 +186,14 @@ function facturas(){
         e.preventDefault();
         var rutas = $("#rutasSelect").val();
         var facturador = $('#facturador').val();
+        var clientes = $('#clientesF').val();
         var asignacionPrecio = $("#asignacionPrecio").val();
         var claveProdServ = $("#claveProdServ").val();
         var noIdentificacion = $("#noIdentificacion").val();
         var cantidad = $("#cantidadDfacturacion").val();
         var claveUnidad = $("#claveUnidad").val();
         var unidad = $("#unidad").val();
-        var descripcion = $("#descripcion").val();
+        var descripcion = $("#descripcionF").val();
         var valorUnitario = $("#valorUnitario").val();
         var importe = $("#importeF").val();
         var tIva = $("#tIva").val();
@@ -215,6 +216,7 @@ function facturas(){
         var request = {
             rutas:rutas,
             facturador:facturador,
+            clientes:clientes,
             asignacionPrecio:asignacionPrecio,
             claveProdServ:claveProdServ,
             noIdentificacion:noIdentificacion,
@@ -248,7 +250,7 @@ function facturas(){
         })
             .done(function() {
                 console.log("success");
-                Swal.fire('Dato Guardado')
+                //Swal.fire('Dato Guardado')
             })
             .fail( function( jqXHR, textStatus, errorThrown ) {
 
@@ -291,19 +293,21 @@ function facturas(){
             contentType: 'application/json',
             data: JSON.stringify(request),
         })
-            .done(function() {
+            .done(function(data) {
                 console.log("success");
+                //console.log(data);
                 Swal.fire('Dato Guardado')
 
                 $('#rutasSelect').prop('selectedIndex',0);
                 $('#facturador').val("");
                 $('#asignacionPrecio').prop('selectedIndex',0);
+                $('#clientesF').prop('selectedIndex',0);
                 $("#claveProdServ").val("");
                 $("#noIdentificacion").val("");
                 $("#cantidadDfacturacion").val("");
                 $("#claveUnidad").val("");
                 $("#unidad").val("");
-                $("#descripcion").val("");
+                $("#descripcionF").val("");
                 $("#valorUnitario").val("");
                 $("#importeF").val("");
                 $("#tIva").val("");

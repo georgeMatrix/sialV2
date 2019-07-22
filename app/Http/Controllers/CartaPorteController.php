@@ -6,7 +6,9 @@ use App\Actividad;
 use App\CartaPorte;
 use App\Clientes;
 use App\Cruce;
+use App\DatosFacturacion;
 use App\Exportacion;
+use App\Facturables;
 use App\Http\Requests\CartaPorteRequest;
 use App\Importacion;
 use App\Internacional;
@@ -21,6 +23,28 @@ use Illuminate\Http\Request;
 
 class CartaPorteController extends Controller
 {
+    public function abiertaToRelease(Request $request){
+        $contador = 0;
+        for ($i=0; $i<count($request->valoresIds); $i++){
+            CartaPorte::find($request->valoresIds[$i])->update(['status'=>'abierta']); //CAMBIAR A release
+            $cartasPorte[$i] = CartaPorte::find($request->valoresIds[$i]); //primaryKey carta porte
+        }
+
+        for ($j=0; $j<count($cartasPorte); $j++) {
+            $datosFacturacion = DatosFacturacion::where('rutas','=',$cartasPorte[$j]->rutas)->get();
+            $contador = DatosFacturacion::where('rutas','=',$cartasPorte[$j]->rutas)->count();
+                if (count($datosFacturacion) != 0){
+                    $datosFacturaciones[$j] = $datosFacturacion;
+                }else{
+                    $datosFacturaciones[$j]="SIN DATOS FACTURACION";
+                }
+            }
+        $cartasPorteAll = CartaPorte::all();
+        $guardadoFacturables = Facturables::saveFacturables($datosFacturaciones, $contador, $cartasPorteAll);
+        return response()->json($guardadoFacturables);
+        //return valoresIds;
+    }
+
     public function getPdfCartaPorte($ruta)
     {
         setlocale(LC_ALL, "es_ES");
@@ -90,10 +114,22 @@ class CartaPorteController extends Controller
             $ultimo = array(0 =>0);
         }
 
+        $release = CartaPorte::where('status','=','abierta')->get();
+        $nacional = Nacional::all();
+        $importacion = Importacion::all();
+        $cruce = Cruce::all();
+        $exportacion = Exportacion::all();
         return view('cartaPorte/cartasPorte')
+            ->with('nacional', $nacional)
+            ->with('importacion', $importacion)
+            ->with('cruce', $cruce)
+            ->with('exportacion', $exportacion)
+            ->with('release', $release)
             ->with('ultimo', $ultimo)
             ->with('cartaPorte', $cartaPorte)
             ->with('tipos', $tipos);
+
+
     }
 
     /**
@@ -141,25 +177,27 @@ class CartaPorteController extends Controller
         $cartaPorte->fechaDeEntrega = $request->fechaDeEntrega;
         $cartaPorte->save();
 
+        $nacional = new Nacional();
+        $importacion = new Importacion();
+        $exportacion = new Exportacion();
+        $cruce = new Cruce();
+
         if ($request->tipo == "n"){
-            $nacional = new Nacional();
             $nacional->cartaPorte = $request->id;
             $nacional->save();
         }
         elseif ($request->tipo == "i") {
-            $importacion = new Importacion();
             $importacion->cartaPorte = $request->id;
             $importacion->save();
         }
 
         elseif ($request->tipo == "e") {
-            $exportacion = new Exportacion();
+
             $exportacion->cartaPorte = $request->id;
             $exportacion->save();
         }
 
         elseif ($request->tipo == "c") {
-            $cruce = new Cruce();
             $cruce->cartaPorte = $request->id;
             $cruce->save();
         }
@@ -173,7 +211,6 @@ class CartaPorteController extends Controller
         $actividad->descripcion = $status;
         $actividad->usuario = auth()->user()->name;
         $actividad->save();
-
         return redirect()->route('cartaPorte.index');
     }
 

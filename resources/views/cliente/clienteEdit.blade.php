@@ -20,6 +20,12 @@
                 {{method_field('PATCH')}}
                 <h5 for="">Nombre cliente</h5>
                 <input maxlength="70" required type="text" name="nombre" id="nombre" class="form-control" value="{{$cliente->nombre}}">
+                <h5 for="">Razon Social</h5>
+                <input maxlength="70" required type="text" name="razonSocial" id="razonSocial" class="form-control" value="{{$cliente->razonSocial}}">
+                <h5 for="">RFC</h5>
+                <input maxlength="15" required type="text" name="rfc" id="rfc" class="form-control" value="{{$cliente->rfc}}">
+                <h5 for="">Regimen</h5>
+                <input maxlength="50" required type="text" name="regimen" id="regimen" class="form-control" value="{{$cliente->regimen}}">
                 <h5 for="">Calle</h5>
                 <input maxlength="70" required type="text" name="calle" id="calle" class="form-control"  value="{{$cliente->calle}}">
                 <h5 for="">Numero</h5>

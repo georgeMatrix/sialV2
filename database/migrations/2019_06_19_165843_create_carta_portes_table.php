@@ -16,6 +16,7 @@ class CreateCartaPortesTable extends Migration
         Schema::create('carta_portes', function (Blueprint $table) {
             $table->Increments('id');
             $table->char('tipo');
+            //$table->integer('id_tipo');
             $table->dateTime('fecha');
 
             $table->unsignedInteger('rutas');
@@ -27,6 +28,7 @@ class CreateCartaPortesTable extends Migration
             $table->unsignedInteger('operadores');
             $table->foreign('operadores')->references('id')->on('operadores');
             $table->string('referencia');
+            $table->string('status')->default('abierta');;
             $table->dateTime('fechaDeEmbarque');
             $table->dateTime('fechaDeEntrega');
             $table->timestamps();

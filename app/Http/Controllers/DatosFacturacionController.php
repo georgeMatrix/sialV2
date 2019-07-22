@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actividad;
+use App\Clientes;
 use App\DatosFacturacion;
 use App\Provedores;
 use App\Rutas;
@@ -47,6 +48,7 @@ class DatosFacturacionController extends Controller
                 "mensaje" =>"creado"
             ]);
         }
+        //return response()->json($request);
 
     }
 
@@ -71,8 +73,9 @@ class DatosFacturacionController extends Controller
     {
         $rutas = Rutas::all();
         $provedores = Provedores::all();
+        $clientes = Clientes::all();
         $datosF = DatosFacturacion::findOrFail($id);
-        return view('datosFacturacion/datosFacturacionEdit')->with('datosF', $datosF)->with('rutas', $rutas)->with('provedores', $provedores);
+        return view('datosFacturacion/datosFacturacionEdit')->with('datosF', $datosF)->with('rutas', $rutas)->with('provedores', $provedores)->with('clientes', $clientes);
     }
 
     /**

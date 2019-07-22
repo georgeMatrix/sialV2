@@ -23,6 +23,9 @@
                     <tr>
                         <th>ID</th>
                         <th>NOMBRE_CLIENTE</th>
+                        <th>RAZON_SOCIAL</th>
+                        <th>RFC</th>
+                        <th>REGIMEN</th>
                         <th>CALLE</th>
                         <th>NUMERO</th>
                         <th>NUMERO_INTERIOR</th>
@@ -46,6 +49,9 @@
                         <tr>
                             <td>{{$cliente->id}}</td>
                             <td>{{$cliente->nombre}}</td>
+                            <td>{{$cliente->razonSocial}}</td>
+                            <td>{{$cliente->rfc}}</td>
+                            <td>{{$cliente->regimen}}</td>
                             <td>{{$cliente->calle}}</td>
                             <td>{{$cliente->numero}}</td>
                             <td>{{$cliente->interior}}</td>

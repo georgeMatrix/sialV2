@@ -108,5 +108,5 @@
             </div>
         </div>
     </div>
-    <script src="{{asset('js/cartaPorte/cartaPorte.js')}}"></script>
+    <script src="{{asset('js/cartaPorte/cartaPorteCreate.js')}}"></script>
 @endsection

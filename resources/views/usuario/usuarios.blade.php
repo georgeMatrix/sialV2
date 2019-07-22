@@ -19,7 +19,7 @@
             <div class="col-md-12">
                 <div class="table-responsive">
                     <table class="table table-hover table-sm table-striped">
-                    <thead class="table-primary">
+                    <thead class="table-info">
                     <tr>
                         <th>ID</th>
                         <th>APELLIDO_PATERNO</th>

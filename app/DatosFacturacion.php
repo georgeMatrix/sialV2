@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DatosFacturacion extends Model
 {
-    protected $fillable = ['rutas', 'facturador', 'asignacionPrecio', 'claveProdServ', 'noIdentificacion', 'cantidad', 'claveUnidad', 'unidad', 'descripcion', 'valorUnitario', 'importe', 'tIva', 'tIsr', 'rIva', 'rIsr'];
+    protected $fillable = ['rutas', 'facturador', 'clientes', 'asignacionPrecio', 'claveProdServ', 'noIdentificacion', 'cantidad', 'claveUnidad', 'unidad', 'descripcion', 'valorUnitario', 'importe', 'tIva', 'tIsr', 'rIva', 'rIsr'];
 
     public function rutasF(){
         return $this->belongsTo(Rutas::class, 'rutas');
@@ -14,5 +14,9 @@ class DatosFacturacion extends Model
 
     public function provedoresF(){
         return $this->belongsTo(Provedores::class, 'asignacionPrecio');
+    }
+
+    public function clientesF(){
+        return $this->belongsTo(Clientes::class, 'clientes');
     }
 }

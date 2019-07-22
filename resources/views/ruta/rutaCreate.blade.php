@@ -155,7 +155,7 @@
                                 <h5 for="">Asignacion de precio</h5>
                                 <select name="asignacion_precio" required id="asignacion_precio" class="form-control">
                                     @foreach($provedores as $provedor)
-                                        <option value="{{$provedor->id}}" selected>{{$provedor->nombre}}</option>
+                                        <option value="{{$provedor->id}}">{{$provedor->nombre}}</option>
                                     @endforeach
                                 </select>
                                 </div>
@@ -202,6 +202,15 @@
                                     <select name="rutas" required id="rutasSelect" class="form-control">
                                         @foreach($rutas as $ruta)
                                             <option value="{{$ruta->id}}">{{$ruta->nombre}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <h5 for="">Cliente</h5>
+                                    <select name="clientesF" id="clientesF" class="form-control">
+                                        @foreach($clientes as $cliente)
+                                            <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -270,7 +279,7 @@
 
                                 <div class="form-group">
                                     <h5 for="">Descripcion</h5>
-                                    <input maxlength="50" type="text" required name="descripcion" id="descripcion" class="form-control {{$errors->has('descripcion')?'is-invalid':''}}"
+                                    <input maxlength="50" type="text" required name="descripcion" id="descripcionF" class="form-control {{$errors->has('descripcion')?'is-invalid':''}}"
                                            value="{{old('descripcion')}}">
                                     <div class="invalid-feedback">
                                         El campo descripcion es requerido

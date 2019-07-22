@@ -43,6 +43,11 @@ class ClientesController extends Controller
     {
         $clientes = new Clientes();
         $clientes->nombre = $request->nombre;
+
+        $clientes->razonSocial = $request->razonSocial;
+        $clientes->rfc = $request->rfc;
+        $clientes->regimen = $request->regimen;
+
         $clientes->calle = $request->calle;
         $clientes->numero = $request->numero;
         $clientes->interior = $request->interior;

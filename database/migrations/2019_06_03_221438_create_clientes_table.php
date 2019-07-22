@@ -16,6 +16,9 @@ class CreateClientesTable extends Migration
         Schema::create('clientes', function (Blueprint $table) {
             $table->Increments('id');
             $table->string('nombre');
+            $table->string('razonSocial');
+            $table->string('rfc');
+            $table->string('regimen');
             $table->string('calle');
             $table->string('numero');
             $table->string('interior');

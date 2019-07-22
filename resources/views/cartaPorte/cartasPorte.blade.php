@@ -4,13 +4,21 @@
         @include('include.menu')
         <div class="card bg-dark">
             <div class="row">
-                <div class="col-md-6 card-title">
+                <div class="col-md-4 card-title">
                     <h3 style="font-size: 20pt;" class="mt-3 text-center text-white"><i class="fa fa-file-alt fa-lg text-danger"></i> LISTADO CARTA PORTE</h3>
                 </div>
-                <div class="col-md-3">
-                    <a href="{{route('cartaPorte.create')}}" class="mt-3 btn btn-info float-right"><i class="fa fa-file-alt fa-lg"></i> Nueva Carta Porte</a>
+                <div class="col-md-2">
+                    <a href="#" class="mt-3 btn btn-info float-right"><i class="fas fa-folder-open"></i> Evidencias</a>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
+                <button type="button" class="mt-3 btn btn-info float-right" @if(count($release) == 0) disabled @endIf data-toggle="modal" data-target="#exampleModal"><i class="fas fa-file-signature"></i>
+                    Release
+                </button>
+                </div>
+                <div class="col-md-2">
+                    <a href="{{route('cartaPorte.create')}}" class="mt-3 btn btn-info float-right"><i class="fa fa-file-alt"></i> Nueva</a>
+                </div>
+                <div class="col-md-2">
                     <a href="{{url('/home')}}" class="mt-3 mr-3 btn btn-info float-right"><i class="fas fa-arrow-circle-left"></i> Regresar</a>
                 </div>
             </div>
@@ -31,6 +39,7 @@
                             <th>REFERENCIA</th>
                             <th>FECHA_EMBARQUE</th>
                             <th>FECHA_ENTREGA</th>
+                            <th>STATUS</th>
                             <th>ULTIMO_STATUS</th>
                             <th>FECHA_STATUS</th>
                             <th>EDITAR_REGISTRO</th>
@@ -38,9 +47,31 @@
                         </tr>
                         </thead>
                         <tbody>
+
                         @foreach($cartaPorte as $cP)
                             <tr>
-                                <td>{{$cP->id}}</td>
+                                @foreach($nacional as $n)
+                                    @if($cP->id == $n->cartaPorte)
+                                        <td>{{$n->id}}</td>
+                                    @endif
+                                @endforeach
+                                @foreach($importacion as $i)
+                                    @if($cP->id == $i->cartaPorte)
+                                        <td>{{$i->id}}</td>
+                                    @endif
+                                @endforeach
+                                @foreach($exportacion as $e)
+                                    @if($cP->id == $e->cartaPorte)
+                                        <td>{{$e->id}}</td>
+                                    @endif
+                                @endforeach
+                                @foreach($cruce as $c)
+                                    @if($cP->id == $c->cartaPorte)
+                                        <td>{{$c->id}}</td>
+                                    @endif
+                                @endforeach
+
+
                                 @if($cP->tipo == 'n')
                                     <td>{{$tipos[0]}}</td>
                                 @elseif($cP->tipo == 'i')
@@ -58,7 +89,7 @@
                                 <td>{{$cP->referencia}}</td>
                                 <td>{{$cP->fechaDeEmbarque}}</td>
                                 <td>{{$cP->fechaDeEntrega}}</td>
-
+                                <td>{{$cP->status}}</td>
                                 @for($i=1; $i<=$cP->id; $i++)
                                     @if($ultimo[$i]->ref == $cP->id)
                                     <td>{{$ultimo[$i]->status}}</td>
@@ -69,7 +100,6 @@
                                         <td>{{$ultimo[$i]->fecha}}</td>
                                     @endif
                                 @endfor
-
                                 <!--<td>
                                     <form method="post" action="{{url('/cartaPorte/'.$cP->id)}}">
                                         {{csrf_field()}}
@@ -87,8 +117,9 @@
                     </table>
                 </div>
                 {{$cartaPorte->render()}}
-
+                @include('include.modalCartaPorte')
             </div>
         </div>
     </div>
+    <script src="{{asset('js/cartaPorte/cartasPorte.js')}}"></script>
 @endsection

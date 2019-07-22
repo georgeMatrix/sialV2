@@ -17,6 +17,7 @@ Route::get('/', function () {
 //Route::resource('/', 'ClientesController');
 Route::group(['middleware'=>['auth', 'noCache']], function (){
     Route::get('pdf/{ruta}', 'CartaPorteController@getPdfCartaPorte')->name('cartaPorte');
+    Route::post('cartaPorte/release', 'CartaPorteController@abiertaToRelease')->name('release');
     Route::resource('clientes', 'ClientesController');
     Route::resource('operadores', 'OperadoresController');
     Route::resource('provedores', 'ProvedoresController');
@@ -28,6 +29,10 @@ Route::group(['middleware'=>['auth', 'noCache']], function (){
     Route::resource('actividad', 'ActividadController');
     Route::resource('cartaPorte', 'CartaPorteController');
     Route::get('/home', 'HomeController@index')->name('home');
+});
+
+Route::get('factura', function(){
+   return view('factura');
 });
 
 Auth::routes();

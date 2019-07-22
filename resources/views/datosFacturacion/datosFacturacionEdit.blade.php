@@ -38,6 +38,17 @@
                         @endif
                 </select>
 
+                <h5 for="">Clientes</h5>
+                <select name="clientes" id="clientes" class="form-control">
+                    @foreach($clientes as $cliente)
+                        @if($datosF->clientesF->id == $cliente->id)
+                            <option value="{{$cliente->id}}" selected>{{$cliente->nombre}}</option>
+                        @else
+                            <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
+                        @endif
+                    @endforeach
+                </select>
+
                 <h5 for="">Asignacion de Precio</h5>
                 <select name="asignacionPrecio" id="asignacionPrecio" class="form-control">
                     @foreach($provedores as $provedor)

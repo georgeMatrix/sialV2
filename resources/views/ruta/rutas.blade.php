@@ -121,6 +121,7 @@
                                                 <th>ID</th>
                                                 <th>RUTAS</th>
                                                 <th>RAZON_SOCIAL_QUE_FACTURA</th>
+                                                <th>CLIENTE</th>
                                                 <th>ASIGNACION_DE_PRECIO</th>
                                                 <th>CLAVE_DE_PRODUCTO_O_SERVICIO</th>
                                                 <th>NUMERO_DE_IDENTIFICACION</th>
@@ -147,6 +148,7 @@
                                                     @else
                                                         <td value="2" selected>TRANSPORTES LOGIEXPRESS SA DE CV</td>
                                                     @endif
+                                                    <td>{{$dt->clientesF->nombre}}</td>
                                                     <td>{{$dt->provedoresF->nombre}}</td>
                                                     <td>{{$dt->claveProdServ}}</td>
                                                     <td>{{$dt->noIdentificacion}}</td>

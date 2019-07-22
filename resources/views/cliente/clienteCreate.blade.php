@@ -28,6 +28,21 @@
                 </div>
 
                 <div class="form-group">
+                    <h5 for="">Razon Social</h5>
+                    <input maxlength="70" required type="text" name="razonSocial" id="razonSocial" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <h5 for="">RFC</h5>
+                    <input maxlength="15" required type="text" name="rfc" id="rfc" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <h5 for="">Regimen</h5>
+                    <input maxlength="50" required type="text" name="regimen" id="regimen" class="form-control">
+                </div>
+
+                <div class="form-group">
                     <h5 for="">Calle</h5>
                     <input maxlength="70" required type="text" name="calle" id="calle" class="form-control">
                 </div>
