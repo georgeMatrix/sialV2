@@ -3,9 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Generacion de Release</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+
             </div>
             <div class="modal-body">
                 <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
@@ -49,7 +47,7 @@
                                 <td>{{$c->id}}</td>
                             @endif
                         @endforeach
-                        <td id="idValorRelease">{{$rel->id}}</td>
+                        <input id="idValorRelease" type="hidden" value="{{$rel->id}}"> <!-- Con este es el que esta trabajando el archivo js de cartasPorte.js -->
                         <td>{{$rel->tipo}}</td>
                         <td>{{$rel->fecha}}</td>
                         <td>{{$rel->rutaCartaP->nombre}}</td>

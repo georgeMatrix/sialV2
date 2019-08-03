@@ -61,11 +61,16 @@ function inputCheckBoxChecked(){
     $("#rows td").each(function(){
         if($(this).find("#release").prop('checked')){
             let valorActual = $(this).parent();
-            valoresIds[contador] = valorActual.find("#idValorRelease").text();
+            valoresIds[contador] = valorActual.find("#idValorRelease").val();
             contador = contador + 1;
         }
     });
     //console.log( valoresIds);
     return valoresIds;
 }
+
+$(function () {
+    $('#exampleModal').modal({backdrop: 'static', keyboard: false})
+})
+
 

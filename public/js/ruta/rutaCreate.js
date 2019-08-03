@@ -250,7 +250,7 @@ function facturas(){
         })
             .done(function() {
                 console.log("success");
-                //Swal.fire('Dato Guardado')
+                Swal.fire('Dato Guardado')
             })
             .fail( function( jqXHR, textStatus, errorThrown ) {
 
@@ -295,8 +295,8 @@ function facturas(){
         })
             .done(function(data) {
                 console.log("success");
-                //console.log(data);
-                Swal.fire('Dato Guardado')
+                console.log(data);
+                //Swal.fire('Dato Guardado')
 
                 $('#rutasSelect').prop('selectedIndex',0);
                 $('#facturador').val("");

@@ -306,7 +306,7 @@
 
                                 <div class="form-group">
                                     <h5 for="">Traslado de Iva (Porcentaje)</h5>
-                                    <input type="number" min="0" required name="tIva" id="tIva" class="form-control {{$errors->has('tIva')?'is-invalid':''}}"
+                                    <input type="number" min="0" max="100" required name="tIva" id="tIva" class="form-control {{$errors->has('tIva')?'is-invalid':''}}"
                                            value="{{old('tIva')}}">
                                     <div class="invalid-feedback">
                                         El campo tIva es requerido y debe de ser numerico
@@ -315,7 +315,7 @@
 
                                 <div class="form-group">
                                     <h5 for="">Traslado de Isr (Porcentaje)</h5>
-                                    <input type="number" min="0" required name="tIsr" id="tIsr" class="form-control {{$errors->has('tIsr')?'is-invalid':''}}"
+                                    <input type="number" min="0" max="100" required name="tIsr" id="tIsr" class="form-control {{$errors->has('tIsr')?'is-invalid':''}}"
                                            value="{{old('tIsr')}}">
                                     <div class="invalid-feedback">
                                         El campo tIsr es requerido y debe de ser numerico
@@ -324,7 +324,7 @@
 
                                 <div class="form-group">
                                     <h5 for="">Retencion de Iva (Porcentaje)</h5>
-                                    <input type="number" min="0" required name="rIva" id="rIva" class="form-control {{$errors->has('rIva')?'is-invalid':''}}"
+                                    <input type="number" min="0" max="100" required name="rIva" id="rIva" class="form-control {{$errors->has('rIva')?'is-invalid':''}}"
                                            value="{{old('rIva')}}">
                                     <div class="invalid-feedback">
                                         El campo rIva es requerido y debe de ser numerico
@@ -333,7 +333,7 @@
 
                                 <div class="form-group">
                                     <h5 for="">Retencion de Isr (Porcentaje)</h5>
-                                    <input type="number" min="0" required name="rIsr" id="rIsr" class="form-control {{$errors->has('rIsr')?'is-invalid':''}}"
+                                    <input type="number" min="0" max="100" required name="rIsr" id="rIsr" class="form-control {{$errors->has('rIsr')?'is-invalid':''}}"
                                            value="{{old('rIsr')}}">
                                     <div class="invalid-feedback">
                                         El campo rIsr es requerido y debe de ser numerico

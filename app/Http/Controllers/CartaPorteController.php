@@ -28,21 +28,11 @@ class CartaPorteController extends Controller
         for ($i=0; $i<count($request->valoresIds); $i++){
             CartaPorte::find($request->valoresIds[$i])->update(['status'=>'abierta']); //CAMBIAR A release
             $cartasPorte[$i] = CartaPorte::find($request->valoresIds[$i]); //primaryKey carta porte
+            $datosFacturacion = DatosFacturacion::where('rutas','=',$cartasPorte[$i]->rutas)->get();
+            $arreglo[$i] = $datosFacturacion;
+            Facturables::saveFacturables($datosFacturacion, $cartasPorte, $i);
         }
-
-        for ($j=0; $j<count($cartasPorte); $j++) {
-            $datosFacturacion = DatosFacturacion::where('rutas','=',$cartasPorte[$j]->rutas)->get();
-            $contador = DatosFacturacion::where('rutas','=',$cartasPorte[$j]->rutas)->count();
-                if (count($datosFacturacion) != 0){
-                    $datosFacturaciones[$j] = $datosFacturacion;
-                }else{
-                    $datosFacturaciones[$j]="SIN DATOS FACTURACION";
-                }
-            }
-        $cartasPorteAll = CartaPorte::all();
-        $guardadoFacturables = Facturables::saveFacturables($datosFacturaciones, $contador, $cartasPorteAll);
-        return response()->json($guardadoFacturables);
-        //return valoresIds;
+        return "Carga correcta";
     }
 
     public function getPdfCartaPorte($ruta)

@@ -25,7 +25,7 @@
                     <h5>Tipo</h5>
                     <select required name="tipo" id="tipo" class="form-control" value="{{old('tipo')}}">
                         <option value="n">Nacional</option>
-                        <option value="i">Importacion</option>
+                        <option value="i">Internacional</option>
                         <option value="e">Exportacion</option>
                         <option value="c">Cruce</option>
                     </select>

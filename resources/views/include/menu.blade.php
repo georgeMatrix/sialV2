@@ -71,6 +71,13 @@
                     </a>
                 </li>
 
+                <li class="lightli">
+                    <a href="{{route('cuentasPorPagar.index')}}">
+                        <i class="fa fa-file-alt fa-lg text-danger"></i>
+                        <span class="nav-text">Cuentas Por Pagar</span>
+                    </a>
+                </li>
+
             </ul>
         </div>
 
