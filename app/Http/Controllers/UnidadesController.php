@@ -68,7 +68,11 @@ class UnidadesController extends Controller
         $status = 'guardado';
         $actividad = new Actividad();
         $actividad->tabla = Unidades::class;
-        $actividad->ref = $request->id;
+        //$actividad->ref = $request->id;
+            $unidadesAll = Unidades::all();
+            $last = $unidadesAll->last();
+            $idActual = $last->id;
+            $actividad->ref = $idActual;
         $actividad->fecha = new DateTime();
         $actividad->status = $status;
         $actividad->descripcion = $status;

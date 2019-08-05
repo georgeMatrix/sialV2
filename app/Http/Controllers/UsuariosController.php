@@ -83,7 +83,11 @@ class UsuariosController extends Controller
         $status = 'guardado';
         $actividad = new Actividad();
         $actividad->tabla = Usuarios::class;
-        $actividad->ref = $request->id;
+        //$actividad->ref = $request->id;
+            $usuariosAll = Usuarios::all();
+            $last = $usuariosAll->last();
+            $idActual = $last->id;
+            $actividad->ref = $idActual;
         $actividad->fecha = new DateTime();
         $actividad->status = $status;
         $actividad->descripcion = $status;

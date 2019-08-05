@@ -69,11 +69,10 @@ class ClientesController extends Controller
         $actividad = new Actividad();
         $clienteActividad = new Clientes();
         $actividad->tabla = Clientes::class;
-        //$actividad->ref = $request->id;
             $clientesAll = Clientes::all();
             $last = $clientesAll->last();
             $idActual = $last->id;
-        $actividad->ref = $idActual;
+            $actividad->ref = $idActual;
         $actividad->fecha = new DateTime();
         $actividad->status = $status;
         $actividad->descripcion = $status;

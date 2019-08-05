@@ -195,7 +195,10 @@ class CartaPorteController extends Controller
         $status = 'guardado';
         $actividad = new Actividad();
         $actividad->tabla = CartaPorte::class;
-        $actividad->ref = $request->id;
+            $cartaPorteAll = CartaPorte::all();
+            $last = $cartaPorteAll->last();
+            $idActual = $last->id;
+            $actividad->ref = $idActual;
         $actividad->fecha = new DateTime();
         $actividad->status = $status;
         $actividad->descripcion = $status;

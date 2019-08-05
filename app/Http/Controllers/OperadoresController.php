@@ -58,7 +58,10 @@ class OperadoresController extends Controller
         $status = 'guardado';
         $actividad = new Actividad();
         $actividad->tabla = Operadores::class;
-        $actividad->ref = $request->id;
+            $operadoresAll = Operadores::all();
+            $last = $operadoresAll->last();
+            $idActual = $last->id;
+            $actividad->ref = $idActual;
         $actividad->fecha = new DateTime();
         $actividad->status = $status;
         $actividad->descripcion = $status;
