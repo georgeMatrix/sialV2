@@ -24,10 +24,10 @@
                     <div class="form-group">
                     <h5>Tipo</h5>
                     <select required name="tipo" id="tipo" class="form-control" value="{{old('tipo')}}">
-                        <option value="n">Nacional</option>
-                        <option value="i">Internacional</option>
-                        <option value="e">Exportacion</option>
-                        <option value="c">Cruce</option>
+                        <option value="N">Nacional</option>
+                        <option value="I">Importacion</option>
+                        <option value="E">Exportacion</option>
+                        <option value="C">Cruce</option>
                     </select>
                     </div>
 

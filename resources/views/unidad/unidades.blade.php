@@ -17,7 +17,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="table-responsive">
+                <div class="table-responsive content-loader">
                     <table class="table table-hover table-sm table-striped">
                     <thead class="table-info">
                     <tr>

@@ -16,8 +16,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
-                <table class="table table-responsive table-hover table-sm">
+            <div class="col-md-12 table-responsive content-loader" >
+                <table class="table  table-hover table-sm">
                     <thead class="table-info">
                     <tr>
                         <th>ID</th>

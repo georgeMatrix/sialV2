@@ -26,7 +26,7 @@ class CartaPorteController extends Controller
     public function abiertaToRelease(Request $request){
         $contador = 0;
         for ($i=0; $i<count($request->valoresIds); $i++){
-            CartaPorte::find($request->valoresIds[$i])->update(['status'=>'abierta']); //CAMBIAR A release
+            CartaPorte::find($request->valoresIds[$i])->update(['status'=>'release']); //CAMBIAR A release
             $cartasPorte[$i] = CartaPorte::find($request->valoresIds[$i]); //primaryKey carta porte
             $datosFacturacion = DatosFacturacion::where('rutas','=',$cartasPorte[$i]->rutas)->get();
             $arreglo[$i] = $datosFacturacion;
@@ -42,26 +42,26 @@ class CartaPorteController extends Controller
         $cartaPorte = CartaPorte::where("id", "=", $ruta)->get();
         foreach($cartaPorte as $cP){
 
-            if ($cP->tipo == "n"){
+            if ($cP->tipo == "N"){
                 $nacional = Nacional::all();
                 $tipo = $nacional->last();
                 $letra = "N";
 
             }
-            elseif ($cP->tipo == "i") {
+            elseif ($cP->tipo == "I") {
                 $importacion = Importacion::all();
                 $tipo = $importacion->last();
                 $letra = "I";
             }
 
-            elseif ($cP->tipo == "e") {
+            elseif ($cP->tipo == "E") {
                 $exportacion = Exportacion::all();
                 $tipo = $exportacion->last();
                 $letra = "E";
 
             }
 
-            elseif ($cP->tipo == "c") {
+            elseif ($cP->tipo == "C") {
                 $cruce = Cruce::all();
                 $tipo = $cruce->last();
                 $letra = "C";
@@ -83,7 +83,7 @@ class CartaPorteController extends Controller
     {
         $repetido = array();
         $ultimo = array();
-        $tipos = ['Nacional', 'Internacional', 'Exportacion', 'Cruce'];
+        $tipos = ['Nacional', 'Importacion', 'Exportacion', 'Cruce'];
         $cartaPorte = CartaPorte::orderBy('id', 'DESC')->paginate(10);
         $tamamoActividad = Actividad::where("tabla", "like", "%CartaPorte")->count();
         if ($tamamoActividad != 0) {
@@ -172,22 +172,22 @@ class CartaPorteController extends Controller
         $exportacion = new Exportacion();
         $cruce = new Cruce();
 
-        if ($request->tipo == "n"){
+        if ($request->tipo == "N"){
             $nacional->cartaPorte = $request->id;
             $nacional->save();
         }
-        elseif ($request->tipo == "i") {
+        elseif ($request->tipo == "I") {
             $importacion->cartaPorte = $request->id;
             $importacion->save();
         }
 
-        elseif ($request->tipo == "e") {
+        elseif ($request->tipo == "E") {
 
             $exportacion->cartaPorte = $request->id;
             $exportacion->save();
         }
 
-        elseif ($request->tipo == "c") {
+        elseif ($request->tipo == "C") {
             $cruce->cartaPorte = $request->id;
             $cruce->save();
         }

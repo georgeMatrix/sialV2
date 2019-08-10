@@ -17,6 +17,7 @@ function cambioAbiertaToRelease(){
             })
                 .done(function(data) {
                     console.log(data);
+                    Swal.fire('El status cambio correctamente')
                 })
                 .fail( function( jqXHR, textStatus, errorThrown ) {
 
@@ -52,7 +53,7 @@ function cambioAbiertaToRelease(){
 
                 });
 
-    //window.location.reload();
+    window.location.reload();
 }
 
 function inputCheckBoxChecked(){
@@ -69,8 +70,8 @@ function inputCheckBoxChecked(){
     return valoresIds;
 }
 
-$(function () {
+/*$(function () {
     $('#exampleModal').modal({backdrop: 'static', keyboard: false})
-})
+})*/
 
 

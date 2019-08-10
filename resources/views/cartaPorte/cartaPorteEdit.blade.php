@@ -20,10 +20,10 @@
                     <div class="form-group">
                         <h5>Tipo</h5>
                         <select required disabled name="tipo" id="tipo" class="form-control">
-                            <option value="n" @if($cartaPorte->tipo == 'n') selected @endif>Nacional</option>
-                            <option value="i" @if($cartaPorte->tipo == 'i') selected @endif>Internacional</option>
-                            <option value="e" @if($cartaPorte->tipo == 'e') selected @endif>Exportacion</option>
-                            <option value="c" @if($cartaPorte->tipo == 'c') selected @endif>Cruce</option>
+                            <option value="N" @if($cartaPorte->tipo == 'N') selected @endif>Nacional</option>
+                            <option value="I" @if($cartaPorte->tipo == 'I') selected @endif>Internacional</option>
+                            <option value="E" @if($cartaPorte->tipo == 'E') selected @endif>Exportacion</option>
+                            <option value="C" @if($cartaPorte->tipo == 'C') selected @endif>Cruce</option>
                         </select>
                     </div>
 

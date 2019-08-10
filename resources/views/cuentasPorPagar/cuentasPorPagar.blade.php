@@ -13,9 +13,28 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-12">
+            <form action="" method="post">
+                <div class="row">
+                    <h5>Facturador</h5>
+                    <select name="facturadorCuentasPorPagar" id="facturadorCuentasPorPagar" class="form-control">
+                        <option value="1">RUBEN GUTIERREZ VELAZCO</option>
+                        <option value="2">TRANSPORTES LOGIEXPRESS SA DE CV</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <h5>Cliente</h5>
+                    <select name="clienteCuentasPorPagar" id="clienteCuentasPorPagar" class="form-control">
+                        @foreach($clientes as $cliente)
+                            <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </form>
+        </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="table-responsive">
+                <div class="table-responsive content-loader">
                     <table class="table table-hover table-sm table-striped">
                         <thead class="table-info">
                         <tr>

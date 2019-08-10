@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Clientes;
 use App\CuentasPorPagar;
 use App\Facturables;
 use Illuminate\Http\Request;
@@ -16,7 +17,10 @@ class CuentasPorPagarController extends Controller
     public function index()
     {
         $facturables = Facturables::orderBy('id', 'DESC')->paginate();
-        return view('cuentasPorPagar/cuentasPorPagar')->with('facturables', $facturables);
+        $clientes = Clientes::all();
+        return view('cuentasPorPagar/cuentasPorPagar')
+            ->with('clientes', $clientes)
+            ->with('facturables', $facturables);
     }
 
     /**

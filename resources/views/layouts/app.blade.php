@@ -50,7 +50,11 @@
     <!-- DataTimePicker -->
     <script type="text/javascript" src="{{asset('datetimepicker/build/jquery.datetimepicker.full.js')}}"></script>
     <link rel="stylesheet" href="{{asset('datetimepicker/build/jquery.datetimepicker.min.css')}}">
-
+    <style>
+        .content-loader tr td {
+            white-space: nowrap;
+        }
+    </style>
 </head>
 <body>
     <div id="app">

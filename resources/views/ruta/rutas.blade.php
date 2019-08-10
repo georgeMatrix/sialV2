@@ -32,7 +32,7 @@
 
                                 <div class="accordion-body collapse" id="accordion-one">
                                     <div class="accordion-body-wrapper">
-                                        <div class="table-responsive">
+                                        <div class="table-responsive content-loader">
                                             <table class="table table-hover table-sm table-striped">
                                                 <thead class="table-info">
                                                 <tr>
@@ -115,8 +115,8 @@
 
                                 <div class="accordion-body collapse" id="accordion-three">
                                     <div class="accordion-body-wrapper">
-                                        <table class="table table-responsive table-hover table-striped">
-                                            <thead class="table-info">
+                                        <table class="table table-responsive content-loader">
+                                            <thead class="table-info table-hover table-striped">
                                             <tr>
                                                 <th>ID</th>
                                                 <th>RUTAS</th>
@@ -188,8 +188,8 @@
 
                                 <div class="accordion-body collapse" id="accordion-five">
                                     <div class="accordion-body-wrapper">
-                                        <table class="table table-responsive table-hover table-striped">
-                                            <thead class="table-info">
+                                        <table class="table table-responsive content-loader">
+                                            <thead class="table-info table-hover table-striped">
                                             <tr>
                                                 <th>ID</th>
                                                 <th>RUTAS</th>

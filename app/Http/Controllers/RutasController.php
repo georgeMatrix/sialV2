@@ -77,9 +77,9 @@ class RutasController extends Controller
         $actividad = new Actividad();
 
         $actividad->tabla = Rutas::class;
-            $rutasAll = Rutas::all();
-            $last = $rutasAll->last();
-            $actividad->ref = $last->id;
+            /*$rutasAll = Rutas::all();
+            $last = $rutasAll->last();*/
+            $actividad->ref = $id;
         $actividad->status = $status;
         $actividad->descripcion = $status;
         $actividad->usuario = auth()->user()->name;

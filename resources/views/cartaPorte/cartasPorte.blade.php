@@ -25,7 +25,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="table-responsive">
+                <div class="table-responsive content-loader">
                     <table class="table table-hover table-sm table-striped">
                         <thead class="table-info">
                         <tr>
@@ -72,13 +72,13 @@
                                 @endforeach
 
 
-                                @if($cP->tipo == 'n')
+                                @if($cP->tipo == 'N')
                                     <td>{{$tipos[0]}}</td>
-                                @elseif($cP->tipo == 'i')
+                                @elseif($cP->tipo == 'I')
                                     <td>{{$tipos[1]}}</td>
-                                @elseif($cP->tipo == 'e')
+                                @elseif($cP->tipo == 'E')
                                     <td>{{$tipos[2]}}</td>
-                                @elseif($cP->tipo == 'c')
+                                @elseif($cP->tipo == 'C')
                                     <td>{{$tipos[3]}}</td>
                                 @endif
                                 <td>{{$cP->fecha}}</td>
