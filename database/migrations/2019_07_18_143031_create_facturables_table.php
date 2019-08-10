@@ -14,7 +14,7 @@ class CreateFacturablesTable extends Migration
     public function up()
     {
         Schema::create('facturables', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->Increments('id');
             $table->string('id_carta_porte');
             $table->string('id_datos_facturacion');
             $table->string('clave_prod_serv');

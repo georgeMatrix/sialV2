@@ -50,6 +50,10 @@
     <!-- DataTimePicker -->
     <script type="text/javascript" src="{{asset('datetimepicker/build/jquery.datetimepicker.full.js')}}"></script>
     <link rel="stylesheet" href="{{asset('datetimepicker/build/jquery.datetimepicker.min.css')}}">
+
+    <!-- DataTables -->
+    <script src="{{asset('datatables/datatables.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('datatables/datatables.css')}}">
     <style>
         .content-loader tr td {
             white-space: nowrap;

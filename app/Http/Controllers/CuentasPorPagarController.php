@@ -6,9 +6,19 @@ use App\Clientes;
 use App\CuentasPorPagar;
 use App\Facturables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 
 class CuentasPorPagarController extends Controller
 {
+    public function postCuentasPorPagar(Request $request){
+        $model = DB::table('facturables');
+        return DataTables::of($model)->filter(function ($query) use ($request){
+            if ($request->has('prueba')){
+                $query->where('id', '=', $request->get('prueba'));
+            }
+        })->make();
+    }
     /**
      * Display a listing of the resource.
      *

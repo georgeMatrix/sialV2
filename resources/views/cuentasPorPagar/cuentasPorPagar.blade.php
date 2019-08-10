@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="col-md-12">
-            <form action="" method="post">
+            <form action="#" method="post" id="formCuentasPorPagar">
                 <div class="row">
                     <h5>Facturador</h5>
                     <select name="facturadorCuentasPorPagar" id="facturadorCuentasPorPagar" class="form-control">
@@ -30,100 +30,49 @@
                         @endforeach
                     </select>
                 </div>
+                <!--<div class="row">
+                    <label for="">prueba</label>
+                    <input type="text" name="prueba" id="prueba" class="form-control">
+                </div>-->
+                <div class="row">
+                <button class="btn btn-success" type="submit">Consultar</button>
+                </div>
             </form>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive content-loader">
-                    <table class="table table-hover table-sm table-striped">
-                        <thead class="table-info">
-                        <tr>
-                            <th>ID</th>
-                            <th>ID_CARTA_PORTE</th>
-                            <th>ID_DATOS_FACTURACION</th>
-                            <th>CLAVE_PROD_SERV</th>
-                            <th>NO_IDENTIFICACION</th>
-                            <th>CANTIDAD</th>
-                            <th>CLAVE_UNIDAD</th>
-                            <th>UNIDAD</th>
-                            <th>DESCRIPCION</th>
-                            <th>VALOR_UNITARIO</th>
-                            <th>IMPORTE</th>
-                            <th>EMISOR_RFC</th>
-                            <th>EMISOR_RAZON_SOCIAL</th>
-                            <th>EMISOR_REGIMEN</th>
-                            <th>RECEPTOR_RFC</th>
-                            <th>RECEPTOR_RAZON_SOCIAL</th>
-                            <th>RECEPTOR_REGIMEN</th>
-                            <th>CFDI_T_IVA_BASE</th>
-                            <th>CFDI_T_IVA_IMPUESTO</th>
-                            <th>CFDI_T_IVA_TIPOFACTOR</th>
-                            <th>CFDI_T_IVA_TASACUOTA</th>
-                            <th>CFDI_T_IVA_IMPORTE</th>
-                            <th>CFDI_T_ISR_BASE</th>
-                            <th>CFDI_T_ISR_IMPUESTO</th>
-                            <th>CFDI_T_ISR_TIPOFACTOR</th>
-                            <th>CFDI_T_ISR_TASACOUTA</th>
-                            <th>CFDI_T_ISR_IMPORTE</th>
-                            <th>CFDI_R_IVA_BASE</th>
-                            <th>CFDI_R_IVA_IMPUESTO</th>
-                            <th>CFDI_R_IVA_TIPOFACTOR</th>
-                            <th>CFDI_R_IVA_TASACOUTA</th>
-                            <th>CFDI_R_IVA_IMPORTE</th>
-                            <th>CFDI_R_ISR_BASE</th>
-                            <th>CFDI_R_ISR_IMPUESTO</th>
-                            <th>CFDI_R_ISR_TIPOFACTOR</th>
-                            <th>CFDI_R_ISR_TASACUOTA</th>
-                            <th>CFDI_R_ISR_IMPORTE</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($facturables as $facturable)
-                            <tr>
-                                <td>{{$facturable->id}}</td>
-                                <td>{{$facturable->id_carta_porte}}</td>
-                                <td>{{$facturable->id_datos_facturacion}}</td>
-                                <td>{{$facturable->clave_prod_serv}}</td>
-                                <td>{{$facturable->no_identificacion}}</td>
-                                <td>{{$facturable->cantidad}}</td>
-                                <td>{{$facturable->clave_unidad}}</td>
-                                <td>{{$facturable->unidad}}</td>
-                                <td>{{$facturable->descripcion}}</td>
-                                <td>{{$facturable->valor_unitario}}</td>
-                                <td>{{$facturable->importe}}</td>
-                                <td>{{$facturable->emisor_rfc}}</td>
-                                <td>{{$facturable->emisor_razon_social}}</td>
-                                <td>{{$facturable->emisor_regimen}}</td>
-                                <td>{{$facturable->receptor_rfc}}</td>
-                                <td>{{$facturable->receptor_razon_social}}</td>
-                                <td>{{$facturable->receptor_regimen}}</td>
-                                <td>{{$facturable->cfdi_t_iva_base}}</td>
-                                <td>{{$facturable->cfdi_t_iva_impuesto}}</td>
-                                <td>{{$facturable->cfdi_t_iva_tipofactor}}</td>
-                                <td>{{$facturable->cfdi_t_iva_tasacuota}}</td>
-                                <td>{{$facturable->cfdi_t_iva_importe}}</td>
-                                <td>{{$facturable->cfdi_t_isr_base}}</td>
-                                <td>{{$facturable->cfdi_t_isr_impuesto}}</td>
-                                <td>{{$facturable->cfdi_t_isr_tipofactor}}</td>
-                                <td>{{$facturable->cfdi_t_isr_tasacuota}}</td>
-                                <td>{{$facturable->cfdi_t_isr_importe}}</td>
-                                <td>{{$facturable->cfdi_r_iva_base}}</td>
-                                <td>{{$facturable->cfdi_r_iva_impuesto}}</td>
-                                <td>{{$facturable->cfdi_r_iva_tipofactor}}</td>
-                                <td>{{$facturable->cfdi_r_iva_tasacuota}}</td>
-                                <td>{{$facturable->cfdi_r_iva_importe}}</td>
-                                <td>{{$facturable->cfdi_r_isr_base}}</td>
-                                <td>{{$facturable->cfdi_r_isr_impuesto}}</td>
-                                <td>{{$facturable->cfdi_r_isr_tipofactor}}</td>
-                                <td>{{$facturable->cfdi_r_isr_tasacuota}}</td>
-                                <td>{{$facturable->cfdi_r_isr_importe}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
+                    <table class="table table-hover table-sm table-striped" id="tablaCuentasPorPagar">
                     </table>
                 </div>
-                {{$facturables->render()}}
+
             </div>
         </div>
     </div>
 @endsection
+@section('scripts')
+    <script>
+        $('#formCuentasPorPagar').submit(function(e){
+            e.preventDefault();
+            $('#tablaCuentasPorPagar').DataTable({
+                destroy:true,
+                ajax:{
+                    url:'/api/getCuentasPorPagar',
+                    type:'post',
+                    data:function (d) {
+                        d.prueba=$('#facturadorCuentasPorPagar option:selected').val()
+                    }
+                },
+                'columns':[
+                    {title:'id', data:'id', name:'id'},
+                    {title:'id_carta_porte', data:'id_carta_porte', name:'id_carta_porte'},
+                    {title:'id_datos_facturacion', data:'id_datos_facturacion', name:'id_datos_facturacion'},
+                    {title:'clave_prod_serv', data:'clave_prod_serv', name:'clave_prod_serv'},
+                    {title:'no_identificacion', data:'no_identificacion', name:'no_identificacion'}
+
+
+                ]
+            })
+        })
+    </script>
+    @endsection
