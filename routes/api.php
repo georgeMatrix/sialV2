@@ -23,4 +23,4 @@ Route::get('/evaluacion', 'RutasController@datosCporPagar');
 
 Route::get('/rutasClientes/{id}/cartaPorte', 'RutasController@rutasClientes');
 
-Route::post('getCuentasPorPagar', 'CuentasPorPagarController@postCuentasPorPagar');
+Route::post('postCuentasPorPagar', 'CuentasPorPagarController@postCuentasPorPagar');

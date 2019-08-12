@@ -30,6 +30,7 @@ class CreateFacturablesTable extends Migration
             $table->string('emisor_regimen');
             $table->string('receptor_rfc');
             $table->string('receptor_razon_social');
+            $table->integer('cliente_id');
             $table->string('receptor_regimen');
 
             $table->string('cfdi_t_iva_base')->nullable();

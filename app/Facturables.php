@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Facturables extends Model
-{
+{                        //saveFacturables
     public static function saveFacturables($datosFacturacion, $cartasPorte, $i)
     {
         for ($j = 0; $j < count($datosFacturacion); $j++){
@@ -26,6 +26,7 @@ class Facturables extends Model
                 $clientes = Clientes::find($datosFacturacion[$j]->clientes);
                 $mFacturables->receptor_rfc = $clientes->rfc;
                 $mFacturables->receptor_razon_social = $clientes->razonSocial;
+            $mFacturables->cliente_id = $clientes->id;
                 $mFacturables->receptor_regimen = $clientes->regimen;
 
             if ($datosFacturacion[$j]->tIva != 0){
