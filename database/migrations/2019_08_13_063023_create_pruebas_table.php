@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCuentasPorPagarsTable extends Migration
+class CreatePruebasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCuentasPorPagarsTable extends Migration
      */
     public function up()
     {
-        Schema::create('cuentas_por_pagars', function (Blueprint $table) {
+        Schema::create('pruebas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateCuentasPorPagarsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cuentas_por_pagars');
+        Schema::dropIfExists('pruebas');
     }
 }

@@ -4,15 +4,15 @@ namespace App\Http\Controllers;
 
 use App\CartaPorte;
 use App\Clientes;
-use App\CuentasPorPagar;
+use App\CuentasPorCobrar;
 use App\Facturables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
-class CuentasPorPagarController extends Controller
+class CuentasPorCobrarController extends Controller
 {
-    public function postCuentasPorPagar(Request $request){
+    public function postCuentasPorCobrar(Request $request){
         /*echo $request;
         $model = DB::table('facturables');
         return DataTables::of($model)->make();*/
@@ -48,7 +48,7 @@ class CuentasPorPagarController extends Controller
     {
         $facturables = Facturables::orderBy('id', 'DESC')->paginate();
         $clientes = Clientes::all();
-        return view('cuentasPorPagar/cuentasPorPagar')
+        return view('cuentasPorCobrar/cuentasPorCobrar')
             ->with('clientes', $clientes)
             ->with('facturables', $facturables);
     }
@@ -62,7 +62,7 @@ class CuentasPorPagarController extends Controller
     {
         $cartasPorteRelease = CartaPorte::where('status', '=', 'release')->get();
         $clientes = Clientes::all();
-        return view('cuentasPorPagar/cuentasPorPagarCreate')
+        return view('cuentasPorCobrar/cuentasPorCobrarCreate')
             ->with('clientes', $clientes)
             ->with('cartasPorteRelease', $cartasPorteRelease);
     }
@@ -81,10 +81,10 @@ class CuentasPorPagarController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\CuentasPorPagar  $cuentasPorPagar
+     * @param  \App\CuentasPorCobrar  $cuentasPorCobrar
      * @return \Illuminate\Http\Response
      */
-    public function show(CuentasPorPagar $cuentasPorPagar)
+    public function show(CuentasPorCobrar $cuentasPorCobrar)
     {
         //
     }
@@ -92,10 +92,10 @@ class CuentasPorPagarController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\CuentasPorPagar  $cuentasPorPagar
+     * @param  \App\CuentasPorCobrar  $cuentasPorCobrar
      * @return \Illuminate\Http\Response
      */
-    public function edit(CuentasPorPagar $cuentasPorPagar)
+    public function edit(CuentasPorCobrar $cuentasPorCobrar)
     {
         //
     }
@@ -104,10 +104,10 @@ class CuentasPorPagarController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\CuentasPorPagar  $cuentasPorPagar
+     * @param  \App\CuentasPorCobrar  $cuentasPorCobrar
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CuentasPorPagar $cuentasPorPagar)
+    public function update(Request $request, CuentasPorCobrar $cuentasPorCobrar)
     {
         //
     }
@@ -115,10 +115,10 @@ class CuentasPorPagarController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\CuentasPorPagar  $cuentasPorPagar
+     * @param  \App\CuentasPorCobrar  $cuentasPorCobrar
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CuentasPorPagar $cuentasPorPagar)
+    public function destroy(CuentasPorCobrar $cuentasPorCobrar)
     {
         //
     }

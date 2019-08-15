@@ -54,6 +54,9 @@
     <!-- DataTables -->
     <script src="{{asset('datatables/datatables.js')}}"></script>
     <link rel="stylesheet" href="{{asset('datatables/datatables.css')}}">
+    <!-- CheckBox Datatables -->
+    <link type="text/css" href="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.11/css/dataTables.checkboxes.css" rel="stylesheet" />
+    <script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.11/js/dataTables.checkboxes.min.js"></script>
     <style>
         .content-loader tr td {
             white-space: nowrap;

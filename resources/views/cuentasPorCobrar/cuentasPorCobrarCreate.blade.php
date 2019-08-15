@@ -5,16 +5,16 @@
         <div class="card bg-dark">
             <div class="row">
                 <div class="col-md-9 card-title">
-                    <h3 style="font-size: 20pt;" class="mt-3 text-center text-white"><i class="text-danger fas fa-user"></i> Nuevo Cuentas Por Pagar</h3>
+                    <h3 style="font-size: 20pt;" class="mt-3 text-center text-white"><i class="text-danger fas fa-user"></i> Nuevo Cuentas Por Cobrar</h3>
                 </div>
                 <div class="col-md-3">
-                    <a href="{{route('cuentasPorPagar.index')}}" class="mt-3 mr-3 btn btn-info float-right"><i class="fas fa-arrow-circle-left"></i> Regresar</a>
+                    <a href="{{route('cuentasPorCobrar.index')}}" class="mt-3 mr-3 btn btn-info float-right"><i class="fas fa-arrow-circle-left"></i> Regresar</a>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <form action="{{route('cuentasPorPagar.store')}}" method="post" id="cuentasPorPagarForm">
+                <form action="{{route('cuentasPorCobrar.store')}}" method="post" id="cuentasPorPagarForm">
                     {{csrf_field()}}
                     <label for="">Carta Porte</label>
                     <select name="idCartaPorteCuentasPorPagar" id="idCartaPorteCuentasPorPagar" class="form-control">
@@ -49,8 +49,9 @@
                     <input type="hidden" value="" name="receptor_rfc" id="receptor_rfc">
                     <h5 for="">Cliente</h5>
                     <select name="receptor_razon_social" id="receptor_razon_social" class="form-control">
-                        <option value="1">RUBEN GUTIERREZ VELAZCO</option>
-                        <option value="2">TRANSPORTES LOGIEXPRESS SA DE CV</option>
+                        @foreach($clientes as $cliente)
+                            <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
+                        @endforeach
                     </select>
                     <input type="hidden" value="" name="receptor_regimen" id="receptor_regimen">
                     <h5>TRASLADO IVA %</h5>

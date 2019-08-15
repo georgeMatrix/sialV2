@@ -12,7 +12,7 @@
                     <a href="{{url('/home')}}" class="mt-3 mr-3 btn btn-info float-right"><i class="fas fa-arrow-circle-left"></i> Regresar</a>
                 </div>
                 <div class="col-md-3">
-                    <a href="{{route('cuentasPorPagar.create')}}" class="mt-3 mr-3 btn btn-info float-right">Nuevo</a>
+                    <a href="{{route('cuentasPorCobrar.create')}}" class="mt-3 mr-3 btn btn-info float-right">Nuevo</a>
                 </div>
             </div>
         </div>
@@ -48,6 +48,9 @@
             <div class="col-md-12">
                 <div class="table-responsive content-loader">
                     <table class="table table-hover table-sm table-striped" id="tablaCuentasPorPagar">
+                        <tr>
+                            <td></td>
+                        </tr>
                     </table>
                 </div>
 
@@ -62,15 +65,22 @@
             $('#tablaCuentasPorPagar').DataTable({
                 destroy:true,
                 ajax:{
-                    url:'/api/postCuentasPorPagar',
+                    url:'/api/postCuentasPorCobrar',
                     type:'post',
                     data:function (d) {
                         d.facturadorCuentasPorPagar=$('#facturadorCuentasPorPagar option:selected').val()
                         d.clienteCuentasPorPagar=$('#clienteCuentasPorPagar option:selected').val()
                     }
                 },
+                    'columnDefs': [
+                        {
+                            'targets': 0,
+                            'checkboxes': {
+                                'selectRow': true
+                            }
+                        }
+                    ],
                 'columns':[
-                    {title:'id', data:'id', name:'id'},
                     {title:'id_carta_porte', data:'id_carta_porte', name:'id_carta_porte'},
                     {title:'id_datos_facturacion', data:'id_datos_facturacion', name:'id_datos_facturacion'},
                     {title:'clave_prod_serv', data:'clave_prod_serv', name:'clave_prod_serv'},
