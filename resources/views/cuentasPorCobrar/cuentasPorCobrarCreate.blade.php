@@ -8,13 +8,13 @@
                     <h3 style="font-size: 20pt;" class="mt-3 text-center text-white"><i class="text-danger fas fa-user"></i> Nuevo Cuentas Por Cobrar</h3>
                 </div>
                 <div class="col-md-3">
-                    <a href="{{route('cuentasPorCobrar.index')}}" class="mt-3 mr-3 btn btn-info float-right"><i class="fas fa-arrow-circle-left"></i> Regresar</a>
+                    <a href="{{route('cuentasPorCobrarV2.index')}}" class="mt-3 mr-3 btn btn-info float-right"><i class="fas fa-arrow-circle-left"></i> Regresar</a>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <form action="{{route('cuentasPorCobrar.store')}}" method="post" id="cuentasPorPagarForm">
+                <form action="{{route('cuentasPorCobrarV2.store')}}" method="post" id="cuentasPorPagarForm">
                     {{csrf_field()}}
                     <label for="">Carta Porte</label>
                     <select name="id_carta_porte" id="id_carta_porte" class="form-control">

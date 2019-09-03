@@ -121,5 +121,13 @@
         </main>
     </div>
         @yield('scripts')
+    <script>
+        $(document).ready(function(){
+            $.ajaxSetup({
+                // Disable caching of AJAX responses
+                cache: false
+            });
+        })
+    </script>
 </body>
 </html>

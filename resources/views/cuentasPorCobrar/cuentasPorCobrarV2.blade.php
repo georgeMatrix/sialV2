@@ -12,7 +12,7 @@
                     <a href="{{url('/home')}}" class="mt-3 mr-3 btn btn-info float-right"><i class="fas fa-arrow-circle-left"></i> Regresar</a>
                 </div>
                 <div class="col-md-3">
-                    <a href="{{route('cuentasPorCobrar.create')}}" class="mt-3 mr-3 btn btn-info float-right">Nuevo</a>
+                    <a href="{{route('cuentasPorCobrarV2.create')}}" class="mt-3 mr-3 btn btn-info float-right">Nuevo</a>
                 </div>
             </div>
         </div>

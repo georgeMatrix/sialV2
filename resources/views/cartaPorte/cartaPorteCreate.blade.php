@@ -40,6 +40,7 @@
                     <div class="form-group">
                         <h5 for="">Cliente</h5>
                             <select name="clientes" id="clientes" class="form-control" value="{{old('clientes')}}">
+                                <option value="">Seleccione el cliente</option>
                                 @foreach($clientes as $cliente)
                                 <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
                                 @endforeach
@@ -48,7 +49,8 @@
 
                     <div class="form-group">
                         <h5 for="">Ruta</h5>
-                        <select required name="rutas" id="rutas" class="form-control" value="{{old('rutas')}}">
+                        <select disabled required name="rutas" id="rutas" class="form-control" value="{{old('rutas')}}">
+                            <option value="">Seleccione una ruta</option>
                         @foreach($rutas as $ruta)
                             <option value="{{$ruta->id}}">{{$ruta->nombre}}</option>
                         @endforeach

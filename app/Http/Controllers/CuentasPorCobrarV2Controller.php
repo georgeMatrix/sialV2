@@ -32,7 +32,7 @@ class CuentasPorCobrarV2Controller extends Controller
      */
     public function index()
     {
-        $facturables = Facturables::orderBy('id', 'DESC')->paginate();
+        $facturables = Facturables::orderBy('id', 'DESC')->paginate(10);
         $clientes = Clientes::all();
         return view('cuentasPorCobrar/cuentasPorCobrarV2')
             ->with('clientes', $clientes)
@@ -46,7 +46,11 @@ class CuentasPorCobrarV2Controller extends Controller
      */
     public function create()
     {
-        //
+        $cartasPorteRelease = CartaPorte::where('status', '=', 'release')->get();
+        $clientes = Clientes::all();
+        return view('cuentasPorCobrar/cuentasPorCobrarCreate')
+            ->with('clientes', $clientes)
+            ->with('cartasPorteRelease', $cartasPorteRelease);
     }
 
     /**
@@ -57,7 +61,21 @@ class CuentasPorCobrarV2Controller extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        //return $request;
+        Facturables::create($request->all());
+        $facturable = new Facturables();
+        /*==================================================================
+        /*FALTA QUE GUARDE ESTOS VALORES POR QUE SI NO DARA UN ERROR*/
+        /*==================================================================*/
+        $facturable->USER_CARTA_PORTE_TIPO = 'X';
+        $facturable->USER_CARTA_PORTE_TIPO_ID = 'X';
+        $facturable->USER_NOMBRE_RUTA = 'X';
+        $facturable->USER_UNIDAD = 'X';
+        $facturable->USER_REMOLQUE = 'X';
+        $facturable->USER_OPERADOR = 'X';
+        $facturable->save();
+
+        return redirect('cuentasPorCobrarV2');
     }
 
     /**

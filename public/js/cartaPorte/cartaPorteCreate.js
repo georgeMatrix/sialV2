@@ -1,6 +1,6 @@
 
 $(document).ready(function() {
-    cambioDeClientesInicio();
+    //cambioDeClientesInicio();
     $("#clientes").change(cambioDeClientes);
 });
 
@@ -13,12 +13,13 @@ function cambioDeClientes(){
         for (var i=0; i<data.length; i++){
             html_select += '<option value="'+data[i].id+'">'+data[i].nombre+'</option>';
         }
-        $("#rutas").html(html_select)
-        console.log(data)
+        $("#rutas").html(html_select);
+        //console.log(data);
+        $('#rutas').prop('disabled', false);
     });
 }
 
-function cambioDeClientesInicio(){
+/*function cambioDeClientesInicio(){
     $.get('/api/rutasClientes/'+1+'/cartaPorte', function (data) {
         var html_select = '';
         for (var i=0; i<data.length; i++){
@@ -27,7 +28,7 @@ function cambioDeClientesInicio(){
         $("#rutas").html(html_select)
         console.log(data)
     });
-}
+}*/
 
 jQuery.datetimepicker.setLocale('es');
 
