@@ -18,6 +18,7 @@
         </div>
         <div class="col-md-12">
             <form action="#" method="post" id="formCuentasPorPagar">
+                <input type="hidden" name="tokenCuentasPorPagar" id="tokenCuentasPorPagar" value="{{csrf_token()}}">
                 <div class="row">
                     <h5>Facturador</h5>
                     <select name="facturadorCuentasPorPagar" id="facturadorCuentasPorPagar" class="form-control">
@@ -40,17 +41,44 @@
                     <input type="text" name="prueba" id="prueba" class="form-control">
                 </div>-->
                 <div class="row">
-                <button class="btn btn-success mt-2" type="submit">Consultar</button>
+                    <button class="btn btn-success mt-2" type="submit">Consultar</button>
                 </div>
             </form>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive content-loader">
-                    <table class="table table-hover table-sm table-striped" id="tablaCuentasPorPagar">
-                        <tr>
-                            <td></td>
-                        </tr>
+                    <table class="table table-hover table-sm table-striped">
+                        <thead>
+                            <tr>
+                                <th>SELECT</th>
+                                <th>TIPO</th>
+                                <th>CARTA_PORTE</th>
+                                <th>FACTURADOR</th>
+                                <th>CLIENTE</th>
+                                <th>NOMBRE_RUTA</th>
+                                <th>UNIDAD</th>
+                                <th>REMOLQUE</th>
+                                <th>OPERADOR</th>
+                                <th>CLAVE_PRODUCTO_O_SERVICIO</th>
+                                <th>NO._IDENTIFICACION</th>
+                                <th>CANTIDAD</th>
+                                <th>CLAVE_UNIDAD</th>
+                                <th>UNIDAD</th>
+                                <th>DESCRIPCION</th>
+                                <th>VALOR_UNITARIO</th>
+                                <th>IMPORTE</th>
+                                <th>IVA_TRASLADADO</th>
+                                <th>IVA_RETENIDO</th>
+                            </tr>
+                        </thead>
+                        <form action="{{route('cuentasPorCobrarV2.store')}}" method="post" id="cuentasPorCobrarForm">
+                            <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
+                                <tbody id="tablaCuentasPorPagar">
+                                </tbody>
+                            <button type="submit" class="btn btn-info">Enviar</button>
+                        </form>
+
                     </table>
                 </div>
 
@@ -59,39 +87,5 @@
     </div>
 @endsection
 @section('scripts')
-    <script>
-        $('#formCuentasPorPagar').submit(function(e){
-            e.preventDefault();
-            $('#tablaCuentasPorPagar').DataTable({
-                destroy:true,
-                ajax:{
-                    url:'/api/postCuentasPorCobrar',
-                    type:'post',
-                    data:function (d) {
-                        d.facturadorCuentasPorPagar=$('#facturadorCuentasPorPagar option:selected').val()
-                        d.clienteCuentasPorPagar=$('#clienteCuentasPorPagar option:selected').val()
-                    }
-                },
-                    'columnDefs': [
-                        {
-                            'targets': 0,
-                            /*'checkboxes': {
-                                'selectRow': true
-                            }*/
-                            'render': function (data, type, full, meta){
-                                return '<input type="checkbox" disabled>';
-                            }
-
-                        }
-                    ],
-                'columns':[
-                    {title:'id_carta_porte', data:'id_carta_porte', name:'id_carta_porte'},
-                    {title:'receptor_razon_social', data:'receptor_razon_social', name:'receptor_razon_social'},
-                    {title:'cliente_id', data:'cliente_id', name:'cliente_id'},
-                    {title:'no_identificacion', data:'no_identificacion', name:'no_identificacion'},
-                    {title:'emisor_rfc', data:'emisor_rfc', name:'emisor_rfc'}
-                ]
-            })
-        })
-    </script>
+    <script src="{{asset('js/cuentasPorCobrar/cuentasPorCobrar.js')}}"></script>
     @endsection

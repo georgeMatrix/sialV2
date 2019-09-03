@@ -75,7 +75,9 @@ class CuentasPorCobrarController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        $facturable = new Facturables();
+        $facturable->create($request->all());
+        return redirect('cuentasPorCobrar');
     }
 
     /**

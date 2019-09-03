@@ -5,7 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Facturables extends Model
-{                        //saveFacturables
+{
+    protected $fillable = ['id_carta_porte', 'id_datos_facturacion', 'clave_prod_serv', 'no_identificacion', 'cantidad', 'clave_unidad', 'unidad', 'descripcion', 'valor_unitario', 'importe', 'emisor_rfc', 'emisor_razon_social', 'emisor_regimen', 'receptor_rfc', 'receptor_razon_social', 'cliente_id', 'receptor_regimen', 'cfdi_t_iva_base', 'cfdi_t_iva_impuesto', 'cfdi_t_iva_tipofactor', 'cfdi_t_iva_tasacuota', 'cfdi_t_iva_importe', 'cfdi_t_isr_base', 'cfdi_t_isr_impuesto', 'cfdi_t_isr_tipofactor', 'cfdi_t_isr_tasacuota', 'cfdi_t_isr_importe', 'cfdi_r_iva_base', 'cfdi_r_iva_impuesto', 'cfdi_r_iva_tipofactor', 'cfdi_r_iva_tasacuota', 'cfdi_r_iva_importe', 'cfdi_r_isr_base', 'cfdi_r_isr_impuesto', 'cfdi_r_isr_tipofactor', 'cfdi_r_isr_tasacuota', 'cfdi_r_isr_importe'];
     public static function saveFacturables($datosFacturacion, $cartasPorte, $i)
     {
         for ($j = 0; $j < count($datosFacturacion); $j++){
@@ -26,8 +27,14 @@ class Facturables extends Model
                 $clientes = Clientes::find($datosFacturacion[$j]->clientes);
                 $mFacturables->receptor_rfc = $clientes->rfc;
                 $mFacturables->receptor_razon_social = $clientes->razonSocial;
-            $mFacturables->cliente_id = $clientes->id;
+                $mFacturables->cliente_id = $clientes->id;
                 $mFacturables->receptor_regimen = $clientes->regimen;
+                $mFacturables->USER_CARTA_PORTE_TIPO = $cartasPorte[$i]->id;
+                $mFacturables->USER_CARTA_PORTE_TIPO_ID = $cartasPorte[$i]->tipo;
+                $mFacturables->USER_NOMBRE_RUTA = $cartasPorte[$i]->rutaCartaP->nombre;
+                $mFacturables->USER_UNIDAD = $cartasPorte[$i]->unidadesF->economico;
+                $mFacturables->USER_REMOLQUE = $cartasPorte[$i]->unidadesF->economico;
+                $mFacturables->USER_OPERADOR = $cartasPorte[$i]->operadorF->nombre_corto;
 
             if ($datosFacturacion[$j]->tIva != 0){
                 $mFacturables->cfdi_t_iva_base = $datosFacturacion[$j]->importe;

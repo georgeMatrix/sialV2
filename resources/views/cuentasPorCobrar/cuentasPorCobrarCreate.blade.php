@@ -17,7 +17,7 @@
                 <form action="{{route('cuentasPorCobrar.store')}}" method="post" id="cuentasPorPagarForm">
                     {{csrf_field()}}
                     <label for="">Carta Porte</label>
-                    <select name="idCartaPorteCuentasPorPagar" id="idCartaPorteCuentasPorPagar" class="form-control">
+                    <select name="id_carta_porte" id="id_carta_porte" class="form-control">
                         @foreach($cartasPorteRelease as $cartasPorteR)
                             <option value="{{$cartasPorteR->id}}">{{$cartasPorteR->id}}</option>
                         @endforeach
@@ -53,6 +53,7 @@
                             <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
                         @endforeach
                     </select>
+                    <input type="hidden" value="{{$cliente->id}}" name="cliente_id" id="cliente_id">
                     <input type="hidden" value="" name="receptor_regimen" id="receptor_regimen">
                     <h5>TRASLADO IVA %</h5>
                     <input min="0" max="99" type="number" name="trasladoIva" id="trasladoIva" class="form-control">
@@ -89,7 +90,7 @@
                     <input type="hidden" name="cfdi_r_isr_tasacuota" id="cfdi_r_isr_tasacuota" class="form-control">
                     <input type="hidden" name="cfdi_r_isr_importe" id="cfdi_r_isr_importe" class="form-control">
 
-                    <button class="btn btn-success">Guardar</button>
+                    <button type="submit" class="btn btn-success">Guardar</button>
                 </form>
             </div>
         </div>
@@ -98,7 +99,7 @@
 @section('scripts')
     <script>
         $("#cuentasPorPagarForm").submit(function (e) {
-            e.preventDefault()
+            //e.preventDefault()
             $('#emisor_rfc').val($("#emisor_razon_social").val());
             $('#emisor_regimen').val($("#emisor_rfc").val());
             $('#receptor_rfc').val($("#receptor_razon_social").val());

@@ -53,6 +53,14 @@ class CreateFacturablesTable extends Migration
             $table->string('cfdi_r_isr_tipofactor')->nullable();
             $table->string('cfdi_r_isr_tasacuota')->nullable();
             $table->string('cfdi_r_isr_importe')->nullable();
+
+            $table->string('USER_CARTA_PORTE_TIPO');
+            $table->string('USER_CARTA_PORTE_TIPO_ID');
+            $table->string('USER_NOMBRE_RUTA');
+            $table->string('USER_UNIDAD');
+            $table->string('USER_REMOLQUE');
+            $table->string('USER_OPERADOR');
+
             $table->timestamps();
         });
     }
