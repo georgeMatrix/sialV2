@@ -106,7 +106,7 @@
             $('#receptor_regimen').val($("#receptor_razon_social").val())
             
             if ($("#trasladoIva").val() != 0){
-                $("#cfdi_t_iva_base").val('IMPORTE');
+                $("#cfdi_t_iva_base").val($('#importe').val());
                 $("#cfdi_t_iva_impuesto").val('002');
                 $("#cfdi_t_iva_tipofactor").val('Tasa');
                 let iva1 = $("#trasladoIva").val()/100;
@@ -118,7 +118,7 @@
             }
 
             if ($("#trasladoIsr").val() != 0){
-                $("#cfdi_t_isr_base").val('IMPORTE');
+                $("#cfdi_t_isr_base").val($('#importe').val());
                 $("#cfdi_t_isr_impuesto").val('001');
                 $("#cfdi_t_isr_tipofactor").val('Tasa');
                 let iva2 = $("#trasladoIsr").val()/100;
@@ -128,7 +128,7 @@
             }
 
             if ($("#retencionIva").val() != 0){
-                $("#cfdi_r_iva_base").val('IMPORTE');
+                $("#cfdi_r_iva_base").val($('#importe').val());
                 $("#cfdi_r_iva_impuesto").val('002');
                 $("#cfdi_r_iva_tipofactor").val('Tasa');
                 let iva3 = $("#retencionIva").val()/100;
@@ -140,7 +140,7 @@
             }
 
             if ($("#retencionIsr").val() != 0){
-                $("#cfdi_r_isr_base").val('IMPORTE');
+                $("#cfdi_r_isr_base").val($('#importe').val());
                 $("#cfdi_r_isr_impuesto").val('002');
                 $("#cfdi_r_isr_tipofactor").val('Tasa');
                 let iva4 = $("#retencionIsr").val()/100;

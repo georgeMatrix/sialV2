@@ -26,13 +26,13 @@ class CartaPorteController extends Controller
     public function abiertaToRelease(Request $request){
         $contador = 0;
         for ($i=0; $i<count($request->valoresIds); $i++){
-            CartaPorte::find($request->valoresIds[$i])->update(['status'=>'release']); //CAMBIAR A release
+            CartaPorte::find($request->valoresIds[$i])->update(['status'=>'abierta']); //CAMBIAR A release
             $cartasPorte[$i] = CartaPorte::find($request->valoresIds[$i]); //primaryKey carta porte
             $datosFacturacion = DatosFacturacion::where('rutas','=',$cartasPorte[$i]->rutas)->get();
             $arreglo[$i] = $datosFacturacion;
             Facturables::saveFacturables($datosFacturacion, $cartasPorte, $i);
         }
-        return "Carga correcta";
+        return $request;
     }
 
     public function getPdfCartaPorte($ruta)

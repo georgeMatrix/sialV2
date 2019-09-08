@@ -62,17 +62,62 @@ class CuentasPorCobrarV2Controller extends Controller
     public function store(Request $request)
     {
         //return $request;
-        Facturables::create($request->all());
+        //Facturables::create($request->all());
         $facturable = new Facturables();
+        $facturable->id_carta_porte = $request->id_carta_porte;
+        $facturable->id_datos_facturacion = $request->id_datos_facturacion;
+        $facturable->clave_prod_serv = $request->clave_prod_serv;
+        $facturable->no_identificacion = $request->no_identificacion;
+        $facturable->cantidad = $request->cantidad;
+        $facturable->clave_unidad = $request->clave_unidad;
+        $facturable->unidad = $request->unidad;
+        $facturable->descripcion = $request->descripcion;
+        $facturable->valor_unitario = $request->valor_unitario;
+        $facturable->importe = $request->importe;
+        $facturable->emisor_razon_social = $request->emisor_razon_social;
+        $facturable->emisor_rfc = $request->emisor_rfc;
+        $facturable->emisor_regimen = $request->emisor_regimen;
+        $facturable->receptor_rfc = $request->receptor_rfc;
+        $facturable->receptor_razon_social = $request->receptor_razon_social;
+        $facturable->cliente_id = $request->cliente_id;
+        $facturable->receptor_regimen = $request->receptor_regimen;
+        //$facturable->trasladoIva = $request->trasladoIva;
+        //$facturable->trasladoIsr = $request->trasladoIsr;
+        //$facturable->retencionIva = $request->retencionIva;
+        //$facturable->retencionIsr = $request->retencionIsr;
+        $facturable->cfdi_t_iva_base = $request->cfdi_t_iva_base;
+        $facturable->cfdi_t_iva_impuesto = $request->cfdi_t_iva_impuesto;
+        $facturable->cfdi_t_iva_tipofactor = $request->cfdi_t_iva_tipofactor;
+        $facturable->cfdi_t_iva_tasacuota = $request->cfdi_t_iva_tasacuota;
+        $facturable->cfdi_t_iva_importe = $request->cfdi_t_iva_importe;
+        $facturable->cfdi_t_isr_base = $request->cfdi_t_isr_base;
+        $facturable->cfdi_t_isr_impuesto = $request->cfdi_t_isr_impuesto;
+        $facturable->cfdi_t_isr_tipofactor = $request->cfdi_t_isr_tipofactor;
+        $facturable->cfdi_t_isr_tasacuota = $request->cfdi_t_isr_tasacuota;
+        $facturable->cfdi_t_isr_importe = $request->cfdi_t_isr_importe;
+        $facturable->cfdi_r_iva_base = $request->cfdi_r_iva_base;
+        $facturable->cfdi_r_iva_impuesto = $request->cfdi_r_iva_impuesto;
+        $facturable->cfdi_r_iva_tipofactor = $request->cfdi_r_iva_tipofactor;
+        $facturable->cfdi_r_iva_tasacuota = $request->cfdi_r_iva_tasacuota;
+        $facturable->cfdi_r_iva_importe = $request->cfdi_r_iva_importe;
+        $facturable->cfdi_r_isr_base = $request->cfdi_r_isr_base;
+        $facturable->cfdi_r_isr_impuesto = $request->cfdi_r_isr_impuesto;
+        $facturable->cfdi_r_isr_tipofactor = $request->cfdi_r_isr_tipofactor;
+        $facturable->cfdi_r_isr_tasacuota = $request->cfdi_r_isr_tasacuota;
+        $facturable->cfdi_r_isr_importe = $request->cfdi_r_isr_importe;
+
         /*==================================================================
         /*FALTA QUE GUARDE ESTOS VALORES POR QUE SI NO DARA UN ERROR*/
         /*==================================================================*/
-        $facturable->USER_CARTA_PORTE_TIPO = 'X';
-        $facturable->USER_CARTA_PORTE_TIPO_ID = 'X';
-        $facturable->USER_NOMBRE_RUTA = 'X';
-        $facturable->USER_UNIDAD = 'X';
-        $facturable->USER_REMOLQUE = 'X';
-        $facturable->USER_OPERADOR = 'X';
+        $cartaPorte = CartaPorte::where('id', '=', $request->id_carta_porte)->get();
+        foreach ($cartaPorte as $carta){
+        $facturable->USER_CARTA_PORTE_TIPO = $carta->id;
+        $facturable->USER_CARTA_PORTE_TIPO_ID = $carta->tipo;
+        $facturable->USER_NOMBRE_RUTA = $carta->rutaCartaP->nombre;
+        $facturable->USER_UNIDAD = $carta->unidadesF->economico;
+        $facturable->USER_REMOLQUE = $carta->unidadesF->economico;
+        $facturable->USER_OPERADOR = $carta->operadorF->nombre_corto;
+        }
         $facturable->save();
 
         return redirect('cuentasPorCobrarV2');

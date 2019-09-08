@@ -36,18 +36,17 @@ class Facturables extends Model
                 $mFacturables->USER_REMOLQUE = $cartasPorte[$i]->unidadesF->economico;
                 $mFacturables->USER_OPERADOR = $cartasPorte[$i]->operadorF->nombre_corto;
 
-            if ($datosFacturacion[$j]->tIva != 0){
+            if ($datosFacturacion[$j]['tIva'] != 0){
                 $mFacturables->cfdi_t_iva_base = $datosFacturacion[$j]->importe;
                 $mFacturables->cfdi_t_iva_impuesto = "002";
                 $mFacturables->cfdi_t_iva_tipofactor = "Tasa";
                 $tiva = $datosFacturacion[$j]['tIva']/100;
-                //bcdiv($valor, '1', 1);
                 $mFacturables->cfdi_t_iva_tasacuota = number_format((float)$tiva, 4);
                 $importe = ($datosFacturacion[$j]->importe) * $tiva;
                 $mFacturables->cfdi_t_iva_importe = $importe;
             }
 
-            if ($datosFacturacion[$j]->tIrs != 0){
+            if ($datosFacturacion[$j]['tIsr'] != 0){
                 $mFacturables->cfdi_t_isr_base = $datosFacturacion[$j]->importe;
                 $mFacturables->cfdi_t_isr_impuesto = "001";
                 $mFacturables->cfdi_t_isr_tipofactor = "Tasa";
@@ -57,24 +56,24 @@ class Facturables extends Model
                 $mFacturables->cfdi_t_isr_importe = $importe;
             }
 
-            if ($datosFacturacion[$j]->rIva != 0){
+            if ($datosFacturacion[$j]['rIva'] != 0){
                 $mFacturables->cfdi_r_iva_base = $datosFacturacion[$j]->importe;
                 $mFacturables->cfdi_r_iva_impuesto = "002";
                 $mFacturables->cfdi_r_iva_tipofactor = "Tasa";
                 $rIva = $datosFacturacion[$j]['rIva']/100;
                 $mFacturables->cfdi_r_iva_tasacuota = number_format((float)$rIva, 4);
                 $importe = ($datosFacturacion[$j]->importe) * $rIva;
-                $mFacturables->cfdi_t_iva_importe = $importe;
+                $mFacturables->cfdi_r_iva_importe = $importe;
             }
 
-            if ($datosFacturacion[$j]->rIsr != 0){
+            if ($datosFacturacion[$j]['rIsr'] != 0){
                 $mFacturables->cfdi_r_isr_base = $datosFacturacion[$j]->importe;
                 $mFacturables->cfdi_r_isr_impuesto = "001";
                 $mFacturables->cfdi_r_isr_tipofactor = "Tasa";
                 $rIsr = $datosFacturacion[$j]['rIsr']/100;
                 $mFacturables->cfdi_r_isr_tasacuota = number_format((float)$rIsr,4);
                 $importe = ($datosFacturacion[$j]->importe) * $rIva;
-                $mFacturables->cfdi_t_isr_importe = $importe;
+                $mFacturables->cfdi_r_isr_importe = $importe;
             }
             $mFacturables->save();
         }
