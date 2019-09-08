@@ -32,6 +32,7 @@ Route::group(['middleware'=>['auth', 'noCache']], function (){
     Route::resource('cuentasPorCobrarV2', 'CuentasPorCobrarV2Controller');
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('prueba', 'PruebasController');
+    Route::resource('facturas', 'FacturasController');
 });
 
 Route::get('factura', function(){

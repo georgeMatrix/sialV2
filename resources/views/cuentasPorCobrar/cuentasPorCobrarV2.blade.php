@@ -7,11 +7,14 @@
                 <div class="col-md-6 card-title">
                     <h3 class="text-center text-white"><i class="text-danger mt-3 fa fa-id-card fa-md"></i> LISTADO CUENTAS POR COBRAR</h3>
                 </div>
-
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <a href="{{url('/home')}}" class="mt-3 mr-3 btn btn-info float-right"><i class="fas fa-arrow-circle-left"></i> Regresar</a>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
+                    <button class="mt-3 mr-3 btn btn-info float-right" id="facturar" data-toggle="modal" data-target="#modalFacturar"> Facturar</button>
+                </div>
+
+                <div class="col-md-2">
                     <a href="{{route('cuentasPorCobrarV2.create')}}" class="mt-3 mr-3 btn btn-info float-right">Nuevo</a>
                 </div>
             </div>
@@ -36,10 +39,6 @@
                         @endforeach
                     </select>
                 </div>
-                <!--<div class="row">
-                    <label for="">prueba</label>
-                    <input type="text" name="prueba" id="prueba" class="form-control">
-                </div>-->
                 <div class="row">
                     <button class="btn btn-success mt-2" type="submit">Consultar</button>
                 </div>
@@ -70,6 +69,7 @@
                                 <th>IMPORTE</th>
                                 <th>IVA_TRASLADADO</th>
                                 <th>IVA_RETENIDO</th>
+                                <th>TOTAL</th>
                             </tr>
                         </thead>
                         <form action="{{route('cuentasPorCobrarV2.store')}}" method="post" id="cuentasPorCobrarForm">
@@ -85,6 +85,7 @@
             </div>
         </div>
     </div>
+    @include('include.modalFacturar')
 @endsection
 @section('scripts')
     <script src="{{asset('js/cuentasPorCobrar/cuentasPorCobrar.js')}}"></script>

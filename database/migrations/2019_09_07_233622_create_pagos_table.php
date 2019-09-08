@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFacturablesTable extends Migration
+class CreatePagosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateFacturablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('facturables', function (Blueprint $table) {
+        Schema::create('pagos', function (Blueprint $table) {
             $table->Increments('id');
-            $table->unsignedInteger('factura');
-            $table->foreign('factura')->references('id')->on('facturas');
             $table->string('id_carta_porte');
-            $table->string('id_datos_facturacion');
+            $table->string('id_datos_cuentas_por_pagar');
             $table->string('clave_prod_serv');
             $table->string('no_identificacion');
             $table->double('cantidad');
@@ -73,6 +71,6 @@ class CreateFacturablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('facturables');
+        Schema::dropIfExists('pagos');
     }
 }
