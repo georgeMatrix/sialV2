@@ -35,7 +35,7 @@ class FacturasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request;
     }
 
     /**

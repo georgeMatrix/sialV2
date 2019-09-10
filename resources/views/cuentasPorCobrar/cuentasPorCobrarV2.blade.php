@@ -11,7 +11,7 @@
                     <a href="{{url('/home')}}" class="mt-3 mr-3 btn btn-info float-right"><i class="fas fa-arrow-circle-left"></i> Regresar</a>
                 </div>
                 <div class="col-md-2">
-                    <button class="mt-3 mr-3 btn btn-info float-right" id="facturar" data-toggle="modal" data-target="#modalFacturar"> Facturar</button>
+                    <button class="mt-3 mr-3 btn btn-info float-right" id="facturar" data-toggle="modal" data-target="#modalFacturar" onclick="inputCheckFacturar()"> Facturar</button>
                 </div>
 
                 <div class="col-md-2">
@@ -72,12 +72,14 @@
                                 <th>TOTAL</th>
                             </tr>
                         </thead>
-                        <form action="{{route('cuentasPorCobrarV2.store')}}" method="post" id="cuentasPorCobrarForm">
+                        <tbody id="tablaCuentasPorPagar">
+                        </tbody>
+                        <!--<form action="{{route('cuentasPorCobrarV2.store')}}" method="post" id="cuentasPorCobrarForm">
                             <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
                                 <tbody id="tablaCuentasPorPagar">
                                 </tbody>
                             <button type="submit" class="btn btn-info">Enviar</button>
-                        </form>
+                        </form>-->
 
                     </table>
                 </div>

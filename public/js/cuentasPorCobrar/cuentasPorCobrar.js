@@ -25,9 +25,16 @@ function ajax(request, tokenCuentasPorPagar){
             console.log(data);
             let htmlSelect = ''
             for (let i=0; i<data.length; i++){
-                htmlSelect += "<tr>" +
-                    "<td><input id="+i+" type='checkbox' name="+i+" class='form-control'></td>" +
-                    "<td>"+data[i].USER_CARTA_PORTE_TIPO_ID+"</td>" +
+                htmlSelect += "<tr id='rows'>" +
+                    "<input id='idFactura' type='hidden' value="+data[i].id+">" +
+                    "<td><input id='inputCheckFactura' type='checkbox' name="+i+" class='form-control'></td>" +
+                        /*==================================================================*/
+                        /*=====Aqui me quedo hay que ponerle a todos id y enviarlos por ajax*/
+                        /*O tal vez mejor hacerle como en carta porte, enviar los id, que ya los obtenemos y hacer una busqueda de
+                        ellos y cargalos en la base de datos, pero ya en el controller
+                         */
+                        /*==================================================================*/
+                    "<td id="+'userCartaPorteTipoId_'+data[i].id+">"+data[i].USER_CARTA_PORTE_TIPO_ID+"</td>" +
                     "<td>"+data[i].USER_CARTA_PORTE_TIPO+"</td>" +
                     "<td>"+data[i].emisor_razon_social+"</td>" +
                     "<td>"+data[i].receptor_razon_social+"</td>" +
@@ -82,19 +89,20 @@ function number_format(amount, decimals) {
     return amount_parts.join('.');
 }
 
-
-
-
-/*function inputCheckBoxChecked(){
+function inputCheckFacturar(){
     var contador=0;
     var valoresIds = [];
     $("#rows td").each(function(){
-        if($(this).find("#release").prop('checked')){
+        if($(this).find("#inputCheckFactura").prop('checked')){
             let valorActual = $(this).parent();
-            valoresIds[contador] = valorActual.find("#idValorRelease").val();
+            valoresIds[contador] = valorActual.find("#idFactura").val();
             contador = contador + 1;
         }
     });
+    console.log( valoresIds);
     return valoresIds;
-}*/
+}
 
+function generarFactura(){
+    console.log('mandar a guardar')
+}

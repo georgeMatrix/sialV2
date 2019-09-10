@@ -15,8 +15,7 @@ class CreateFacturablesTable extends Migration
     {
         Schema::create('facturables', function (Blueprint $table) {
             $table->Increments('id');
-            $table->unsignedInteger('factura');
-            $table->foreign('factura')->references('id')->on('facturas');
+            $table->Integer('factura')->nullable();
             $table->string('id_carta_porte');
             $table->string('id_datos_facturacion');
             $table->string('clave_prod_serv');

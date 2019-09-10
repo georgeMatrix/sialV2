@@ -29,8 +29,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="window.location.reload()">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="cambioRelease" onclick="cambioAbiertaToRelease()">Generar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="generarFactura" onclick="generarFactura()">Generar</button>
             </div>
         </div>
     </div>

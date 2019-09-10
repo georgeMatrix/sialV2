@@ -9,20 +9,20 @@
                 <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
                 <table class="table table-responsive">
                     <thead>
-                    <th>RELEASE</th>
-                    <th>ID</th>
-                    <th>TIPO</th>
-                    <th>FECHA</th>
-                    <th>RUTA</th>
-                    <th>UNIDAD</th>
-                    <th>REMOLQUE</th>
-                    <th>OPERADOR</th>
-                    <th>REFERENCIA</th>
-                    <th>FECHA_EMBARQUE</th>
-                    <th>FECHA_ENTREGA</th>
-                    <th>STATUS</th>
-                    <th>ULTIMO_STATUS</th>
-                    <th>FECHA_STATUS</th>
+                        <th>RELEASE</th>
+                        <th>ID</th>
+                        <th>TIPO</th>
+                        <th>FECHA</th>
+                        <th>RUTA</th>
+                        <th>UNIDAD</th>
+                        <th>REMOLQUE</th>
+                        <th>OPERADOR</th>
+                        <th>REFERENCIA</th>
+                        <th>FECHA_EMBARQUE</th>
+                        <th>FECHA_ENTREGA</th>
+                        <th>STATUS</th>
+                        <th>ULTIMO_STATUS</th>
+                        <th>FECHA_STATUS</th>
                     </thead>
                     @foreach ($release as $rel)
                     <tr id="rows">
