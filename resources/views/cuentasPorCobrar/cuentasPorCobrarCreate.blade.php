@@ -16,12 +16,20 @@
             <div class="col-md-12">
                 <form action="{{route('cuentasPorCobrarV2.store')}}" method="post" id="cuentasPorPagarForm">
                     {{csrf_field()}}
-                    <label for="">Carta Porte</label>
+                    <label for="">Tipo</label>
+                    <select name="id_carta_porte" id="id_carta_porte" class="form-control">
+                        @foreach($cartasPorteRelease as $cartasPorteR)
+                            <option value="{{$cartasPorteR->id}}">{{$cartasPorteR->tipo}}</option>
+                        @endforeach
+                    </select>
+
+                    <label for="">Id</label>
                     <select name="id_carta_porte" id="id_carta_porte" class="form-control">
                         @foreach($cartasPorteRelease as $cartasPorteR)
                             <option value="{{$cartasPorteR->id}}">{{$cartasPorteR->id}}</option>
                         @endforeach
                     </select>
+
                     <input type="hidden" value="0" name="id_datos_facturacion" id="id_datos_facturacion" class="form-control">
                     <h5 for="">Clave Producto Servicio</h5>
                     <input type="text" name="clave_prod_serv" id="clave_prod_serv" class="form-control">
@@ -46,15 +54,20 @@
                     </select>
                     <input type="hidden" value="" name="emisor_rfc" id="emisor_rfc">
                     <input type="hidden" value="" name="emisor_regimen" id="emisor_regimen">
-                    <input type="hidden" value="" name="receptor_rfc" id="receptor_rfc">
+
                     <h5 for="">Cliente</h5>
-                    <select name="receptor_razon_social" id="receptor_razon_social" class="form-control">
+
+                    <select name="" id="receptor_razon_social_busqueda" class="form-control">
                         @foreach($clientes as $cliente)
-                            <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
+                                <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
                         @endforeach
                     </select>
-                    <input type="hidden" value="{{$cliente->id}}" name="cliente_id" id="cliente_id">
+
+                    <input type="hidden" value="" name="receptor_razon_social" id="receptor_razon_social">
+                    <input type="hidden" value="" name="receptor_rfc" id="receptor_rfc">
                     <input type="hidden" value="" name="receptor_regimen" id="receptor_regimen">
+                    <input type="hidden" value="" name="cliente_id" id="cliente_id">
+
                     <h5>TRASLADO IVA %</h5>
                     <input min="0" max="99" type="number" name="trasladoIva" id="trasladoIva" class="form-control">
                     <h5>TRASLADO ISR %</h5>
@@ -98,13 +111,28 @@
 @endsection
 @section('scripts')
     <script>
+        $("#receptor_razon_social_busqueda").on('change', function() {
+            console.log( this.value );
+            $.get('/api/cliente/'+this.value, function (data) {
+                //console.log(data[0]['razonSocial'])
+                $('#receptor_rfc').val(data[0]['rfc'])
+                $('#receptor_regimen').val(data[0]['regimen'])
+                $('#cliente_id').val(data[0]['id'])
+
+                $('#receptor_razon_social').val(data[0]['razonSocial'])
+
+
+            });
+        });
+
         $("#cuentasPorPagarForm").submit(function (e) {
             //e.preventDefault()
             $('#emisor_rfc').val($("#emisor_razon_social").val());
             $('#emisor_regimen').val($("#emisor_rfc").val());
-            $('#receptor_rfc').val($("#receptor_razon_social").val());
-            $('#receptor_regimen').val($("#receptor_razon_social").val())
-            
+
+            //$('#receptor_rfc').val($("#receptor_rfc").val());
+            //$('#receptor_regimen').val($("#receptor_regimen").val())
+
             if ($("#trasladoIva").val() != 0){
                 $("#cfdi_t_iva_base").val($('#importe').val());
                 $("#cfdi_t_iva_impuesto").val('002');
@@ -151,6 +179,8 @@
                 $("#cfdi_r_isr_importe").val(importe4);
             }
         })
+
+
 
     </script>
     @endsection

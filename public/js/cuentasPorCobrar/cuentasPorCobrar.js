@@ -55,7 +55,9 @@ function ajax(request, tokenCuentasPorPagar){
                     "<td>"+number_format((parseInt(data[i].importe) + parseInt(data[i].cfdi_t_iva_importe))-(parseInt(data[i].cfdi_r_iva_importe)), 2)+"</td>" +
                     "</tr>"
                 $("#tablaCuentasPorPagar").html(htmlSelect)
+                //console.log(htmlSelect)
             }
+            $("#tablaCuentasPorPagar").html(htmlSelect)
         })
         .fail(function() {
             console.log("error");

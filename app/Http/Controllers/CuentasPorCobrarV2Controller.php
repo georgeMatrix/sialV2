@@ -15,15 +15,15 @@ class CuentasPorCobrarV2Controller extends Controller
 {
     public function getDatosCuentasPorCobrar(Request $request ){
         $query = Facturables::where('emisor_razon_social', $request[0]['facturador'])
-            ->where('cliente_id', $request[1]['cliente'])
+            ->where('cliente_id', '=', $request[1]['cliente'])
             ->get();
         return response()->json($query);
     }
 
-    /*public function getDatosCuentasPorCobrar(){
-        return "llegando";
-        //return $request;
-    }*/
+    public function cliente($id){
+        $cliente = Clientes::where('id', '=', $id)->get();
+        return response()->json($cliente);
+    }
 
     /**
      * Display a listing of the resource.
@@ -75,12 +75,13 @@ class CuentasPorCobrarV2Controller extends Controller
         $facturable->valor_unitario = $request->valor_unitario;
         $facturable->importe = $request->importe;
         $facturable->emisor_razon_social = $request->emisor_razon_social;
-        $facturable->emisor_rfc = $request->emisor_rfc;
+
+            $facturable->emisor_rfc = $request->emisor_rfc;
         $facturable->emisor_regimen = $request->emisor_regimen;
         $facturable->receptor_rfc = $request->receptor_rfc;
-        $facturable->receptor_razon_social = $request->receptor_razon_social;
-        $facturable->cliente_id = $request->cliente_id;
-        $facturable->receptor_regimen = $request->receptor_regimen;
+            $facturable->receptor_razon_social = $request->receptor_razon_social;
+            $facturable->cliente_id = $request->cliente_id;
+            $facturable->receptor_regimen = $request->receptor_regimen;
         //$facturable->trasladoIva = $request->trasladoIva;
         //$facturable->trasladoIsr = $request->trasladoIsr;
         //$facturable->retencionIva = $request->retencionIva;

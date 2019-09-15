@@ -50,7 +50,7 @@
                     <div class="form-group">
                         <h5 for="">Ruta</h5>
                         <select disabled required name="rutas" id="rutas" class="form-control" value="{{old('rutas')}}">
-                            <option value="">Seleccione una ruta</option>
+                            <option value="" selected>Seleccione una ruta</option>
                         @foreach($rutas as $ruta)
                             <option value="{{$ruta->id}}">{{$ruta->nombre}}</option>
                         @endforeach
