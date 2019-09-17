@@ -10,7 +10,7 @@
                 <form action="{{route('facturas.store')}}" method="post">
                     <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
                     <label for="">Lugar de expedición</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" id="lugarExpedicion" name="lugarExpedicion">
                     <label for="">Método de pago</label>
                     <select name="metodo_pago" id="metodo_pago" class="form-control">
                         <option value="ppd">PPD</option>
@@ -23,8 +23,14 @@
                         @endfor
                             <option value="99">99</option>
                     </select>
+                    <label for="">Tipo de comprobante</label>
+                    <select name="tipo_comprobante" id="tipo_comprobante" class="form-control">
+                        <option value="i">I</option>
+                        <option value="e">E</option>
+                        <option value="n">N</option>
+                    </select>
                     <label for="">Moneda</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" id="moneda" name="moneda">
 
                 </form>
             </div>

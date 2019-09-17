@@ -15,25 +15,25 @@ class CreateFacturasTable extends Migration
     {
         Schema::create('facturas', function (Blueprint $table) {
             $table->Increments('id');
-            $table->string('lugar_expedicion');
-            $table->string('metodo_pago');
-            $table->string('tipo_comprobante');
-            $table->string('total');
-            $table->string('moneda');
-            $table->string('certificado');
-            $table->string('subtotal');
-            $table->string('numero_de_certificado');
-            $table->string('forma_pago');
-            $table->string('sello');
-            $table->string('fecha');
-            $table->string('folio');
-            $table->string('serie');
-            $table->string('version');
-            $table->string('uuid');
-            $table->string('fecha_timbrado');
-            $table->string('contrarecibo');
-            $table->string('revicion');
-            $table->string('importe_pagado');
+            $table->string('lugar_expedicion')->nullable();
+            $table->string('metodo_pago')->nullable();
+            $table->string('tipo_comprobante')->nullable();
+            $table->string('total')->nullable();
+            $table->string('moneda')->nullable();
+            $table->string('certificado')->nullable();
+            $table->string('subtotal')->nullable();
+            $table->string('numero_de_certificado')->nullable();
+            $table->string('forma_pago')->nullable();
+            $table->string('sello')->nullable();
+            $table->string('fecha')->nullable();
+            $table->string('folio')->nullable();
+            $table->string('serie')->nullable();
+            $table->string('version')->nullable();
+            $table->string('uuid')->nullable();
+            $table->string('fecha_timbrado')->nullable();
+            $table->string('contrarecibo')->nullable();
+            $table->string('revicion')->nullable();
+            $table->string('importe_pagado')->nullable();
             $table->timestamps();
         });
     }

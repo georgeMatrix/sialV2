@@ -1,6 +1,8 @@
 /**
  * Created by GEORGE on 8/22/19.
  */
+var valoresGlobales = [];
+
 $('#formCuentasPorPagar').submit(function(e){
     e.preventDefault()
     let facturador = $('#facturadorCuentasPorPagar').val();
@@ -22,19 +24,13 @@ function ajax(request, tokenCuentasPorPagar){
         data: JSON.stringify(request),
     })
         .done(function(data) {
-            console.log(data);
+            //console.log(data);
             let htmlSelect = ''
             for (let i=0; i<data.length; i++){
                 htmlSelect += "<tr id='rows'>" +
                     "<input id='idFactura' type='hidden' value="+data[i].id+">" +
                     "<td><input id='inputCheckFactura' type='checkbox' name="+i+" class='form-control'></td>" +
-                        /*==================================================================*/
-                        /*=====Aqui me quedo hay que ponerle a todos id y enviarlos por ajax*/
-                        /*O tal vez mejor hacerle como en carta porte, enviar los id, que ya los obtenemos y hacer una busqueda de
-                        ellos y cargalos en la base de datos, pero ya en el controller
-                         */
-                        /*==================================================================*/
-                    "<td id="+'userCartaPorteTipoId_'+data[i].id+">"+data[i].USER_CARTA_PORTE_TIPO_ID+"</td>" +
+                    "<td>"+data[i].USER_CARTA_PORTE_TIPO_ID+"</td>" +
                     "<td>"+data[i].USER_CARTA_PORTE_TIPO+"</td>" +
                     "<td>"+data[i].emisor_razon_social+"</td>" +
                     "<td>"+data[i].receptor_razon_social+"</td>" +
@@ -95,16 +91,50 @@ function inputCheckFacturar(){
     var contador=0;
     var valoresIds = [];
     $("#rows td").each(function(){
+        /*==============================
+        /*EL DETALLE ES QUE SOLO ENCUENTRA UN nombre de inputCheckFactura*/
+        /*datosParaFacturar es la funcion que esta en CuentasPorCobrarV2
+        /*==============================*/
         if($(this).find("#inputCheckFactura").prop('checked')){
             let valorActual = $(this).parent();
             valoresIds[contador] = valorActual.find("#idFactura").val();
             contador = contador + 1;
         }
     });
-    console.log( valoresIds);
-    return valoresIds;
+console.log(valoresIds)
+    $.ajax({
+        url: '/api/facturar',
+        type: 'POST',
+        headers: {'X-CSRF-TOKEN':tokenCuentasPorPagar},
+        contentType: 'application/json',
+        data: JSON.stringify(valoresIds),
+    }).done(function(data) {
+        console.log(data)
+        valoresGlobales = data;
+    })
+    return valoresGlobales
 }
 
 function generarFactura(){
-    console.log('mandar a guardar')
+    var valoresParaServer = [];
+    valoresParaServer[0] = inputCheckFacturar()
+    valoresParaServer[1] = $("#lugarExpedicion").val();
+    valoresParaServer[2] = $("#metodo_pago").val();
+    valoresParaServer[3] = $("#forma_pago").val();
+    valoresParaServer[5] = $("#tipo_comprobante").val();
+    valoresParaServer[6] = $("#moneda").val();
+
+    $.ajax({
+        url: '/api/guardarFacturar',
+        type: 'POST',
+        headers: {'X-CSRF-TOKEN':tokenCuentasPorPagar},
+        contentType: 'application/json',
+        data: JSON.stringify(valoresParaServer),
+    }).done(function(data) {
+        console.log('regreso del guardado')
+        console.log(data)
+    })
+
+    //console.log(valoresParaServer);
+    //console.log(tamInputCheckFacturar)
 }

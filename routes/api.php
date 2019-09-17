@@ -27,5 +27,9 @@ Route::post('postCuentasPorCobrar', 'CuentasPorCobrarController@postCuentasPorCo
 
 Route::post('/cuentasPorCobrarV2', 'CuentasPorCobrarV2Controller@getDatosCuentasPorCobrar');
 
+Route::post('/facturar', 'CuentasPorCobrarV2Controller@datosParaFacturar');
+
+Route::post('/guardarFacturar', 'CuentasPorCobrarV2Controller@datosAGuardarEnFactura');
+
 Route::get('/cliente/{id}', 'CuentasPorCobrarV2Controller@cliente');
 //Route::get('/cuentasPorCobrarV2', 'CuentasPorCobrarV2Controller@getDatosCuentasPorCobrar');

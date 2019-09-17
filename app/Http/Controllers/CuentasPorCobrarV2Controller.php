@@ -8,11 +8,36 @@ use App\Cruce;
 use App\CuentasPorCobrarV2;
 use App\Exportacion;
 use App\Facturables;
+use App\Facturas;
 use App\Importacion;
 use Illuminate\Http\Request;
 
 class CuentasPorCobrarV2Controller extends Controller
 {
+
+    public function datosAGuardarEnFactura(Request $request){
+        $tamInputCheckFacturar = count($request[0]);
+        for($i=0; $i < $tamInputCheckFacturar; $i++){
+            $factura = new Facturas();
+            $factura->lugar_expedicion = $request[0][$i][0]['USER_NOMBRE_RUTA'];
+            $factura->save();
+        }
+        return count($request[0]);
+    }
+
+    public function datosParaFacturar(Request $request){
+        $valores =[];
+        $facturables = [];
+        for ($i=0; $i<=count($request); $i++){
+            $valores[$i] = Facturables::where('id', '=', $request[$i])->get();
+            if (count($valores[$i]) != 0){
+                $facturables[$i] = $valores[$i];
+            }
+        }
+        return response()->json($facturables);
+        //return count($request);
+    }
+
     public function getDatosCuentasPorCobrar(Request $request ){
         $query = Facturables::where('emisor_razon_social', $request[0]['facturador'])
             ->where('cliente_id', '=', $request[1]['cliente'])
