@@ -26,16 +26,19 @@ class CuentasPorCobrarV2Controller extends Controller
     }
 
     public function datosParaFacturar(Request $request){
+        //dd(array_count_values($request));
+        //$prueba =  join(',', json_decode($request));
         $valores =[];
         $facturables = [];
-        for ($i=0; $i<=count($request); $i++){
-            $valores[$i] = Facturables::where('id', '=', $request[$i])->get();
+        for ($i=0; $i<count($request->valoresIds); $i++){
+            $valores[$i] = Facturables::where('id', '=', $request->valoresIds[$i])->get();
             if (count($valores[$i]) != 0){
                 $facturables[$i] = $valores[$i];
             }
         }
         return response()->json($facturables);
-        //return count($request);
+
+        //return $request->valoresIds[2];
     }
 
     public function getDatosCuentasPorCobrar(Request $request ){
