@@ -102,14 +102,19 @@ function inputCheckFacturar(){
         }
     });
 console.log(valoresIds)
+
+    var request = {
+        valoresIds:valoresIds
+    };
+
     $.ajax({
         url: '/api/facturar',
         type: 'POST',
         headers: {'X-CSRF-TOKEN':tokenCuentasPorPagar},
         contentType: 'application/json',
-        data: JSON.stringify(valoresIds),
+        data: JSON.stringify(request),
     }).done(function(data) {
-        console.log(data)
+        //console.log(data)
         valoresGlobales = data;
     })
     return valoresGlobales
@@ -121,8 +126,8 @@ function generarFactura(){
     valoresParaServer[1] = $("#lugarExpedicion").val();
     valoresParaServer[2] = $("#metodo_pago").val();
     valoresParaServer[3] = $("#forma_pago").val();
-    valoresParaServer[5] = $("#tipo_comprobante").val();
-    valoresParaServer[6] = $("#moneda").val();
+    valoresParaServer[4] = $("#tipo_comprobante").val();
+    valoresParaServer[5] = $("#moneda").val();
 
     $.ajax({
         url: '/api/guardarFacturar',

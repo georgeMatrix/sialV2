@@ -16,13 +16,32 @@ class CuentasPorCobrarV2Controller extends Controller
 {
 
     public function datosAGuardarEnFactura(Request $request){
-        $tamInputCheckFacturar = count($request[0]);
+        //return count($request[0]);
+        //return count($request[0]);
+
+        $guardadoFactura = Facturas::create([
+            'lugar_expedicion' => $request[1],
+            'metodo_pago' => $request[2],
+            'forma_pago' => $request[3],
+            'tipo_comprobante' => $request[4],
+            'moneda' => $request[5]
+        ]);
+        //$facturables = new Facturables();
+        //$facturables->factura = $guardadoFactura->id;
+        //$cartaPorte = $request[0][0][0]->only(['_token', '_method']);
+        for($i=0; $i < count($request[0]); $i++){
+            Facturables::where('id', '=', $request[0][$i][0]['id'])->update(['factura' => $guardadoFactura->id]);
+        }
+        return response()->json($guardadoFactura);
+/*============================================================*/
+
+        /*$tamInputCheckFacturar = count($request[0]);
         for($i=0; $i < $tamInputCheckFacturar; $i++){
             $factura = new Facturas();
             $factura->lugar_expedicion = $request[0][$i][0]['USER_NOMBRE_RUTA'];
             $factura->save();
         }
-        return count($request[0]);
+        return count($request[0]);*/
     }
 
     public function datosParaFacturar(Request $request){
