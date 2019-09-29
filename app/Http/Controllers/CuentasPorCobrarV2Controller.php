@@ -14,6 +14,9 @@ use Illuminate\Http\Request;
 
 class CuentasPorCobrarV2Controller extends Controller
 {
+    public function serverExterno(Request $request){
+        return $request;
+    }
 
     public function datosAGuardarEnFactura(Request $request){
         //return count($request[0]);
@@ -32,7 +35,7 @@ class CuentasPorCobrarV2Controller extends Controller
         for($i=0; $i < count($request[0]); $i++){
             Facturables::where('id', '=', $request[0][$i][0]['id'])->update(['factura' => $guardadoFactura->id]);
         }
-        return response()->json($guardadoFactura);
+        return response()->json($request);
 /*============================================================*/
 
         /*$tamInputCheckFacturar = count($request[0]);

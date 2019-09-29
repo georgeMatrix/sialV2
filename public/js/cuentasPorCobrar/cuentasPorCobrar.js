@@ -138,7 +138,28 @@ function generarFactura(){
     }).done(function(data) {
         console.log('regreso del guardado')
         console.log(data)
+        $producto = 'CALABAZA PARA DIA DE MUERTOS'
+        serverExterno($producto)
     })
+
+    function serverExterno(datosServer){
+
+        var producto = {
+            producto: datosServer
+        };
+
+        $.ajax({
+            //url: 'http://agentedesegurosmba.com/facturacion/ejemplos/cfdi33/ejemplo_factura - copia.php',
+            url: '/facturacion/ejemplos/cfdi33/ejemplo_factura - copia.php',
+            type: 'POST',
+            //headers: {'X-CSRF-TOKEN':tokenCuentasPorPagar},
+            contentType: 'application/json',
+            data: JSON.stringify(producto),
+        }).done(function(data) {
+            console.log('respuesta del server')
+            console.log(data)
+        })
+    }
 
     //console.log(valoresParaServer);
     //console.log(tamInputCheckFacturar)
