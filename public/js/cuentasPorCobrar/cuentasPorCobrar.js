@@ -1,3 +1,4 @@
+
 /**
  * Created by GEORGE on 8/22/19.
  */
@@ -139,28 +140,57 @@ function generarFactura(){
         console.log('regreso del guardado')
         console.log(data)
         $producto = 'CALABAZA PARA DIA DE MUERTOS'
-        serverExterno($producto)
+        serverExterno()
     })
-
-    function serverExterno(datosServer){
-
-        var producto = {
-            producto: datosServer
-        };
-
-        $.ajax({
-            //url: 'http://agentedesegurosmba.com/facturacion/ejemplos/cfdi33/ejemplo_factura - copia.php',
-            url: '/facturacion/ejemplos/cfdi33/ejemplo_factura - copia.php',
-            type: 'POST',
-            //headers: {'X-CSRF-TOKEN':tokenCuentasPorPagar},
-            contentType: 'application/json',
-            data: JSON.stringify(producto),
-        }).done(function(data) {
-            console.log('respuesta del server')
-            console.log(data)
-        })
-    }
 
     //console.log(valoresParaServer);
     //console.log(tamInputCheckFacturar)
+}
+
+function serverExterno(){
+
+    /*var producto = {
+        producto: datosServer
+    };*/
+
+    $.ajax({
+        //url: 'http://agentedesegurosmba.com/facturacion/ejemplos/cfdi33/ejemplo_factura - copia.php',
+        url: '/facturacion/ejemplos/cfdi33/ejemplo_factura - copia.php',
+        type: 'POST',
+        //headers: {'X-CSRF-TOKEN':tokenCuentasPorPagar},
+        //contentType: 'text/html',
+        dataType: "xml",
+        data: {producto: 'RAYZER'},
+    }).done(function(data) {
+        console.log('respuesta del server');
+        console.log(data);
+        var xmlDoc = $.parseXML( data );
+        var xml = $( xmlDoc );
+        var title = xml.find( "URL" );
+        console.log(title);
+    });
+
+    // let data = new FormData();
+    // data.append('producto', 'RAYZER');
+    // fetch('/facturacion/ejemplos/cfdi33/ejemplo_factura - copia.php', {
+    //     method: 'POST',
+    //     body:data
+    // })
+    //     /*.then(function(response){
+    //         if (response.ok){
+    //            return response.text()
+    //         }
+    //         else{
+    //             throw "error aqui"
+    //         }
+    //     })*/
+    //     .then(function(data){
+    //         /*let parser = new DOMParser(),
+    //
+    //             xmlDoc = parser.parseFromString(data, 'text/xml');*/
+    //         console.log(data)
+    //     })
+    //     .catch(function(error){
+    //         console.log(error)
+    //     })
 }

@@ -1,9 +1,12 @@
 <?php
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+
 $producto = $_POST['producto'];
 // Se desactivan los mensajes de debug
-error_reporting(~(E_WARNING|E_NOTICE));
+ini_set('error_reporting', E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE); // Show all errors minus STRICT, DEPRECATED and NOTICES
+ini_set('display_errors', 0); // disable error display
+ini_set('log_errors', 0); // disable error logging
 //error_reporting(E_ALL);
 
 // Se especifica la zona horaria
@@ -108,9 +111,18 @@ $res = mf_genera_cfdi($datos);
 print_r($datos);
 echo "</pre>";*/
 //echo "<h1>Respuesta Generar XML y Timbrado</h1>";
+//echo "<h1>Respuesta Generar XML y Timbrado</h1>";
+header("Content-type: text/xml; charset=utf-8");
 foreach ($res AS $variable => $valor) {
     $valor = htmlentities($valor);
-    $valor = str_replace('&lt;br/&gt;', '<br/>', $valor);
-    //echo "<b>[$variable]=</b>$valor<hr>";
+    //$valor = str_replace('&lt;br/&gt;', '<br/>', $valor);
+    $valor = str_replace('<br>', '', $valor);
+    $valor = str_replace('<br>', '', $valor);
+    $valor = str_replace('&lt;', '<', $valor);
+    $valor = str_replace('&gt;', '>', $valor);
+    $valor = str_replace('&quot;', '"', $valor);
+
+    echo "$valor";
+    exit;
+
 }
-echo json_encode($res);

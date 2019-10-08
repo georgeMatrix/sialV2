@@ -15,6 +15,10 @@
                 </div>
 
                 <div class="col-md-2">
+                    <button class="mt-3 mr-3 btn btn-info float-right" onclick="serverExterno()"> Prueba</button>
+                </div>
+
+                <div class="col-md-2">
                     <a href="{{route('cuentasPorCobrarV2.create')}}" class="mt-3 mr-3 btn btn-info float-right">Nuevo</a>
                 </div>
             </div>
