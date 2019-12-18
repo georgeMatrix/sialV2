@@ -7,6 +7,8 @@
                 <div class="col-md-6 card-title">
                     <h3 class="text-center text-white"><i class="text-danger mt-3 fa fa-id-card fa-md"></i> LISTADO CUENTAS POR COBRAR</h3>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-2">
                     <a href="{{url('/home')}}" class="mt-3 mr-3 btn btn-info float-right"><i class="fas fa-arrow-circle-left"></i> Regresar</a>
                 </div>
@@ -14,8 +16,8 @@
                     <button class="mt-3 mr-3 btn btn-info float-right" id="facturar" data-toggle="modal" data-target="#modalFacturar" onclick="inputCheckFacturar()"> Facturar</button>
                 </div>
 
-                <div class="col-md-2">
-                    <button class="mt-3 mr-3 btn btn-info float-right" onclick="serverExterno()"> Prueba</button>
+                <div class="col-md-4">
+                    <button class="mt-3 mr-3 btn btn-danger float-right" onclick="serverExterno()"> Ver datos Nuevo (prueba)</button>
                 </div>
 
                 <div class="col-md-2">
@@ -87,7 +89,6 @@
 
                     </table>
                 </div>
-
             </div>
         </div>
     </div>

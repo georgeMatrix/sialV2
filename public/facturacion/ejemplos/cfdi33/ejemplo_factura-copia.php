@@ -1,8 +1,17 @@
 <?php
+
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+$datos['conceptos'][0]['descripcion']='';
+$valores = $_POST["valoresParaServidor"];
+$tamArreglo = $_POST["tam"];
+//for($i=0; $i<7; $i++){        HABILITAR CUANDO YA ESTE TERMINADO
+    foreach ($valores[2] as $k=>$v){
+        $datos['conceptos'][$k]['descripcion'] = $v;
+    }
+//}
 
-$producto = $_POST['producto'];
+
 // Se desactivan los mensajes de debug
 ini_set('error_reporting', E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE); // Show all errors minus STRICT, DEPRECATED and NOTICES
 ini_set('display_errors', 0); // disable error display
@@ -60,14 +69,14 @@ $datos['receptor']['UsoCFDI'] = 'G02';
 
 // Se agregan los conceptos
 
-$datos['conceptos'][0]['cantidad'] = 1.00;
-$datos['conceptos'][0]['unidad'] = 'NA';
+$datos['conceptos'][0]['cantidad'] = 1.00;  //pide
+$datos['conceptos'][0]['unidad'] = 'NA';    //pide
 $datos['conceptos'][0]['ID'] = "1726";
-$datos['conceptos'][0]['descripcion'] = $producto;
-$datos['conceptos'][0]['valorunitario'] = 99.00;
-$datos['conceptos'][0]['importe'] = 99.00;
-$datos['conceptos'][0]['ClaveProdServ'] = '01010101';
-$datos['conceptos'][0]['ClaveUnidad'] = 'ACT';
+//$datos['conceptos'][0]['descripcion'] = $descripcion;      //pide
+$datos['conceptos'][0]['valorunitario'] = 99.00;        //pide
+$datos['conceptos'][0]['importe'] = 99.00;              //pide
+$datos['conceptos'][0]['ClaveProdServ'] = '01010101';   //pide
+$datos['conceptos'][0]['ClaveUnidad'] = 'ACT';          //pide
 
 $datos['conceptos'][0]['Impuestos']['Traslados'][0]['Base'] = 99.00;
 $datos['conceptos'][0]['Impuestos']['Traslados'][0]['Impuesto'] = '002';
@@ -75,16 +84,14 @@ $datos['conceptos'][0]['Impuestos']['Traslados'][0]['TipoFactor'] = 'Tasa';
 $datos['conceptos'][0]['Impuestos']['Traslados'][0]['TasaOCuota'] = '0.160000';
 $datos['conceptos'][0]['Impuestos']['Traslados'][0]['Importe'] = 15.84;
 
-
 $datos['conceptos'][1]['cantidad'] = 1.00;
 $datos['conceptos'][1]['unidad'] = 'NA';
 $datos['conceptos'][1]['ID'] = "1586";
-$datos['conceptos'][1]['descripcion'] = "PRODUCTO DE PRUEBA 2";
+//$datos['conceptos'][1]['descripcion'] = "PRODUCTO DE PRUEBA 2";
 $datos['conceptos'][1]['valorunitario'] = 199.00;
 $datos['conceptos'][1]['importe'] = 199.00;
 $datos['conceptos'][1]['ClaveProdServ'] = '01010101';
 $datos['conceptos'][1]['ClaveUnidad'] = 'ACT';
-
 
 $datos['conceptos'][1]['Impuestos']['Traslados'][0]['Base'] = 199.00;
 $datos['conceptos'][1]['Impuestos']['Traslados'][0]['Impuesto'] = '002';
@@ -112,7 +119,10 @@ print_r($datos);
 echo "</pre>";*/
 //echo "<h1>Respuesta Generar XML y Timbrado</h1>";
 //echo "<h1>Respuesta Generar XML y Timbrado</h1>";
-header("Content-type: text/xml; charset=utf-8");
+//header('Content-Type: application/xml; charset=utf-8');
+$file = fopen("../../../lobo/uno.php", "w+b");
+fwrite($file, "<?php" . PHP_EOL);
+fwrite($file, "\$xmlOriginal = <<<XML" . PHP_EOL);
 foreach ($res AS $variable => $valor) {
     $valor = htmlentities($valor);
     //$valor = str_replace('&lt;br/&gt;', '<br/>', $valor);
@@ -121,8 +131,15 @@ foreach ($res AS $variable => $valor) {
     $valor = str_replace('&lt;', '<', $valor);
     $valor = str_replace('&gt;', '>', $valor);
     $valor = str_replace('&quot;', '"', $valor);
-
-    echo "$valor";
+    $resultante = $resultante.$valor;
+    fwrite($file, $valor);
+    fwrite($file, "XML;" . PHP_EOL);
+    fwrite($file, "?>");
+    fclose($file);
+    //ACTIVAR ESTE json_encode EN CASO DE QUE SE QUIERA VER LOS ERRORES
+    //echo json_encode($valor);
+    //echo "archivo guardado en php";
+    //echo "<hr>";
+    //echo $resultante;
     exit;
-
 }

@@ -122,6 +122,17 @@ console.log(valoresIds)
 }
 
 function generarFactura(){
+    let noConceptos
+    let tamArreglo
+    let cantidad = []
+    let unidad = []
+    let descripcion = []
+    let valorUnitario = []
+    let importe = []
+    let claveProdServ = []
+    let claveUnidad = []
+    let datosParaServidor = []
+
     var valoresParaServer = [];
     valoresParaServer[0] = inputCheckFacturar()
     valoresParaServer[1] = $("#lugarExpedicion").val();
@@ -137,60 +148,68 @@ function generarFactura(){
         contentType: 'application/json',
         data: JSON.stringify(valoresParaServer),
     }).done(function(data) {
-        console.log('regreso del guardado')
+        console.log('valores de la tabla facturables')
         console.log(data)
-        $producto = 'CALABAZA PARA DIA DE MUERTOS'
-        serverExterno()
-    })
+        console.log("---------------------------------------")
+        //serverExterno()
+        tamArreglo = valoresParaServer[0].length
+        for (let i = 0; i < tamArreglo ; i++) {
+            cantidad[i] = valoresParaServer[0][i][0].cantidad
+            unidad[i] = valoresParaServer[0][i][0].unidad
+            descripcion[i] = valoresParaServer[0][i][0].descripcion
+            valorUnitario[i] = valoresParaServer[0][i][0].valor_unitario
+            importe[i] = valoresParaServer[0][i][0].importe
+            claveProdServ[i] = valoresParaServer[0][i][0].clave_prod_serv
+            claveUnidad[i] = valoresParaServer[0][i][0].clave_unidad
+        }
+        datosParaServidor[0] = cantidad
+        datosParaServidor[1] = unidad
+        datosParaServidor[2] = descripcion
+        datosParaServidor[3] = valorUnitario
+        datosParaServidor[4] = importe
+        datosParaServidor[5] = claveProdServ
+        datosParaServidor[6] = claveUnidad
+        console.log(datosParaServidor[0])
 
-    //console.log(valoresParaServer);
-    //console.log(tamInputCheckFacturar)
+        /*$.each(datosParaServidor, function(k, v){
+            $.each(v, function(k1, v1){
+                console.log("datosParaServidor key: "+k1+" valor: "+v1)
+            })
+        })*/
+
+        generarXML(datosParaServidor, tamArreglo)
+    })
+}
+
+function generarXML(valores, tam){
+
+    /*$.each(valores, function(k, v){
+        console.log("valor del datos desde el front: nombre: "+k+"valor: "+v);
+    })*/
+
+    let request = {valoresParaServidor: valores, tam:tam}
+    $.ajax({
+        cache: false,
+        url: 'facturacion/ejemplos/cfdi33/ejemplo_factura-copia.php',        //local
+        type: 'POST',
+        dataType: 'json',
+        data: request,
+    }).done(function(response) {
+        console.log("----------------------------------")
+        console.log("respuesta de servidor: "+response);
+    });
 }
 
 function serverExterno(){
-
-    /*var producto = {
-        producto: datosServer
-    };*/
-
     $.ajax({
-        //url: 'http://agentedesegurosmba.com/facturacion/ejemplos/cfdi33/ejemplo_factura - copia.php',
-        url: '/facturacion/ejemplos/cfdi33/ejemplo_factura - copia.php',
-        type: 'POST',
-        //headers: {'X-CSRF-TOKEN':tokenCuentasPorPagar},
-        //contentType: 'text/html',
-        dataType: "xml",
-        data: {producto: 'RAYZER'},
-    }).done(function(data) {
+        url: '/lobo/xml.php',        //local
+        //url: 'http://sial-facturacion.com/facturacion/ejemplos/cfdi33/ejemplo_factura-copia.php',       //Server sial-facturacion.com
+        type: 'get',
+        contentType: 'application/json'
+    }).done(function(xml) {
         console.log('respuesta del server');
-        console.log(data);
-        var xmlDoc = $.parseXML( data );
-        var xml = $( xmlDoc );
-        var title = xml.find( "URL" );
-        console.log(title);
+        let response = JSON.parse(xml);
+        console.log(response)
     });
 
-    // let data = new FormData();
-    // data.append('producto', 'RAYZER');
-    // fetch('/facturacion/ejemplos/cfdi33/ejemplo_factura - copia.php', {
-    //     method: 'POST',
-    //     body:data
-    // })
-    //     /*.then(function(response){
-    //         if (response.ok){
-    //            return response.text()
-    //         }
-    //         else{
-    //             throw "error aqui"
-    //         }
-    //     })*/
-    //     .then(function(data){
-    //         /*let parser = new DOMParser(),
-    //
-    //             xmlDoc = parser.parseFromString(data, 'text/xml');*/
-    //         console.log(data)
-    //     })
-    //     .catch(function(error){
-    //         console.log(error)
-    //     })
 }
