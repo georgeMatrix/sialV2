@@ -13,13 +13,17 @@
                     <input type="text" class="form-control" id="lugarExpedicion" name="lugarExpedicion">
                     <label for="">Método de pago</label>
                     <select name="metodo_pago" id="metodo_pago" class="form-control">
-                        <option value="ppd">PPD</option>
-                        <option value="pue">PUE</option>
+                        <option value="PPD">PPD</option>
+                        <option value="PUE">PUE</option>
                     </select>
                     <label for="">Forma de pago</label>
                     <select name="forma_pago" id="forma_pago" class="form-control">
                         @for($i=1; $i<29; $i++)
-                            <option value="{{$i}}">{{$i}}</option>
+                            @if($i<10)
+                                <option value="{{"0".$i}}">{{"0".$i}}</option>
+                            @else
+                                <option value="{{$i}}">{{$i}}</option>
+                            @endif
                         @endfor
                             <option value="99">99</option>
                     </select>
@@ -30,7 +34,9 @@
                         <option value="n">N</option>
                     </select>
                     <label for="">Moneda</label>
-                    <input type="text" class="form-control" id="moneda" name="moneda">
+                    <select name="moneda" id="moneda" class="form-control">
+                        <option value="MXN">MXN</option>
+                    </select>
 
                 </form>
             </div>

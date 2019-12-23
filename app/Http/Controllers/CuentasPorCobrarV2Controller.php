@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\CartaPorte;
 use App\Clientes;
 use App\Cruce;
@@ -12,10 +11,11 @@ use App\Facturas;
 use App\Importacion;
 use Illuminate\Http\Request;
 
+
 class CuentasPorCobrarV2Controller extends Controller
 {
     public function serverExterno(Request $request){
-        return $request;
+
     }
 
     public function datosAGuardarEnFactura(Request $request){

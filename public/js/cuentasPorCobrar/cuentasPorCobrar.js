@@ -132,14 +132,22 @@ function generarFactura(){
     let claveProdServ = []
     let claveUnidad = []
     let datosParaServidor = []
+    let cfdiTIvaBase = []
+
+    let cfdiTIvaImpuesto = []
+    let cfdiTIvaTipoFactor = []
+    let cfdiTIvaTasacuota = []
+    let cfdiTIvaImporte = []
 
     var valoresParaServer = [];
     valoresParaServer[0] = inputCheckFacturar()
+    //-----------------Solo para visializacion------------------------
     valoresParaServer[1] = $("#lugarExpedicion").val();
     valoresParaServer[2] = $("#metodo_pago").val();
     valoresParaServer[3] = $("#forma_pago").val();
     valoresParaServer[4] = $("#tipo_comprobante").val();
     valoresParaServer[5] = $("#moneda").val();
+    //-----------------Solo para visializacion------------------------
 
     $.ajax({
         url: '/api/guardarFacturar',
@@ -147,9 +155,10 @@ function generarFactura(){
         headers: {'X-CSRF-TOKEN':tokenCuentasPorPagar},
         contentType: 'application/json',
         data: JSON.stringify(valoresParaServer),
-    }).done(function(data) {
+    }).done(function(facturables) {
+        console.log("---------------------------------------")
         console.log('valores de la tabla facturables')
-        console.log(data)
+        console.log(facturables)
         console.log("---------------------------------------")
         //serverExterno()
         tamArreglo = valoresParaServer[0].length
@@ -161,6 +170,11 @@ function generarFactura(){
             importe[i] = valoresParaServer[0][i][0].importe
             claveProdServ[i] = valoresParaServer[0][i][0].clave_prod_serv
             claveUnidad[i] = valoresParaServer[0][i][0].clave_unidad
+            cfdiTIvaBase[i] = valoresParaServer[0][i][0].cfdi_t_iva_base
+            cfdiTIvaImpuesto[i] = valoresParaServer[0][i][0].cfdi_t_iva_impuesto
+            cfdiTIvaTipoFactor[i] = valoresParaServer[0][i][0].cfdi_t_iva_tipofactor
+            cfdiTIvaTasacuota[i] = valoresParaServer[0][i][0].cfdi_t_iva_tasacuota
+            cfdiTIvaImporte[i] = valoresParaServer[0][i][0].cfdi_t_iva_importe
         }
         datosParaServidor[0] = cantidad
         datosParaServidor[1] = unidad
@@ -169,6 +183,17 @@ function generarFactura(){
         datosParaServidor[4] = importe
         datosParaServidor[5] = claveProdServ
         datosParaServidor[6] = claveUnidad
+        datosParaServidor[7] = cfdiTIvaBase
+        datosParaServidor[8] = cfdiTIvaImpuesto
+        datosParaServidor[9] = cfdiTIvaTipoFactor
+        datosParaServidor[10] = cfdiTIvaTasacuota
+        datosParaServidor[11] = cfdiTIvaImporte
+
+        datosParaServidor[12] = $("#lugarExpedicion").val();
+        datosParaServidor[13] = $("#metodo_pago").val();
+        datosParaServidor[14] = $("#forma_pago").val();
+        datosParaServidor[15] = $("#tipo_comprobante").val();
+        datosParaServidor[16] = $("#moneda").val();
         console.log(datosParaServidor[0])
 
         /*$.each(datosParaServidor, function(k, v){
@@ -177,32 +202,62 @@ function generarFactura(){
             })
         })*/
 
-        generarXML(datosParaServidor, tamArreglo)
+        generarXML(datosParaServidor, tamArreglo, facturables)
     })
 }
 
-function generarXML(valores, tam){
+function generarXML(valores, tam, facturables){
 
     /*$.each(valores, function(k, v){
         console.log("valor del datos desde el front: nombre: "+k+"valor: "+v);
     })*/
 
-    let request = {valoresParaServidor: valores, tam:tam}
+    let request = {valoresParaServidor: valores, noConceptos:tam, facturables: facturables}
     $.ajax({
         cache: false,
-        url: 'facturacion/ejemplos/cfdi33/ejemplo_factura-copia.php',        //local
+        url: 'facturacion/ejemplos/cfdi33/ejemplo_factura-SERVER.php',        //local
+        //url: '/api/serverExterno',        //local
+        //url: 'http://www.egxsistemas.com/facturacion/ejemplos/cfdi33/ejemplo_factura-SERVER.php', //SERVER
         type: 'POST',
         dataType: 'json',
         data: request,
-    }).done(function(response) {
-        console.log("----------------------------------")
-        console.log("respuesta de servidor: "+response);
+    }).fail( function( jqXHR, textStatus, errorThrown ) {
+
+        if (jqXHR.status === 0) {
+
+            alert('Not connect: Verify Network.');
+
+        } else if (jqXHR.status == 404) {
+
+            alert('Requested page not found [404]');
+
+        } else if (jqXHR.status == 500) {
+
+            alert('Internal Server Error [500].');
+
+        } else if (textStatus === 'parsererror') {
+
+            alert('Requested JSON parse failed.');
+
+        } else if (textStatus === 'timeout') {
+
+            alert('Time out error.');
+
+        } else if (textStatus === 'abort') {
+
+            alert('Ajax request aborted.');
+        } else {
+
+            alert('Uncaught Error: ' + jqXHR.responseText);
+
+        }
+
     });
 }
 
 function serverExterno(){
     $.ajax({
-        url: '/lobo/xml.php',        //local
+        url: '/front/xmlFactura.php',        //local
         //url: 'http://sial-facturacion.com/facturacion/ejemplos/cfdi33/ejemplo_factura-copia.php',       //Server sial-facturacion.com
         type: 'get',
         contentType: 'application/json'
