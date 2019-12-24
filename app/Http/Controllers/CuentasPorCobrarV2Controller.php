@@ -7,6 +7,7 @@ use App\Cruce;
 use App\CuentasPorCobrarV2;
 use App\Exportacion;
 use App\Facturables;
+use App\facturacion\Facturacion;
 use App\Facturas;
 use App\Importacion;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ use Illuminate\Http\Request;
 class CuentasPorCobrarV2Controller extends Controller
 {
     public function serverExterno(Request $request){
-
+        Facturacion::facturacionUno();
     }
 
     public function datosAGuardarEnFactura(Request $request){

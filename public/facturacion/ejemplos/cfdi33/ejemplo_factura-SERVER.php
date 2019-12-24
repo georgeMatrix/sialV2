@@ -1,6 +1,6 @@
 <?php
 
-header("Access-Control-Allow-Headers: Origin *, X-Requested-With, Content-Type, Accept");
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 $datos['conceptos'][0]['descripcion']='';
 $datos['conceptos'][0]['cantidad']='';
@@ -24,58 +24,58 @@ $noConceptos = $_POST["noConceptos"];
 $facturables = $_POST["facturables"];
 
 //for($i=0; $i<7; $i++){        HABILITAR CUANDO YA ESTE TERMINADO
-    foreach ($valores[2] as $k=>$v){
-        $datos['conceptos'][$k]['descripcion'] = $v;
-    }
-    foreach ($valores[0] as $k=>$v){
-        $datos['conceptos'][$k]['cantidad'] = $v;
-    }
-    foreach ($valores[1] as $k=>$v){
-        $datos['conceptos'][$k]['unidad'] = $v;
-    }
-    foreach ($valores[3] as $k=>$v){
-        $datos['conceptos'][$k]['valorunitario'] = $v;
-    }
-    foreach ($valores[4] as $k=>$v) {
-        $datos['conceptos'][$k]['importe'] = $v;
-        $sumatoriaImporte = $sumatoriaImporte + $v;
-    }
-    foreach ($valores[5] as $k=>$v) {
-        $datos['conceptos'][$k]['ClaveProdServ'] = $v;
-    }
-    foreach ($valores[6] as $k=>$v) {
-        $datos['conceptos'][$k]['ClaveUnidad'] = $v;
-    }
-    foreach ($valores[7] as $k=>$v) {
-        $datos['conceptos'][$k]['Impuestos']['Traslados'][0]['Base'] = $v;
-    }
+foreach ($valores[2] as $k=>$v){
+    $datos['conceptos'][$k]['descripcion'] = $v;
+}
+foreach ($valores[0] as $k=>$v){
+    $datos['conceptos'][$k]['cantidad'] = $v;
+}
+foreach ($valores[1] as $k=>$v){
+    $datos['conceptos'][$k]['unidad'] = $v;
+}
+foreach ($valores[3] as $k=>$v){
+    $datos['conceptos'][$k]['valorunitario'] = $v;
+}
+foreach ($valores[4] as $k=>$v) {
+    $datos['conceptos'][$k]['importe'] = $v;
+    $sumatoriaImporte = $sumatoriaImporte + $v;
+}
+foreach ($valores[5] as $k=>$v) {
+    $datos['conceptos'][$k]['ClaveProdServ'] = $v;
+}
+foreach ($valores[6] as $k=>$v) {
+    $datos['conceptos'][$k]['ClaveUnidad'] = $v;
+}
+foreach ($valores[7] as $k=>$v) {
+    $datos['conceptos'][$k]['Impuestos']['Traslados'][0]['Base'] = $v;
+}
 
-    foreach ($valores[11] as $k=>$v) {
-        $datos['conceptos'][$k]['Impuestos']['Traslados'][0]['Importe'] = $v;
-        $sumatoriaCfdiTIvaImporte = $sumatoriaCfdiTIvaImporte + $v;
-    }
+foreach ($valores[11] as $k=>$v) {
+    $datos['conceptos'][$k]['Impuestos']['Traslados'][0]['Importe'] = $v;
+    $sumatoriaCfdiTIvaImporte = $sumatoriaCfdiTIvaImporte + $v;
+}
 
-    foreach ($valores[8] as $k=>$v) {
-        $datos['conceptos'][$k]['Impuestos']['Traslados'][0]['Impuesto'] = $v;
-        if ($datos['conceptos'][$k]['Impuestos']['Traslados'][0]['Impuesto'] != null){
-            if ($datos['conceptos'][$k]['Impuestos']['Traslados'][0]['Impuesto'] == 002){
-                // Se agregan los Impuestos
-                $datos['impuestos']['translados'][0]['impuesto'] = '002';
-                $datos['impuestos']['translados'][0]['tasa'] = $valores[10][0];
-                /*foreach ($valores[11] as $k=>$v) {
-                    $sumatoriaCfdiTIvaImporte = $sumatoriaCfdiTIvaImporte + $v;
-                }*/
-                $datos['impuestos']['translados'][0]['importe'] = $sumatoriaCfdiTIvaImporte;
-                $datos['impuestos']['translados'][0]['TipoFactor'] = $valores[9][0];
-            }
+foreach ($valores[8] as $k=>$v) {
+    $datos['conceptos'][$k]['Impuestos']['Traslados'][0]['Impuesto'] = $v;
+    if ($datos['conceptos'][$k]['Impuestos']['Traslados'][0]['Impuesto'] != null){
+        if ($datos['conceptos'][$k]['Impuestos']['Traslados'][0]['Impuesto'] == '002'){
+            // Se agregan los Impuestos
+            $datos['impuestos']['translados'][0]['impuesto'] = '002';
+            $datos['impuestos']['translados'][0]['tasa'] = $valores[10][0];
+            /*foreach ($valores[11] as $k=>$v) {
+                $sumatoriaCfdiTIvaImporte = $sumatoriaCfdiTIvaImporte + $v;
+            }*/
+            $datos['impuestos']['translados'][0]['importe'] = $sumatoriaCfdiTIvaImporte;
+            $datos['impuestos']['translados'][0]['TipoFactor'] = $valores[9][0];
         }
     }
-    foreach ($valores[9] as $k=>$v) {
-        $datos['conceptos'][$k]['Impuestos']['Traslados'][0]['TipoFactor'] = $v;
-    }
-    foreach ($valores[10] as $k=>$v) {
-        $datos['conceptos'][$k]['Impuestos']['Traslados'][0]['TasaOCuota'] = $v;
-    }
+}
+foreach ($valores[9] as $k=>$v) {
+    $datos['conceptos'][$k]['Impuestos']['Traslados'][0]['TipoFactor'] = $v;
+}
+foreach ($valores[10] as $k=>$v) {
+    $datos['conceptos'][$k]['Impuestos']['Traslados'][0]['TasaOCuota'] = $v;
+}
 
 
 
@@ -130,7 +130,7 @@ $datos['factura']['subtotal'] = $sumatoriaImporte;         //SUMATORIA $datos['c
 
 $datos['factura']['tipocambio'] = 1;            //1 en duro para todos
 $datos['factura']['tipocomprobante'] = 'I';     //'I' en duro para todos
-$datos['factura']['total'] = $sumatoriaImporte + $sumatoriaCfdiTIvaImporte;		//SUMATORIA SUBTOTALES DE TODOS LOS CONCEPTOS $datos['conceptos'][0]['importe'] + $datos['conceptos'][0]['Impuestos']['Traslados'][0]['Importe']
+$datos['factura']['total'] = $sumatoriaImporte + $sumatoriaCfdiTIvaImporte;     //SUMATORIA SUBTOTALES DE TODOS LOS CONCEPTOS $datos['conceptos'][0]['importe'] + $datos['conceptos'][0]['Impuestos']['Traslados'][0]['Importe']
 $datos['factura']['RegimenFiscal'] = '601';     //601 en duro
 
 // Datos del Emisor
@@ -143,24 +143,6 @@ $datos['receptor']['nombre'] = 'Publico en General';        //receptor_razon_soc
 $datos['receptor']['UsoCFDI'] = 'G02';      //G03 en duro
 
 // Se agregan los conceptos
-
-//$datos['conceptos'][0]['cantidad'] = 1.00;  //pide      //ESTO ES IGUAL A cantidad (FRONT)
-//$datos['conceptos'][0]['unidad'] = 'NA';    //pide      //ESTO ES IGUAL A unidad (FRONT)
-//$datos['conceptos'][0]['ID'] = "1726";                  //ESTO ES IGUAL A no_identificacion (FRONT)
-//$datos['conceptos'][0]['descripcion'] = 'PRODUCTO DE ESTATICO 1';      //pide    //ESTO ES IGUAL A descripcion (FRONT)
-//$datos['conceptos'][0]['valorunitario'] = 99.00;        //pide      //ESTO ES IGUAL A valor_unitario (FRONT)
-//$datos['conceptos'][0]['importe'] = 99.00;              //pide          //ESTE VALOR VIENE IMPORTE (FRONT)
-//$datos['conceptos'][0]['ClaveProdServ'] = '01010101';   //pide          //ESTE VALOR VIENE clave_prod_serv (FRONT)  //ESTE TIENE QUE SER IGUAL A '01010101' SI NO NO FUNCIONA
-//$datos['conceptos'][0]['ClaveUnidad'] = 'ACT';          //pide          //ESTE VALOR VIENE clave_unidad (FRONT)     //ESTE TIENE QUE SER IGUAL A 'ACT' SI NO NO FUNCIONA
-
-//$datos['conceptos'][0]['Impuestos']['Traslados'][0]['Base'] = 99.00;    //ESTO ES IGUAL A cfdi_t_iva_base (FRONT)
-//$datos['conceptos'][0]['Impuestos']['Traslados'][0]['Impuesto'] = '002';    //ESTO ES IGUAL A cfdi_t_iva_impuesto (FRONT)
-//$datos['conceptos'][0]['Impuestos']['Traslados'][0]['TipoFactor'] = 'Tasa'; //ESTO ES IGUAL A cfdi_t_iva_tasa (FRONT)
-//$datos['conceptos'][0]['Impuestos']['Traslados'][0]['TasaOCuota'] = '0.160000';     //ESTO ES IGUAL A cfdi_t_iva_tasacuota (FRONT) (verificar que ya venga en decimal)
-//$datos['conceptos'][0]['Impuestos']['Traslados'][0]['Importe'] = 15.84;     //ESTO ES IGUAL A cfdi_t_iva_importe (FRONT)
-
-
-
 
 $datos['impuestos']['TotalImpuestosTrasladados'] = $sumatoriaCfdiTIvaImporte;       //sumatoria de todos los conceptos en el apartado cfdi_t_iva_importe
 
@@ -178,6 +160,7 @@ foreach ($res AS $variable => $valor) {
     $valor = str_replace('&lt;br/&gt;', '<br/>', $valor);
     echo json_encode($valor);
 }
+
 //header('Content-Type: application/xml; charset=utf-8');
 $file = fopen("../../../front/factura.php", "w+b");
 fwrite($file, "<?php" . PHP_EOL);
