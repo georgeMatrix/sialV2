@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body">
                 <!-- ESTO SE TIENE QUE IR CON EL ARREGLO -->
-                <form action="{{route('facturas.store')}}" method="post">
+                <form action="{{route('facturas.store')}}" method="post" id="formModalFactura">
                     <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
                     <label for="">Lugar de expedición</label>
                     <input type="text" class="form-control" id="lugarExpedicion" name="lugarExpedicion">
@@ -36,6 +36,7 @@
                     <label for="">Moneda</label>
                     <select name="moneda" id="moneda" class="form-control">
                         <option value="MXN">MXN</option>
+                        <option value="MXN">USD</option>
                     </select>
 
                 </form>

@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    inputImporte();
     rutas();
     facturas();
     datosCxP();
@@ -195,7 +196,7 @@ function facturas(){
         var unidad = $("#unidad").val();
         var descripcion = $("#descripcionF").val();
         var valorUnitario = $("#valorUnitario").val();
-        var importe = $("#importeF").val();
+        var importe = cantidad * valorUnitario;
         var tIva = $("#tIva").val();
         var tIsr = $("#tIsr").val();
         var rIva = $("#rIva").val();
@@ -350,6 +351,17 @@ function facturas(){
                 }
 
             });
+    });
+}
+
+function inputImporte(){
+    $("#valorUnitario").focusout(function(){
+        let importeDatosFacturacion = $("#cantidadDfacturacion").val()*$("#valorUnitario").val();
+        $("#importeF").val(importeDatosFacturacion)
+    });
+    $("#cantidadDfacturacion").focusout(function(){
+        let importeDatosFacturacion = $("#cantidadDfacturacion").val()*$("#valorUnitario").val();
+        $("#importeF").val(importeDatosFacturacion)
     });
 }
 

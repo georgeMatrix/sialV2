@@ -7,22 +7,16 @@
                 <div class="col-md-6 card-title">
                     <h3 class="text-center text-white"><i class="text-danger mt-3 fa fa-id-card fa-md"></i> LISTADO CUENTAS POR COBRAR</h3>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-6">
                     <a href="{{url('/home')}}" class="mt-3 mr-3 btn btn-info float-right"><i class="fas fa-arrow-circle-left"></i> Regresar</a>
-                </div>
-                <div class="col-md-2">
                     <button class="mt-3 mr-3 btn btn-info float-right" id="facturar" data-toggle="modal" data-target="#modalFacturar" onclick="inputCheckFacturar()"> Facturar</button>
-                </div>
-
-                <div class="col-md-4">
-                    <button class="mt-3 mr-3 btn btn-danger float-right" onclick="serverExterno()"> Ver datos Nuevo (prueba)</button>
-                </div>
-
-                <div class="col-md-2">
+                    <a href="#" id="pdfFactura" target="_blank" class="btn-is-disabled mt-3 mr-3 btn btn-success float-right">PDF</a>
                     <a href="{{route('cuentasPorCobrarV2.create')}}" class="mt-3 mr-3 btn btn-info float-right">Nuevo</a>
                 </div>
+
+            </div>
+            <div class="row">
+
             </div>
         </div>
         <div class="col-md-12">
@@ -91,6 +85,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div id="loading-screen" style="display:none">
+        <img src="{{asset('loader/img/spinning-circles.svg')}}">
     </div>
     @include('include.modalFacturar')
 @endsection

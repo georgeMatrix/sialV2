@@ -139,6 +139,13 @@ function generarFactura(){
     let cfdiTIvaTasacuota = []
     let cfdiTIvaImporte = []
 
+    let cfdiRIvaImpuesto = []
+    let cfdiRIvaImporte = []
+    let cfdiRIvaBase = []
+    let cfdiRIvaTasacuota = []
+    let cfdiRIvaTipofactor = []
+    let idFacturables = []
+
     var valoresParaServer = [];
     valoresParaServer[0] = inputCheckFacturar()
     //-----------------Solo para visializacion------------------------
@@ -175,6 +182,13 @@ function generarFactura(){
             cfdiTIvaTipoFactor[i] = valoresParaServer[0][i][0].cfdi_t_iva_tipofactor
             cfdiTIvaTasacuota[i] = valoresParaServer[0][i][0].cfdi_t_iva_tasacuota
             cfdiTIvaImporte[i] = valoresParaServer[0][i][0].cfdi_t_iva_importe
+
+            cfdiRIvaImpuesto[i] = valoresParaServer[0][i][0].cfdi_r_iva_impuesto
+            cfdiRIvaImporte[i] = valoresParaServer[0][i][0].cfdi_r_iva_importe
+            cfdiRIvaBase[i] = valoresParaServer[0][i][0].cfdi_r_iva_base
+            cfdiRIvaTasacuota[i] = valoresParaServer[0][i][0].cfdi_r_iva_tasacuota
+            cfdiRIvaTipofactor[i] = valoresParaServer[0][i][0].cfdi_r_iva_tipofactor
+            idFacturables[i] = valoresParaServer[0][i][0].id
         }
         datosParaServidor[0] = cantidad
         datosParaServidor[1] = unidad
@@ -189,11 +203,20 @@ function generarFactura(){
         datosParaServidor[10] = cfdiTIvaTasacuota
         datosParaServidor[11] = cfdiTIvaImporte
 
+        datosParaServidor[17] = cfdiRIvaImpuesto
+        datosParaServidor[18] = cfdiRIvaImporte
+        datosParaServidor[19] = cfdiRIvaBase
+        datosParaServidor[20] = cfdiRIvaTasacuota
+        datosParaServidor[21] = cfdiRIvaTipofactor
+        datosParaServidor[22] = idFacturables
+        //OBTENER cfdi_r_iva_impuesto NUEVO CAMBIO "17"
+
         datosParaServidor[12] = $("#lugarExpedicion").val();
         datosParaServidor[13] = $("#metodo_pago").val();
         datosParaServidor[14] = $("#forma_pago").val();
         datosParaServidor[15] = $("#tipo_comprobante").val();
         datosParaServidor[16] = $("#moneda").val();
+
         console.log(datosParaServidor[0])
 
         /*$.each(datosParaServidor, function(k, v){
@@ -214,58 +237,90 @@ function generarXML(valores, tam, facturables){
 
     let request = {valoresParaServidor: valores, noConceptos:tam, facturables: facturables}
     $.ajax({
-        cache: false,
+        //cache: false,
         url: 'facturacion/ejemplos/cfdi33/ejemplo_factura-SERVER.php',        //local
-        //url: '/api/serverExterno',        //local
-        //url: 'http://www.egxsistemas.com/facturacion/ejemplos/cfdi33/ejemplo_factura-SERVER.php', //SERVER
+        //url: 'facturacion/ejemplos/cfdi33/ejemplo_factura-SERVER.php', //SERVER
         type: 'POST',
-        dataType: 'json',
+        //dataType: 'json',
         data: request,
     })
-        // .fail( function( jqXHR, textStatus, errorThrown ) {
-        //
-        // if (jqXHR.status === 0) {
-        //
-        //     alert('Not connect: Verify Network.');
-        //
-        // } else if (jqXHR.status == 404) {
-        //
-        //     alert('Requested page not found [404]');
-        //
-        // } else if (jqXHR.status == 500) {
-        //
-        //     alert('Internal Server Error [500].');
-        //
-        // } else if (textStatus === 'parsererror') {
-        //
-        //     alert('Requested JSON parse failed.');
-        //
-        // } else if (textStatus === 'timeout') {
-        //
-        //     alert('Time out error.');
-        //
-        // } else if (textStatus === 'abort') {
-        //
-        //     alert('Ajax request aborted.');
-        // } else {
-        //
-        //     alert('Uncaught Error: ' + jqXHR.responseText);
-        //
-        // }
+        .done(function(factura){
+            console.log("Factura")
+            console.log(factura);
+            pdfFactura(valores);
+            //alert(factura);
 
-    // });
+        })
+        .fail( function( jqXHR, textStatus, errorThrown ) {
+
+        if (jqXHR.status === 0) {
+
+            alert('Not connect: Verify Network.');
+
+        } else if (jqXHR.status == 404) {
+
+            alert('Requested page not found [404]');
+
+        } else if (jqXHR.status == 500) {
+
+            alert('Internal Server Error [500].');
+
+        } else if (textStatus === 'parsererror') {
+
+            alert('Requested JSON parse failed.');
+
+        } else if (textStatus === 'timeout') {
+
+            alert('Time out error.');
+
+        } else if (textStatus === 'abort') {
+
+            alert('Ajax request aborted.');
+        } else {
+
+            alert('Uncaught Error: ' + jqXHR.responseText);
+
+        }
+
+    });
 }
 
-function serverExterno(){
+function pdfFactura(valores){
+    let request = {valoresParaServidor: valores}
     $.ajax({
-        url: '/front/xmlFactura.php',        //local
-        //url: 'http://sial-facturacion.com/facturacion/ejemplos/cfdi33/ejemplo_factura-copia.php',       //Server sial-facturacion.com
-        type: 'get',
-        contentType: 'application/json'
-    }).done(function(xml) {
-        console.log('respuesta del server');
-        let response = JSON.parse(xml);
-        console.log(response)
+        url: '/facturacion/ejemplos/modulos/ejemplo_modulo_html2pdf.php',        //local
+        type: 'post',
+        data: request,
+    }).done(function(response) {
+        $("#pdfFactura").prop("disabled", false)
+        $.each(valores[22], function(index, value){
+            $("#pdfFactura").prop("href", "facturacion\\pdf\\factura_"+value+".pdf");
+        })
+        Swal.fire(
+            'El PDF se creo correctamente',
+        )
+        console.log("pdf listo!!!")
     });
+}
 
+$(document).ready(function(){
+    var screen = $('#loading-screen');
+    configureLoadingScreen(screen);
+    modal();
+})
+
+function modal(){
+    $("#formModalFactura").submit(function (e) {
+        return false;
+    })
+}
+
+function configureLoadingScreen(screen){
+    $(document)
+        .ajaxStart(function () {
+            screen.fadeIn();
+        })
+        .ajaxStop(function () {
+            screen.fadeOut();
+        });
 }

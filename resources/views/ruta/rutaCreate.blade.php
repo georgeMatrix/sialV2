@@ -297,7 +297,7 @@
 
                                 <div class="form-group">
                                     <h5 for="">Importe</h5>
-                                    <input type="number" min="0" required name="importeF" id="importeF" class="form-control {{$errors->has('importe')?'is-invalid':''}}"
+                                    <input disabled type="number" min="0" name="importeF" id="importeF" class="form-control {{$errors->has('importe')?'is-invalid':''}}"
                                            value="{{old('importe')}}">
                                     <div class="invalid-feedback">
                                         El campo importe es requerido y debe de ser numerico

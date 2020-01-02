@@ -2,6 +2,7 @@
 
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+$idFacturables = '';
 $datos['conceptos'][0]['descripcion']='';
 $datos['conceptos'][0]['cantidad']='';
 $datos['conceptos'][0]['unidad']='';
@@ -16,8 +17,16 @@ $datos['conceptos'][0]['Impuestos']['Traslados'][0]['Impuesto'] = '';
 $datos['conceptos'][0]['Impuestos']['Traslados'][0]['TipoFactor'] = '';
 $datos['conceptos'][0]['Impuestos']['Traslados'][0]['TasaOCuota'] = '';
 $datos['conceptos'][0]['Impuestos']['Traslados'][0]['Importe'] = '';
+
+/*$datos['conceptos'][0]['Impuestos']['Retenciones'][0]['Impuesto'] = '';
+$datos['conceptos'][0]['Impuestos']['Retenciones'][0]['Importe'] = '';
+$datos['conceptos'][0]['Impuestos']['Retenciones'][0]['Base'] = '';
+$datos['conceptos'][0]['Impuestos']['Retenciones'][0]['TasaOCuota'] = '';
+$datos['conceptos'][0]['Impuestos']['Retenciones'][0]['TipoFactor'] = '';*/
+
 $sumatoriaCfdiTIvaImporte = 0;
 $sumatoriaImporte = 0;
+$sumatoriaCfdiRIvaImporte = 0;
 
 $valores = $_POST["valoresParaServidor"];
 $noConceptos = $_POST["noConceptos"];
@@ -57,14 +66,11 @@ foreach ($valores[11] as $k=>$v) {
 
 foreach ($valores[8] as $k=>$v) {
     $datos['conceptos'][$k]['Impuestos']['Traslados'][0]['Impuesto'] = $v;
-    if ($datos['conceptos'][$k]['Impuestos']['Traslados'][0]['Impuesto'] != null){
+    if ($datos['conceptos'][$k]['Impuestos']['Traslados'][0]['Impuesto'] != ''){
         if ($datos['conceptos'][$k]['Impuestos']['Traslados'][0]['Impuesto'] == '002'){
             // Se agregan los Impuestos
             $datos['impuestos']['translados'][0]['impuesto'] = '002';
             $datos['impuestos']['translados'][0]['tasa'] = $valores[10][0];
-            /*foreach ($valores[11] as $k=>$v) {
-                $sumatoriaCfdiTIvaImporte = $sumatoriaCfdiTIvaImporte + $v;
-            }*/
             $datos['impuestos']['translados'][0]['importe'] = $sumatoriaCfdiTIvaImporte;
             $datos['impuestos']['translados'][0]['TipoFactor'] = $valores[9][0];
         }
@@ -77,45 +83,34 @@ foreach ($valores[10] as $k=>$v) {
     $datos['conceptos'][$k]['Impuestos']['Traslados'][0]['TasaOCuota'] = $v;
 }
 
-
-
-//}
-
-/*for ($j=0; $j<$noConceptos; $j++){
-    $datos['conceptos'][$j]['ID'] = $facturables[0][0][$j]["no_identificacion"];
+/*foreach ($valores[18] as $k=>$v) {
+        $datos['conceptos'][$k]['Impuestos']['Retenciones'][0]['Importe'] = $v;
+        $sumatoriaCfdiRIvaImporte = $sumatoriaCfdiRIvaImporte + doubleval($v);
 }*/
 
+/*foreach ($valores[17] as $k=>$v) {
+    $datos['conceptos'][$k]['Impuestos']['Retenciones'][0]['Impuesto'] = $v;
+    if ($datos['conceptos'][$k]['Impuestos']['Retenciones'][0]['Impuesto'] != ''){
+        echo "esta entrando en el cerebro ";
+        if ($datos['conceptos'][$k]['Impuestos']['Retenciones'][0]['Impuesto'] == '002'){
+            // Se agregan los Impuestos
+            $datos['conceptos'][0]['Impuestos']['Retenciones'][0]['Impuesto'] = '002';
+            $datos['conceptos'][0]['Impuestos']['Retenciones'][0]['Importe'] = $valores[18][0];
+            $datos['conceptos'][0]['Impuestos']['Retenciones'][0]['Base'] = $valores[19][0];
+            $datos['conceptos'][0]['Impuestos']['Retenciones'][0]['TasaOCuota'] = $valores[20][0];
+            $datos['conceptos'][0]['Impuestos']['Retenciones'][0]['TipoFactor'] = $valores[21][0];
 
-// Se desactivan los mensajes de debug
-ini_set('error_reporting', E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE); // Show all errors minus STRICT, DEPRECATED and NOTICES
-ini_set('display_errors', 0); // disable error display
-ini_set('log_errors', 0); // disable error logging
-//error_reporting(E_ALL);
+            $datos['impuestos']['retenciones'][0]['impuesto'] = '002';
+            $datos['impuestos']['retenciones'][0]['importe'] = $valores[18][0];
+        }
+    }
+}*/
 
-// Se especifica la zona horaria
-date_default_timezone_set('America/Mexico_City');
+foreach ($valores[22] as $k=>$v) {
+    $idFacturables = $v;
+}
 
-// Se incluye el SDK
-require_once '../../sdk2.php';
-
-// Se especifica la version de CFDi 3.3
-$datos['version_cfdi'] = '3.3';
-
-// Ruta del XML Timbrado
-$datos['cfdi']='../../timbrados/cfdi_ejemplo_factura.xml';      //PONER EL NOMBRE DEL FOLIO (QUE AUN NO SE TIENE)
-
-// Ruta del XML de Debug
-$datos['xml_debug']='../../timbrados/sin_timbrar_ejemplo_factura.xml';
-
-// Credenciales de Timbrado
-$datos['PAC']['usuario'] = 'DEMO700101XXX';
-$datos['PAC']['pass'] = 'DEMO700101XXX';
-$datos['PAC']['produccion'] = 'NO';
-
-// Rutas y clave de los CSD
-$datos['conf']['cer'] = '../../certificados/lan7008173r5.cer.pem';
-$datos['conf']['key'] = '../../certificados/lan7008173r5.key.pem';
-$datos['conf']['pass'] = '12345678a';
+include 'ejemploFacturaAPI/api.php';
 
 // Datos de la Factura
 $datos['factura']['condicionesDePago'] = 'CONDICIONES';     //DEL MODAL ppd
@@ -131,6 +126,7 @@ $datos['factura']['subtotal'] = $sumatoriaImporte;         //SUMATORIA $datos['c
 $datos['factura']['tipocambio'] = 1;            //1 en duro para todos
 $datos['factura']['tipocomprobante'] = 'I';     //'I' en duro para todos
 $datos['factura']['total'] = $sumatoriaImporte + $sumatoriaCfdiTIvaImporte;     //SUMATORIA SUBTOTALES DE TODOS LOS CONCEPTOS $datos['conceptos'][0]['importe'] + $datos['conceptos'][0]['Impuestos']['Traslados'][0]['Importe']
+//$datos['factura']['total'] = $sumatoriaImporte + ($sumatoriaCfdiTIvaImporte - $sumatoriaCfdiRIvaImporte);     //SUMATORIA SUBTOTALES DE TODOS LOS CONCEPTOS
 $datos['factura']['RegimenFiscal'] = '601';     //601 en duro
 
 // Datos del Emisor
@@ -145,16 +141,11 @@ $datos['receptor']['UsoCFDI'] = 'G02';      //G03 en duro
 // Se agregan los conceptos
 
 $datos['impuestos']['TotalImpuestosTrasladados'] = $sumatoriaCfdiTIvaImporte;       //sumatoria de todos los conceptos en el apartado cfdi_t_iva_importe
-
+//$datos['impuestos']['TotalImpuestosRetenidos'] = $sumatoriaCfdiRIvaImporte;
 
 // Se ejecuta el SDK
 $res = mf_genera_cfdi($datos);
 
-///////////    MOSTRAR RESULTADOS DEL ARRAY $res   ///////////
-/*echo "<pre>";
-print_r($datos);
-echo "</pre>";*/
-//echo "<h1>Respuesta Generar XML y Timbrado</h1>";
 foreach ($res AS $variable => $valor) {
     $valor = htmlentities($valor);
     $valor = str_replace('&lt;br/&gt;', '<br/>', $valor);

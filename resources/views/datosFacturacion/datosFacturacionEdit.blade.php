@@ -74,7 +74,7 @@
                 <h5 for="">Valor unitario</h5>
                 <input type="text" required name="valorUnitario" id="valorUnitario" class="form-control"  value="{{$datosF->valorUnitario}}">
                 <h5 for="">Importe</h5>
-                <input type="text" required name="importe" id="importe" class="form-control"  value="{{$datosF->importe}}">
+                <input type="text" disabled name="importe" id="importe" class="form-control"  value="{{$datosF->importe}}">
                 <h5 for="">Traslado de Iva (Porsentaje)</h5>
                 <input type="text" required name="tIva" id="tIva" class="form-control"  value="{{$datosF->tIva}}">
                 <h5 for="">Traslado de Irs (Porcentaje)</h5>
@@ -88,4 +88,19 @@
         </div>
     </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            inputImporte();
+        })
+        function inputImporte(){
+            $("#valorUnitario").focusout(function(){
+                let importeDatosFacturacion = $("#cantidad").val()*$("#valorUnitario").val();
+                $("#importe").val(importeDatosFacturacion)
+            });
+            $("#cantidad").focusout(function(){
+                let importeDatosFacturacion = $("#cantidad").val()*$("#valorUnitario").val();
+                $("#importe").val(importeDatosFacturacion)
+            });
+        }
+    </script>
 @endsection

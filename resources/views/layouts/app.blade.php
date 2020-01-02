@@ -63,6 +63,8 @@
             white-space: nowrap;
         }
     </style>
+
+    <link rel="stylesheet" href="{{asset('loader/css/styles.css')}}">
 </head>
 <body>
     <div id="app">
