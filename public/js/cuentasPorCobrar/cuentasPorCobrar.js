@@ -121,6 +121,28 @@ console.log(valoresIds)
     return valoresGlobales
 }
 
+$(document).ready(function(){
+    var screen = $('#loading-screen');
+    configureLoadingScreen(screen);
+    modal();
+})
+
+function modal(){
+    $("#formModalFactura").submit(function (e) {
+        return false;
+    })
+}
+
+function configureLoadingScreen(screen){
+    $(document)
+        .ajaxStart(function () {
+            screen.fadeIn();
+        })
+        .ajaxStop(function () {
+            screen.fadeOut();
+        });
+}
+
 function generarFactura(){
     let noConceptos
     let tamArreglo
@@ -162,10 +184,10 @@ function generarFactura(){
         headers: {'X-CSRF-TOKEN':tokenCuentasPorPagar},
         contentType: 'application/json',
         data: JSON.stringify(valoresParaServer),
-    }).done(function(facturables) {
+    }).done(function(idFactura) {
         console.log("---------------------------------------")
-        console.log('valores de la tabla facturables')
-        console.log(facturables)
+        console.log('valores del id de factura')
+        console.log(idFactura)
         console.log("---------------------------------------")
         //serverExterno()
         tamArreglo = valoresParaServer[0].length
@@ -190,6 +212,7 @@ function generarFactura(){
             cfdiRIvaTipofactor[i] = valoresParaServer[0][i][0].cfdi_r_iva_tipofactor
             idFacturables[i] = valoresParaServer[0][i][0].id
         }
+
         datosParaServidor[0] = cantidad
         datosParaServidor[1] = unidad
         datosParaServidor[2] = descripcion
@@ -209,6 +232,12 @@ function generarFactura(){
         datosParaServidor[20] = cfdiRIvaTasacuota
         datosParaServidor[21] = cfdiRIvaTipofactor
         datosParaServidor[22] = idFacturables
+
+        datosParaServidor[23] = valoresParaServer[0][0][0].emisor_rfc
+        datosParaServidor[24] = valoresParaServer[0][0][0].emisor_razon_social
+        datosParaServidor[25] = valoresParaServer[0][0][0].receptor_rfc
+        datosParaServidor[26] = valoresParaServer[0][0][0].receptor_razon_social
+
         //OBTENER cfdi_r_iva_impuesto NUEVO CAMBIO "17"
 
         datosParaServidor[12] = $("#lugarExpedicion").val();
@@ -225,29 +254,29 @@ function generarFactura(){
             })
         })*/
 
-        generarXML(datosParaServidor, tamArreglo, facturables)
+        generarXML(datosParaServidor, tamArreglo, idFactura)
     })
 }
 
-function generarXML(valores, tam, facturables){
+function generarXML(valores, tam, idFactura){
 
     /*$.each(valores, function(k, v){
         console.log("valor del datos desde el front: nombre: "+k+"valor: "+v);
     })*/
-
-    let request = {valoresParaServidor: valores, noConceptos:tam, facturables: facturables}
+    let request = {valoresParaServidor: valores, noConceptos:tam, idFactura: idFactura}
     $.ajax({
         //cache: false,
         url: 'facturacion/ejemplos/cfdi33/ejemplo_factura-SERVER.php',        //local
         //url: 'facturacion/ejemplos/cfdi33/ejemplo_factura-SERVER.php', //SERVER
         type: 'POST',
-        //dataType: 'json',
+        //contentType: 'json',
         data: request,
     })
         .done(function(factura){
-            console.log("Factura")
-            console.log(factura);
-            pdfFactura(valores);
+            //console.log("Factura")
+            //console.log(JSON.parse(factura));
+            pdfFactura(valores, idFactura);
+            guardadoFactura(factura)
             //alert(factura);
 
         })
@@ -285,42 +314,37 @@ function generarXML(valores, tam, facturables){
     });
 }
 
-function pdfFactura(valores){
-    let request = {valoresParaServidor: valores}
+function guardadoFactura(datosDeFactura) {
+    //console.log("llegando a datos factura:")
+    console.log(JSON.parse(datosDeFactura))
+    let datosConvertidos = JSON.parse(datosDeFactura)
+    let request = {datosDeFactura: datosConvertidos}
+    $.ajax({
+        url: 'api/guardarFactura',
+        type: 'POST',
+        contentType: 'application/json',
+        //data: request,
+        data: JSON.stringify(request),
+        //data: datosDeFactura,
+    }).done(function (response) {
+        //console.log(response)
+    })
+
+}
+
+function pdfFactura(valores, idFactura){
+    console.log("idFactura: "+idFactura)
+    let request = {valoresParaServidor: valores, idFactura: idFactura}
     $.ajax({
         url: '/facturacion/ejemplos/modulos/ejemplo_modulo_html2pdf.php',        //local
         type: 'post',
         data: request,
     }).done(function(response) {
         $("#pdfFactura").prop("disabled", false)
-        $.each(valores[22], function(index, value){
-            $("#pdfFactura").prop("href", "facturacion\\pdf\\factura_"+value+".pdf");
-        })
+            $("#pdfFactura").prop("href", "facturacion\\pdf\\factura_"+idFactura+".pdf");
         Swal.fire(
             'El PDF se creo correctamente',
         )
         console.log("pdf listo!!!")
     });
-}
-
-$(document).ready(function(){
-    var screen = $('#loading-screen');
-    configureLoadingScreen(screen);
-    modal();
-})
-
-function modal(){
-    $("#formModalFactura").submit(function (e) {
-        return false;
-    })
-}
-
-function configureLoadingScreen(screen){
-    $(document)
-        .ajaxStart(function () {
-            screen.fadeIn();
-        })
-        .ajaxStop(function () {
-            screen.fadeOut();
-        });
 }

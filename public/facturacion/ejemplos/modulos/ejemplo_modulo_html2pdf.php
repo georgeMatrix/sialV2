@@ -1,12 +1,8 @@
 <?php
 error_reporting(0); // OPCIONAL DESACTIVA NOTIFICACIONES DE DEBUG
 date_default_timezone_set('America/Mexico_City');
-$idFacturables='';
-$valores = $_POST["valoresParaServidor"];
-foreach ($valores[22] as $k=>$v) {
-    $idFacturables = $v;
-}
-
+$idFactura = $_POST["idFactura"];
+var_dump($idFactura);
 include_once "../../sdk2.php";
 //echo "LLEGANDO";
 $datosHTML['RESPUESTA_UTF8'] = "SI";
@@ -15,7 +11,7 @@ $datosHTML['PAC']['pass'] = "DEMO700101XXX";
 $datosHTML['PAC']['produccion'] = "NO";
 //MODULO MULTIFACTURAS : CONVIERTE UN XML CFDI A HTML
 $datosHTML['modulo']="cfdi2html";                                                //NOMBRE MODULO
-$datosHTML['rutaxml']='../../timbrados/cfdi_ejemplo_factura'.$idFacturables.'.xml';    //RUTA DEL XML CFDI
+$datosHTML['rutaxml']='../../timbrados/cfdi_ejemplo_factura'.$idFactura.'.xml';    //RUTA DEL XML CFDI
 $datosHTML['titulo']="factura ejemplo";                                          //TITULO DE FACTURA
 $datosHTML['tipo']="FACTURA";                                                    //TIPO DE FACTURA VENTA,NOMINA,ARRENDAMIENTO, ETC
 $datosHTML['path_logo']="../../timbrados/logo.png";                          //RUTA DE LOGOTIPO DE FACTURA
@@ -36,7 +32,8 @@ $datosPDF['PAC']['produccion'] = "NO";
 $datosPDF['modulo']="html2pdf";                                                   //NOMBRE MODULO
 $datosPDF['html']="$HTML";                                                        // HTML DE XML CFDI A CONVERTIR A PDF
 $datosPDF['archivo_html']="$HTML";                                                     // OPCION SI SE TIENE UN ARCHIVO .HTML
-$datosPDF['archivo_pdf']="../../pdf/factura_".$idFacturables.".pdf";
+$datosPDF['archivo_pdf']="../../pdf/factura_".$idFactura.".pdf";
+//$idFactura
 
 $res = mf_ejecuta_modulo($datosPDF);                                    //RESPUESTA DE LA FUNCION CARGAR MODULO  
 //$res = ___html2pdf($datosPDF);                                    //RESPUESTA DE LA FUNCION CARGAR MODULO

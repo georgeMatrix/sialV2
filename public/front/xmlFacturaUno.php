@@ -32,7 +32,7 @@ function xmlToArray(SimpleXMLElement $xml): array
         $xml->getName() => $parser($xml)
     ];
 }
-include ("xmlFactura.php");
+include ("factura.php");
 $sXml = new SimpleXMLElement($xmlOriginal);
 $ns = $sXml->getNamespaces(true);
 $child = $sXml->children($ns['cfdi']);

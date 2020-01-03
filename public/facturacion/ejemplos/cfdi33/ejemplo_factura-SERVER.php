@@ -2,7 +2,7 @@
 
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
-$idFacturables = '';
+//$idFacturables = '';
 $datos['conceptos'][0]['descripcion']='';
 $datos['conceptos'][0]['cantidad']='';
 $datos['conceptos'][0]['unidad']='';
@@ -30,8 +30,8 @@ $sumatoriaCfdiRIvaImporte = 0;
 
 $valores = $_POST["valoresParaServidor"];
 $noConceptos = $_POST["noConceptos"];
-$facturables = $_POST["facturables"];
-
+$idFactura = $_POST["idFactura"];
+//var_dump($facturables);
 //for($i=0; $i<7; $i++){        HABILITAR CUANDO YA ESTE TERMINADO
 foreach ($valores[2] as $k=>$v){
     $datos['conceptos'][$k]['descripcion'] = $v;
@@ -106,16 +106,17 @@ foreach ($valores[10] as $k=>$v) {
     }
 }*/
 
-foreach ($valores[22] as $k=>$v) {
+/*foreach ($valores[22] as $k=>$v) {
     $idFacturables = $v;
-}
+}*/
 
 include 'ejemploFacturaAPI/api.php';
 
 // Datos de la Factura
 $datos['factura']['condicionesDePago'] = 'CONDICIONES';     //DEL MODAL ppd
 $datos['factura']['fecha_expedicion'] = date('Y-m-d\TH:i:s', time() - 120); //new date
-$datos['factura']['folio'] = '100';     //preguntar a Peter folio de factura MODAL
+//$datos['factura']['folio'] = '100';     //preguntar a Peter folio de factura MODAL
+$datos['factura']['folio'] = $idFactura;
 $datos['factura']['forma_pago'] = $valores[14];     //forma de pago MODAL
 $datos['factura']['LugarExpedicion'] = $valores[12];    //forma de pago MODAL
 $datos['factura']['metodo_pago'] = $valores[13];    //forma de pago MODAL
@@ -130,11 +131,24 @@ $datos['factura']['total'] = $sumatoriaImporte + $sumatoriaCfdiTIvaImporte;     
 $datos['factura']['RegimenFiscal'] = '601';     //601 en duro
 
 // Datos del Emisor
-$datos['emisor']['rfc'] = 'LAN7008173R5'; //si es 2 es ruben velazquez y si es 1 es logiexpress
-$datos['emisor']['nombre'] = 'ACCEM SERVICIOS EMPRESARIALES SC';  // si es 2 es ruben velazquez y si es 1 es logiexpress se copia del de arriba
+if ($valores[23] == 1){
+    $datos['emisor']['rfc'] = 'LAN7008173R5'; //si es 2 es ruben velazquez y si es 1 es logiexpress
+}
+if ($valores[24] == 1){
+    $datos['emisor']['nombre'] = 'ACCEM SERVICIOS EMPRESARIALES SC';  // si es 2 es ruben velazquez y si es 1 es logiexpress se copia del de arriba
+}
+if ($valores[23] == 2){
+    $datos['emisor']['rfc'] = 'LAN7008173R5'; //si es 2 es ruben velazquez y si es 1 es logiexpress
+}
+if ($valores[24] == 2){
+    $datos['emisor']['nombre'] = 'ACCEM SERVICIOS EMPRESARIALES SC';  // si es 2 es ruben velazquez y si es 1 es logiexpress se copia del de arriba
+}
+
 
 // Datos del Receptor
+//$datos['receptor']['rfc'] = $valores[25];        //receptor_rfc (Front)
 $datos['receptor']['rfc'] = 'XAXX010101000';        //receptor_rfc (Front)
+//$datos['receptor']['nombre'] = $valores[26];        //receptor_razon_social
 $datos['receptor']['nombre'] = 'Publico en General';        //receptor_razon_social
 $datos['receptor']['UsoCFDI'] = 'G02';      //G03 en duro
 
@@ -145,12 +159,13 @@ $datos['impuestos']['TotalImpuestosTrasladados'] = $sumatoriaCfdiTIvaImporte;   
 
 // Se ejecuta el SDK
 $res = mf_genera_cfdi($datos);
-
-foreach ($res AS $variable => $valor) {
+//header('Content-Type: application/json; charset=utf-8');
+/*foreach ($res AS $variable => $valor) {
     $valor = htmlentities($valor);
     $valor = str_replace('&lt;br/&gt;', '<br/>', $valor);
     echo json_encode($valor);
-}
+    exit;
+}*/
 
 //header('Content-Type: application/xml; charset=utf-8');
 $file = fopen("../../../front/factura.php", "w+b");
@@ -174,5 +189,7 @@ foreach ($res AS $variable => $valor) {
     //echo "archivo guardado en php";
     //echo "<hr>";
     //echo $resultante;
+    include ("../../../front/xmlFacturaUno.php");
     exit;
 }
+

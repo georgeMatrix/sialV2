@@ -30,6 +30,7 @@ Route::post('/cuentasPorCobrarV2', 'CuentasPorCobrarV2Controller@getDatosCuentas
 Route::post('/facturar', 'CuentasPorCobrarV2Controller@datosParaFacturar');
 
 Route::post('/guardarFacturar', 'CuentasPorCobrarV2Controller@datosAGuardarEnFactura');
+Route::post('/guardarFactura', 'CuentasPorCobrarV2Controller@datosLlenosAGuardarEnFactura');
 
 Route::post('/serverExterno', 'CuentasPorCobrarV2Controller@serverExterno');
 

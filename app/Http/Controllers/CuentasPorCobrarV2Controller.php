@@ -36,16 +36,28 @@ class CuentasPorCobrarV2Controller extends Controller
         for($i=0; $i < count($request[0]); $i++){
             Facturables::where('id', '=', $request[0][$i][0]['id'])->update(['factura' => $guardadoFactura->id]);
         }
-        return response()->json($request);
-/*============================================================*/
+        return response()->json($guardadoFactura->id);
+    }
 
-        /*$tamInputCheckFacturar = count($request[0]);
-        for($i=0; $i < $tamInputCheckFacturar; $i++){
-            $factura = new Facturas();
-            $factura->lugar_expedicion = $request[0][$i][0]['USER_NOMBRE_RUTA'];
-            $factura->save();
-        }
-        return count($request[0]);*/
+    public function datosLlenosAGuardarEnFactura(Request $request){
+        Facturas::where('id', '=', $request->datosDeFactura[0]['Folio'])->update([
+            'total' => $request->datosDeFactura[0]['Total'],
+            'certificado' => $request->datosDeFactura[0]['Certificado'],
+            'subtotal' => $request->datosDeFactura[0]['SubTotal'],
+            'numero_de_certificado' => $request->datosDeFactura[0]['NoCertificado'],
+            'sello' => $request->datosDeFactura[0]['Sello'],
+            'fecha' => $request->datosDeFactura[0]['Fecha'],
+            'folio' => $request->datosDeFactura[0]['Folio'],
+            'serie' => $request->datosDeFactura[0]['Serie'],
+            'version' => $request->datosDeFactura[0]['Version'],
+            'version' => $request->datosDeFactura[0]['Version'],
+            'uuid' => $request->datosDeFactura[5]['UUID'],
+            'fecha_timbrado' => $request->datosDeFactura[5]['FechaTimbrado'],
+            ]);
+        //return $request->datosDeFactura;
+        //return "llegando";
+        //Facturas::where('id', )
+        //return response()->json($request);
     }
 
     public function datosParaFacturar(Request $request){
@@ -67,6 +79,7 @@ class CuentasPorCobrarV2Controller extends Controller
     public function getDatosCuentasPorCobrar(Request $request ){
         $query = Facturables::where('emisor_razon_social', $request[0]['facturador'])
             ->where('cliente_id', '=', $request[1]['cliente'])
+            ->where('factura', '=', null)
             ->get();
         return response()->json($query);
     }
