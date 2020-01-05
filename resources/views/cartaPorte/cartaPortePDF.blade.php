@@ -16,7 +16,7 @@
                     <br> Tel. (55) 6390-2828 Y 6390-2888 <br> R.F.C. TLO-0905053P2</p>
             </div>
             <div style="float: left; padding-left: 150px; ">
-                <!--<img src="{{asset('img/logo.png')}}" alt="">-->
+                <!--<img style="width: 120px" src="{{asset('img/logo.png')}}" alt="">-->
                 <img style="width: 120px" src="F:\LARAVEL/SIAL V2/sail/resources/views/cartaPorte/logo.png" alt="">
             </div>
             <div style="float: left; padding-left: 200px;">
@@ -155,7 +155,7 @@
             </div>
 
             <div style="position: absolute; width: 100px; height: 80px; top: 820px; padding-bottom: 5px; padding-right: 10px">
-            <!--<img src="{{asset('img/logo.png')}}" alt="">-->
+            <!--<img style="width: 100px" src="{{asset('img/rfc.png')}}" alt="">--> <!-- PARA SERVIDOR -->
                 <img style="width: 100px" src="F:\LARAVEL/SIAL V2/sail/resources/views/cartaPorte/rfc.png" alt="">
             </div>
 
