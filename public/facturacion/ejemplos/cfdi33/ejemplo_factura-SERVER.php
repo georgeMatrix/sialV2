@@ -150,7 +150,7 @@ if ($valores[24] == 2){
 $datos['receptor']['rfc'] = 'XAXX010101000';        //receptor_rfc (Front)
 //$datos['receptor']['nombre'] = $valores[26];        //receptor_razon_social
 $datos['receptor']['nombre'] = 'Publico en General';        //receptor_razon_social
-$datos['receptor']['UsoCFDI'] = 'G02';      //G03 en duro
+$datos['receptor']['UsoCFDI'] = $valores[27];;      //G03 en duro
 
 // Se agregan los conceptos
 

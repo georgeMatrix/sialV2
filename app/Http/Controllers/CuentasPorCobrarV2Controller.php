@@ -11,10 +11,177 @@ use App\facturacion\Facturacion;
 use App\Facturas;
 use App\Importacion;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class CuentasPorCobrarV2Controller extends Controller
 {
+    public function excel(Request $request){
+        $facturables = Facturables::where('factura', '=', $request['idFactura'])->first();
+        $factura = Facturas::where('id', '=', $facturables->factura)->first();
+        $cliente = Clientes::where('id', '=', $facturables->cliente_id)->first();
+        //var_dump($facturables->updated_at);
+        //return $facturables;
+        $myFile = \Excel::load('FACTURA_V2.xlsx', function($reader) use($facturables, $factura, $cliente){
+            $reader->sheet('Hoja1', function($sheet) use($facturables, $factura, $cliente){
+
+                $sheet->cell('L1', function($cell) use($facturables) {
+                    // manipulate the cell
+                    $cell->setValue($facturables->id);
+                });
+                $sheet->cell('J3', function($cell) use($facturables, $factura) {
+                    // manipulate the cell
+                    $cell->setValue($factura->uuid);
+                });
+                $sheet->cell('J5', function($cell) use($facturables, $factura) {
+                    // manipulate the cell
+                    $cell->setValue($factura->numero_de_certificado);
+                });
+                $sheet->cell('J7', function($cell) use($facturables, $factura) {
+                    // manipulate the cell
+                    $cell->setValue($factura->fecha);
+                });
+                $sheet->cell('A8', function($cell) use($facturables) {
+                    // manipulate the cell
+                    $cell->setValue($facturables->receptor_razon_social);
+                });
+                $sheet->cell('A9', function($cell) use($facturables) {
+                    // manipulate the cell
+                    $cell->setValue($facturables->receptor_rfc);
+                });
+                $sheet->cell('A11', function($cell) use($cliente) {
+                    // manipulate the cell
+                    $calle = $cliente->calle . " " . $cliente->numero;
+                    $cell->setValue($calle);
+                });
+                $sheet->cell('A12', function($cell) use($cliente) {
+                    // manipulate the cell
+                    $cell->setValue($cliente->colonia);
+                });
+                $sheet->cell('A13', function($cell) use($cliente) {
+                    // manipulate the cell
+                    $cell->setValue($cliente->cp);
+                });
+                $sheet->cell('A14', function($cell) use($cliente) {
+                    // manipulate the cell
+                    $cell->setValue($cliente->ciudad);
+                });
+                $sheet->cell('A15', function($cell) use($cliente) {
+                    // manipulate the cell
+                    $cell->setValue($cliente->estado);
+                });
+                $sheet->cell('G12', function($cell) use($factura) {
+                    // manipulate the cell
+                    $cell->setValue($factura->lugar_expedicion);
+                });
+                $sheet->cell('I13', function($cell) use($factura) {
+                    // manipulate the cell
+                    $cell->setValue($factura->forma_pago);
+                });
+                $sheet->cell('I15', function($cell) use($factura) {
+                    // manipulate the cell
+                    $cell->setValue($factura->metodo_pago);
+                });
+                $sheet->cell('H18', function($cell) use($facturables) {
+                    // manipulate the cell
+                    $cell->setValue($facturables->USER_UNIDAD);
+                });
+                $sheet->cell('H19', function($cell) use($facturables) {
+                    // manipulate the cell
+                    $cell->setValue($facturables->USER_REMOLQUE);
+                });
+                $sheet->cell('C20', function($cell) use($facturables) {
+                    // manipulate the cell
+                    $cell->setValue($facturables->USER_CARTA_PORTE_TIPO.$facturables->USER_CARTA_PORTE_ID);
+                });
+                $sheet->cell('C22', function($cell) use($facturables) {
+                    // manipulate the cell
+                    $cell->setValue($facturables->USER_OPERADOR);
+                });
+                $sheet->cell('H22', function($cell) use($factura) {
+                    // manipulate the cell
+                    $cell->setValue($factura->moneda);
+                });
+                $sheet->cell('M22', function($cell) use($factura) {
+                    // manipulate the cell
+                    $cell->setValue($factura->tipo_comprobante);
+                });
+                $sheet->cell('A25', function($cell) use($facturables) {
+                    // manipulate the cell
+                    $cell->setValue($facturables->cantidad);
+                });
+                $sheet->cell('C25', function($cell) use($facturables) {
+                    // manipulate the cell
+                    $cell->setValue($facturables->unidad);
+                });
+                $sheet->cell('E25', function($cell) use($facturables) {
+                    // manipulate the cell
+                    $cell->setValue($facturables->descripcion);
+                });
+                $sheet->cell('K25', function($cell) use($facturables) {
+                    // manipulate the cell
+                    $cell->setValue($facturables->valor_unitario);
+                });
+                $sheet->cell('M25', function($cell) use($facturables) {
+                    // manipulate the cell
+                    $cell->setValue($facturables->importe);
+                });
+                $sheet->cell('C26', function($cell) use($facturables) {
+                    // manipulate the cell
+                    $cell->setValue($facturables->clave_prod_serv);
+                });
+                $sheet->cell('G26', function($cell) use($facturables) {
+                    // manipulate the cell
+                    $cell->setValue($facturables->clave_unidad);
+                });
+                $sheet->cell('J26', function($cell) use($facturables) {
+                    // manipulate the cell
+                    $cell->setValue($facturables->cfdi_r_iva_importe);
+                });
+                $sheet->cell('M26', function($cell) use($facturables) {
+                    // manipulate the cell
+                    $cell->setValue($facturables->cfdi_t_iva_importe);
+                });
+                $sheet->cell('M30', function($cell) use($factura) {
+                    // manipulate the cell
+                    $cell->setValue($factura->total);
+                });
+                $sheet->cell('M30', function($cell) use($factura) {
+                    // manipulate the cell
+                    $cell->setValue($factura->subtotal);
+                });
+                $sheet->cell('M33', function($cell) use($factura) {
+                    // manipulate the cell
+                    $cell->setValue($factura->total);
+                });
+                $sheet->cell('A36', function($cell) use($factura) {
+                    // manipulate the cell
+                    $cell->setValue($factura->sello);
+                });
+                $sheet->cell('A41', function($cell) use($factura) {
+                    // manipulate the cell
+                    $cell->setValue($factura->numero_de_certificado);
+                });
+                $sheet->cell('D46', function($cell) use($factura) {
+                    // manipulate the cell
+                    $cell->setValue($factura->numero_de_certificado);
+                });
+                $sheet->cell('M31', function($cell) use($factura) {
+                    // manipulate the cell
+                    $cell->setValue($factura->impuestos_trasladados);
+                });
+
+            });
+        });
+        //->download();
+        $myFile = $myFile->string('xlsx'); //change xlsx for the format you want, default is xls
+        $response =  array(
+            'name' => "FACTURA".$request['idFactura'],
+            'file' => "data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,".base64_encode($myFile) //mime type of used format
+        );
+        return response()->json($response);
+    }
+
     public function serverExterno(Request $request){
         Facturacion::facturacionUno();
     }
@@ -28,7 +195,10 @@ class CuentasPorCobrarV2Controller extends Controller
             'metodo_pago' => $request[2],
             'forma_pago' => $request[3],
             'tipo_comprobante' => $request[4],
-            'moneda' => $request[5]
+            'moneda' => $request[5],
+            'uso_cfdi' => $request[6],
+            'peso' => $request[7],
+            'referencia' => $request[8]
         ]);
         //$facturables = new Facturables();
         //$facturables->factura = $guardadoFactura->id;
@@ -53,6 +223,7 @@ class CuentasPorCobrarV2Controller extends Controller
             'version' => $request->datosDeFactura[0]['Version'],
             'uuid' => $request->datosDeFactura[5]['UUID'],
             'fecha_timbrado' => $request->datosDeFactura[5]['FechaTimbrado'],
+            'impuestos_trasladados' => $request->datosDeFactura[6]['TotalImpuestosTrasladados'],
             ]);
         //return $request->datosDeFactura;
         //return "llegando";

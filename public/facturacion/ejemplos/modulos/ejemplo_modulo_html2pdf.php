@@ -2,7 +2,8 @@
 error_reporting(0); // OPCIONAL DESACTIVA NOTIFICACIONES DE DEBUG
 date_default_timezone_set('America/Mexico_City');
 $idFactura = $_POST["idFactura"];
-var_dump($idFactura);
+$valoresParaServidor = $_POST["valoresParaServidor"];
+var_dump($valoresParaServidor);
 include_once "../../sdk2.php";
 //echo "LLEGANDO";
 $datosHTML['RESPUESTA_UTF8'] = "SI";
@@ -11,7 +12,7 @@ $datosHTML['PAC']['pass'] = "DEMO700101XXX";
 $datosHTML['PAC']['produccion'] = "NO";
 //MODULO MULTIFACTURAS : CONVIERTE UN XML CFDI A HTML
 $datosHTML['modulo']="cfdi2html";                                                //NOMBRE MODULO
-$datosHTML['rutaxml']='../../timbrados/cfdi_ejemplo_factura'.$idFactura.'.xml';    //RUTA DEL XML CFDI
+$datosHTML['rutaxml']='../../timbrados/cfdi_factura'.$idFactura.'.xml';    //RUTA DEL XML CFDI
 $datosHTML['titulo']="factura ejemplo";                                          //TITULO DE FACTURA
 $datosHTML['tipo']="FACTURA";                                                    //TIPO DE FACTURA VENTA,NOMINA,ARRENDAMIENTO, ETC
 $datosHTML['path_logo']="../../timbrados/logo.png";                          //RUTA DE LOGOTIPO DE FACTURA

@@ -16,10 +16,10 @@ require_once '../../sdk2.php';
 $datos['version_cfdi'] = '3.3';
 
 // Ruta del XML Timbrado $idFactura
-$datos['cfdi']='../../timbrados/cfdi_ejemplo_factura'.$idFactura.'.xml';      //PONER EL NOMBRE DEL FOLIO (QUE AUN NO SE TIENE)
+$datos['cfdi']='../../timbrados/cfdi_factura'.$idFactura.'.xml';      //PONER EL NOMBRE DEL FOLIO (QUE AUN NO SE TIENE)
 
 // Ruta del XML de Debug
-$datos['xml_debug']='../../timbrados/sin_timbrar_ejemplo_factura'.$idFactura.'.xml';
+$datos['xml_debug']='../../timbrados/sin_timbrar_factura'.$idFactura.'.xml';
 
 // Credenciales de Timbrado
 $datos['PAC']['usuario'] = 'DEMO700101XXX';

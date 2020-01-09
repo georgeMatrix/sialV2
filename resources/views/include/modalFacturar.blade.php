@@ -38,6 +38,36 @@
                         <option value="MXN">MXN</option>
                         <option value="MXN">USD</option>
                     </select>
+                    <label for="">Uso Cfdi</label>
+                    <select name="usoCfdi" id="usoCfdi" class="form-control">
+                        <option value="G01">G01</option>
+                        <option value="G02">G02</option>
+                        <option value="G03">G03</option>
+                        <option value="I01">I01</option>
+                        <option value="I02">I02</option>
+                        <option value="I03">I03</option>
+                        <option value="I04">I04</option>
+                        <option value="I05">I05</option>
+                        <option value="I06">I06</option>
+                        <option value="I07">I07</option>
+                        <option value="I08">I08</option>
+                        <option value="D01">D01</option>
+                        <option value="D02">D02</option>
+                        <option value="D03">D03</option>
+                        <option value="D04">D04</option>
+                        <option value="D05">D05</option>
+                        <option value="D06">D06</option>
+                        <option value="D07">D07</option>
+                        <option value="D08">D08</option>
+                        <option value="D09">D09</option>
+                        <option value="D10">D10</option>
+                        <option value="P01">P01</option>
+                    </select>
+
+                    <label for="">Peso</label>
+                    <input type="text" class="form-control" id="peso" name="peso">
+                    <label for="">Referencia</label>
+                    <input type="text" class="form-control" id="referencia" name="referencia">
 
                 </form>
             </div>

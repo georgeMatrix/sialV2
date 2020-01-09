@@ -168,6 +168,10 @@ function generarFactura(){
     let cfdiRIvaTipofactor = []
     let idFacturables = []
 
+    let usoCfdi = []
+    let referencia = []
+    let peso = []
+
     var valoresParaServer = [];
     valoresParaServer[0] = inputCheckFacturar()
     //-----------------Solo para visializacion------------------------
@@ -176,6 +180,9 @@ function generarFactura(){
     valoresParaServer[3] = $("#forma_pago").val();
     valoresParaServer[4] = $("#tipo_comprobante").val();
     valoresParaServer[5] = $("#moneda").val();
+    valoresParaServer[6] = $("#usoCfdi").val();
+    valoresParaServer[7] = $("#peso").val();
+    valoresParaServer[8] = $("#referencia").val();
     //-----------------Solo para visializacion------------------------
 
     $.ajax({
@@ -245,6 +252,10 @@ function generarFactura(){
         datosParaServidor[14] = $("#forma_pago").val();
         datosParaServidor[15] = $("#tipo_comprobante").val();
         datosParaServidor[16] = $("#moneda").val();
+
+        datosParaServidor[27] = $("#usoCfdi").val();
+        datosParaServidor[28] = $("#peso").val();
+        datosParaServidor[29] = $("#referencia").val();
 
         console.log(datosParaServidor[0])
 
@@ -333,18 +344,68 @@ function guardadoFactura(datosDeFactura) {
 }
 
 function pdfFactura(valores, idFactura){
-    console.log("idFactura: "+idFactura)
+    console.log(valores)
+    console.log("========================================")
     let request = {valoresParaServidor: valores, idFactura: idFactura}
     $.ajax({
         url: '/facturacion/ejemplos/modulos/ejemplo_modulo_html2pdf.php',        //local
         type: 'post',
         data: request,
     }).done(function(response) {
-        $("#pdfFactura").prop("disabled", false)
-            $("#pdfFactura").prop("href", "facturacion\\pdf\\factura_"+idFactura+".pdf");
+        $("#XMLFactura").prop("disabled", false)
+            $("#XMLFactura").prop("href", "facturacion\\timbrados\\cfdi_factura"+idFactura+".xml");
         Swal.fire(
-            'El PDF se creo correctamente',
+            'El EXCEL se creo correctamente',
         )
-        console.log("pdf listo!!!")
+        console.log("EXCEL listo!!!")
+        excelFacturaPrueba(idFactura);
+    }).fail( function( jqXHR, textStatus, errorThrown ) {
+
+        if (jqXHR.status === 0) {
+
+            alert('Not connect: Verify Network.');
+
+        } else if (jqXHR.status == 404) {
+
+            alert('Requested page not found [404]');
+
+        } else if (jqXHR.status == 500) {
+
+            alert('Internal Server Error [500].');
+
+        } else if (textStatus === 'parsererror') {
+
+            alert('Requested JSON parse failed.');
+
+        } else if (textStatus === 'timeout') {
+
+            alert('Time out error.');
+
+        } else if (textStatus === 'abort') {
+
+            alert('Ajax request aborted.');
+        } else {
+
+            alert('Uncaught Error: ' + jqXHR.responseText);
+
+        }
+
     });
+}
+
+function excelFacturaPrueba(idFactura){
+    let request = {idFactura: idFactura}
+    $.ajax({
+        url: 'api/excelFactura',        //local
+        type: 'POST',
+        data: request,
+    }).done(function(response){
+        var a = document.createElement("a");
+        a.href = response.file;
+        a.download = response.name;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        //console.log(response)
+    })
 }

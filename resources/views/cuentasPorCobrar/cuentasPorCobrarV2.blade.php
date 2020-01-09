@@ -10,8 +10,10 @@
                 <div class="col-md-6">
                     <a href="{{url('/home')}}" class="mt-3 mr-3 btn btn-info float-right"><i class="fas fa-arrow-circle-left"></i> Regresar</a>
                     <button class="mt-3 mr-3 btn btn-info float-right" id="facturar" data-toggle="modal" data-target="#modalFacturar" onclick="inputCheckFacturar()"> Facturar</button>
-                    <a href="#" id="pdfFactura" target="_blank" class="btn-is-disabled mt-3 mr-3 btn btn-success float-right">PDF</a>
-                    <a href="{{route('cuentasPorCobrarV2.create')}}" class="mt-3 mr-3 btn btn-info float-right">Nuevo</a>
+                        <a href="#" id="XMLFactura" download="XMLFactura" class="btn-is-disabled mt-3 mr-3 btn btn-success float-right">XML</a>
+                    {{--<a href="{{url('api/excelFactura')}}" class="btn btn-danger">excel</a>--}}
+                    {{--<button class="btn btn-danger" onclick="excelFacturaPrueba()">excel</button>--}}
+                    {{--<a href="{{route('cuentasPorCobrarV2.create')}}" class="mt-3 mr-3 btn btn-info float-right">Nuevo</a>--}}
                 </div>
 
             </div>

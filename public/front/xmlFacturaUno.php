@@ -49,6 +49,8 @@ $factura[3] = conceptos($child, $ns);
 $factura[4] = impuestos($child, $ns);
 //echo "<hr>";
 $factura[5] = complemento($child, $ns);
+//echo "<hr>";
+$factura[6] = totalImpuestosTrasladados($child);
 
 function padre($stringXML){
     $padre = xmlToArray($stringXML); //Mediante este metodo podemos acceder al padre
@@ -120,9 +122,18 @@ function conceptos($nodoHijo, $nameSpace){
     return $resultado;
 }
 
+function totalImpuestosTrasladados($nodoHijo){
+    $totalImpuestosTrasladados = $nodoHijo[3];
+    $totalImpuestosTrasladadosRes = xmlToArray($totalImpuestosTrasladados); //Mediante este metodo podemos acceder al los hijos
+    foreach ($totalImpuestosTrasladadosRes as $nombre=>$valor)
+    {
+        //var_dump($valor["attributes"]);
+        return $valor["attributes"];
+    }
+}
+
 function impuestos($nodoHijo, $nameSpace){
     $trasladoRes = array();
-
     $impuestos = $nodoHijo[3]->children($nameSpace['cfdi']);
     $noConceptos = count($impuestos);
     //Verifica cuantos conceptos existen
