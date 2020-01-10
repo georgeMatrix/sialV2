@@ -21,7 +21,7 @@
             </div>
             <div style="float: left; padding-left: 200px;">
                 <p style="font-size: 9px">Carta Porte</p>
-                <p style="font-size: 9px">No.{{$letra}} {{$tipo->cartaPorte}}</p>
+                <p style="font-size: 9px">No.{{$letra}} {{$tipo->id}}</p>
             </div>
 
         <div style="position: absolute; width: 720px; height: 32px; top: 90px; border: 1px solid #000000; padding-bottom: 5px; padding-right: 5px">

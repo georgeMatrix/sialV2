@@ -1,4 +1,3 @@
-
 /**
  * Created by GEORGE on 8/22/19.
  */
@@ -25,31 +24,32 @@ function ajax(request, tokenCuentasPorPagar){
         data: JSON.stringify(request),
     })
         .done(function(data) {
-            //console.log(data);
+            console.log(data);
             let htmlSelect = ''
-            for (let i=0; i<data.length; i++){
+            for (let i=0; i<data[0].length; i++){
                 htmlSelect += "<tr id='rows'>" +
-                    "<input id='idFactura' type='hidden' value="+data[i].id+">" +
-                    "<td><input id='inputCheckFactura' type='checkbox' name="+i+" class='form-control'></td>" +
-                    "<td>"+data[i].USER_CARTA_PORTE_TIPO_ID+"</td>" +
-                    "<td>"+data[i].USER_CARTA_PORTE_TIPO+"</td>" +
-                    "<td>"+data[i].emisor_razon_social+"</td>" +
-                    "<td>"+data[i].receptor_razon_social+"</td>" +
-                    "<td>"+data[i].USER_NOMBRE_RUTA+"</td>" +
-                    "<td>"+data[i].USER_UNIDAD+"</td>" +
-                    "<td>"+data[i].USER_REMOLQUE+"</td>" +
-                    "<td>"+data[i].USER_OPERADOR+"</td>" +
-                    "<td>"+data[i].clave_prod_serv+"</td>" +
-                    "<td>"+data[i].no_identificacion+"</td>" +
-                    "<td>"+data[i].cantidad+"</td>" +
-                    "<td>"+data[i].clave_unidad+"</td>" +
-                    "<td>"+data[i].unidad+"</td>" +
-                    "<td>"+data[i].descripcion+"</td>" +
-                    "<td>"+number_format(data[i].valor_unitario, 2)+"</td>" +
-                    "<td>"+number_format(data[i].importe, 2)+"</td>" +
-                    "<td>"+number_format(data[i].cfdi_t_iva_importe, 2)+"</td>" +
-                    "<td>"+number_format(data[i].cfdi_r_iva_importe, 2)+"</td>" +
-                    "<td>"+number_format((parseInt(data[i].importe) + parseInt(data[i].cfdi_t_iva_importe))-(parseInt(data[i].cfdi_r_iva_importe)), 2)+"</td>" +
+                    "<input id='idFactura' type='hidden' value="+data[0][i].id+">" +
+                    "<td><input id='inputCheckFactura"+i+"' onclick='inputChecked("+i+");' type='checkbox' name="+i+" class='form-control'></td>" +
+                    "<td>"+data[0][i].USER_CARTA_PORTE_TIPO_ID+"</td>" +
+                    // "<td>"+data[0][i].USER_CARTA_PORTE_TIPO+"</td>" +
+                     "<td>"+data[1][i].id+"</td>" +
+                    "<td>"+data[0][i].emisor_razon_social+"</td>" +
+                    "<td>"+data[0][i].receptor_razon_social+"</td>" +
+                    "<td>"+data[0][i].USER_NOMBRE_RUTA+"</td>" +
+                    "<td>"+data[0][i].USER_UNIDAD+"</td>" +
+                    "<td>"+data[0][i].USER_REMOLQUE+"</td>" +
+                    "<td>"+data[0][i].USER_OPERADOR+"</td>" +
+                    "<td>"+data[0][i].clave_prod_serv+"</td>" +
+                    "<td>"+data[0][i].no_identificacion+"</td>" +
+                    "<td>"+data[0][i].cantidad+"</td>" +
+                    "<td>"+data[0][i].clave_unidad+"</td>" +
+                    "<td>"+data[0][i].unidad+"</td>" +
+                    "<td>"+data[0][i].descripcion+"</td>" +
+                    "<td>"+number_format(data[0][i].valor_unitario, 2)+"</td>" +
+                    "<td>"+number_format(data[0][i].importe, 2)+"</td>" +
+                    "<td>"+number_format(data[0][i].cfdi_t_iva_importe, 2)+"</td>" +
+                    "<td>"+number_format(data[0][i].cfdi_r_iva_importe, 2)+"</td>" +
+                    "<td>"+number_format((parseInt(data[0][i].importe) + parseInt(data[0][i].cfdi_t_iva_importe))-(parseInt(data[0][i].cfdi_r_iva_importe)), 2)+"</td>" +
                     "</tr>"
                 $("#tablaCuentasPorPagar").html(htmlSelect)
                 //console.log(htmlSelect)
@@ -96,7 +96,7 @@ function inputCheckFacturar(){
         /*EL DETALLE ES QUE SOLO ENCUENTRA UN nombre de inputCheckFactura*/
         /*datosParaFacturar es la funcion que esta en CuentasPorCobrarV2
         /*==============================*/
-        if($(this).find("#inputCheckFactura").prop('checked')){
+        if($(this).find("#inputCheckFactura"+contador).prop('checked')){
             let valorActual = $(this).parent();
             valoresIds[contador] = valorActual.find("#idFactura").val();
             contador = contador + 1;
@@ -122,10 +122,20 @@ console.log(valoresIds)
 }
 
 $(document).ready(function(){
+    $("#XMLFactura").prop("href", localStorage.getItem("direccionXML"));
     var screen = $('#loading-screen');
     configureLoadingScreen(screen);
     modal();
 })
+
+function inputChecked(i) {
+    console.log(i)
+    if( $('#inputCheckFactura'+i).prop('checked') ) {
+        $("#facturar").prop("disabled", false)
+    }else{
+        $("#facturar").prop("disabled", true)
+    }
+}
 
 function modal(){
     $("#formModalFactura").submit(function (e) {
@@ -198,6 +208,7 @@ function generarFactura(){
         console.log("---------------------------------------")
         //serverExterno()
         tamArreglo = valoresParaServer[0].length
+
         for (let i = 0; i < tamArreglo ; i++) {
             cantidad[i] = valoresParaServer[0][i][0].cantidad
             unidad[i] = valoresParaServer[0][i][0].unidad
@@ -227,6 +238,7 @@ function generarFactura(){
         datosParaServidor[4] = importe
         datosParaServidor[5] = claveProdServ
         datosParaServidor[6] = claveUnidad
+
         datosParaServidor[7] = cfdiTIvaBase
         datosParaServidor[8] = cfdiTIvaImpuesto
         datosParaServidor[9] = cfdiTIvaTipoFactor
@@ -267,6 +279,12 @@ function generarFactura(){
 
         generarXML(datosParaServidor, tamArreglo, idFactura)
     })
+}
+
+function previsualizacionXMLFactura(valores, tam, idFactura) {
+    console.log(valores)
+    console.log(tam)
+    console.log(idFactura)
 }
 
 function generarXML(valores, tam, idFactura){
@@ -352,8 +370,8 @@ function pdfFactura(valores, idFactura){
         type: 'post',
         data: request,
     }).done(function(response) {
-        $("#XMLFactura").prop("disabled", false)
             $("#XMLFactura").prop("href", "facturacion\\timbrados\\cfdi_factura"+idFactura+".xml");
+        localStorage.setItem("direccionXML", "facturacion\\timbrados\\cfdi_factura"+idFactura+".xml");
         Swal.fire(
             'El EXCEL se creo correctamente',
         )
@@ -407,5 +425,6 @@ function excelFacturaPrueba(idFactura){
         a.click();
         a.remove();
         //console.log(response)
+        location.reload();
     })
 }

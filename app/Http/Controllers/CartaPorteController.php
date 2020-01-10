@@ -44,26 +44,26 @@ class CartaPorteController extends Controller
 
             if ($cP->tipo == "N"){
                 $nacional = Nacional::all();
-                $tipo = $nacional->last();
+                $tipo = $nacional->where("cartaPorte", "=", $ruta)->first();
                 $letra = "N";
 
             }
             elseif ($cP->tipo == "I") {
                 $importacion = Importacion::all();
-                $tipo = $importacion->last();
+                $tipo = $importacion->where("cartaPorte", "=", $ruta)->first();
                 $letra = "I";
             }
 
             elseif ($cP->tipo == "E") {
                 $exportacion = Exportacion::all();
-                $tipo = $exportacion->last();
+                $tipo = $exportacion->where("cartaPorte", "=", $ruta)->first();
                 $letra = "E";
 
             }
 
             elseif ($cP->tipo == "C") {
                 $cruce = Cruce::all();
-                $tipo = $cruce->last();
+                $tipo = $cruce->where("cartaPorte", "=", $ruta)->first();
                 $letra = "C";
 
             }

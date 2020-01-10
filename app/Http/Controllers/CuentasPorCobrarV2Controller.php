@@ -10,6 +10,7 @@ use App\Facturables;
 use App\facturacion\Facturacion;
 use App\Facturas;
 use App\Importacion;
+use App\Nacional;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -252,7 +253,33 @@ class CuentasPorCobrarV2Controller extends Controller
             ->where('cliente_id', '=', $request[1]['cliente'])
             ->where('factura', '=', null)
             ->get();
-        return response()->json($query);
+        $tipo = [];
+        foreach($query as $k=>$facturables){
+
+            if ($facturables->USER_CARTA_PORTE_TIPO_ID == "N"){
+                $tipo[$k] = Nacional::where("cartaPorte", $facturables->USER_CARTA_PORTE_TIPO)->first();
+                $letra = "N";
+
+            }
+            elseif ($facturables->USER_CARTA_PORTE_TIPO_ID == "I") {
+                $tipo[$k] = Importacion::where("cartaPorte", $facturables->USER_CARTA_PORTE_TIPO)->first();
+                $letra = "I";
+            }
+
+            elseif ($facturables->USER_CARTA_PORTE_TIPO_ID == "E") {
+                $tipo[$k] = Exportacion::where("cartaPorte", "=", $facturables->USER_CARTA_PORTE_TIPO)->first();
+                $letra = "E";
+
+            }
+
+            elseif ($facturables->USER_CARTA_PORTE_TIPO_ID == "C") {
+                $tipo[$k] = Cruce::where("cartaPorte", "=", $facturables->USER_CARTA_PORTE_TIPO)->first();
+                $letra = "C";
+
+            }
+        }
+        //dd($tipo);
+        return response()->json([$query, $tipo]);
     }
 
     public function cliente($id){

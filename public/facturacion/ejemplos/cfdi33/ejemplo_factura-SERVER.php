@@ -3,7 +3,7 @@
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 //$idFacturables = '';
-$datos['conceptos'][0]['descripcion']='';
+/*$datos['conceptos'][0]['descripcion']='';
 $datos['conceptos'][0]['cantidad']='';
 $datos['conceptos'][0]['unidad']='';
 $datos['conceptos'][0]['ID'] = '';
@@ -16,7 +16,7 @@ $datos['conceptos'][0]['Impuestos']['Traslados'][0]['Base'] = '';
 $datos['conceptos'][0]['Impuestos']['Traslados'][0]['Impuesto'] = '';
 $datos['conceptos'][0]['Impuestos']['Traslados'][0]['TipoFactor'] = '';
 $datos['conceptos'][0]['Impuestos']['Traslados'][0]['TasaOCuota'] = '';
-$datos['conceptos'][0]['Impuestos']['Traslados'][0]['Importe'] = '';
+$datos['conceptos'][0]['Impuestos']['Traslados'][0]['Importe'] = '';*/
 
 /*$datos['conceptos'][0]['Impuestos']['Retenciones'][0]['Impuesto'] = '';
 $datos['conceptos'][0]['Impuestos']['Retenciones'][0]['Importe'] = '';
@@ -56,18 +56,24 @@ foreach ($valores[6] as $k=>$v) {
     $datos['conceptos'][$k]['ClaveUnidad'] = $v;
 }
 foreach ($valores[7] as $k=>$v) {
-    $datos['conceptos'][$k]['Impuestos']['Traslados'][0]['Base'] = $v;
+    if ($v != null){
+        $datos['conceptos'][$k]['Impuestos']['Traslados'][0]['Base'] = $v;
+    }
+
 }
 
 foreach ($valores[11] as $k=>$v) {
-    $datos['conceptos'][$k]['Impuestos']['Traslados'][0]['Importe'] = $v;
-    $sumatoriaCfdiTIvaImporte = $sumatoriaCfdiTIvaImporte + $v;
+    if ($v != null) {
+        $datos['conceptos'][$k]['Impuestos']['Traslados'][0]['Importe'] = $v;
+        $sumatoriaCfdiTIvaImporte = $sumatoriaCfdiTIvaImporte + $v;
+    }
 }
 
 foreach ($valores[8] as $k=>$v) {
-    $datos['conceptos'][$k]['Impuestos']['Traslados'][0]['Impuesto'] = $v;
-    if ($datos['conceptos'][$k]['Impuestos']['Traslados'][0]['Impuesto'] != ''){
-        if ($datos['conceptos'][$k]['Impuestos']['Traslados'][0]['Impuesto'] == '002'){
+    if ($v != null) {
+        $datos['conceptos'][$k]['Impuestos']['Traslados'][0]['Impuesto'] = $v;
+
+        if ($v == '002') {
             // Se agregan los Impuestos
             $datos['impuestos']['translados'][0]['impuesto'] = '002';
             $datos['impuestos']['translados'][0]['tasa'] = $valores[10][0];
@@ -77,10 +83,14 @@ foreach ($valores[8] as $k=>$v) {
     }
 }
 foreach ($valores[9] as $k=>$v) {
-    $datos['conceptos'][$k]['Impuestos']['Traslados'][0]['TipoFactor'] = $v;
+    if ($v != null) {
+        $datos['conceptos'][$k]['Impuestos']['Traslados'][0]['TipoFactor'] = $v;
+    }
 }
 foreach ($valores[10] as $k=>$v) {
-    $datos['conceptos'][$k]['Impuestos']['Traslados'][0]['TasaOCuota'] = $v;
+    if ($v != null) {
+        $datos['conceptos'][$k]['Impuestos']['Traslados'][0]['TasaOCuota'] = $v;
+    }
 }
 
 /*foreach ($valores[18] as $k=>$v) {
@@ -153,8 +163,17 @@ $datos['receptor']['nombre'] = 'Publico en General';        //receptor_razon_soc
 $datos['receptor']['UsoCFDI'] = $valores[27];;      //G03 en duro
 
 // Se agregan los conceptos
+if($sumatoriaCfdiTIvaImporte > 0){
+    $datos['impuestos']['TotalImpuestosTrasladados'] = $sumatoriaCfdiTIvaImporte;       //sumatoria de todos los conceptos en el apartado cfdi_t_iva_importe
+}
+else{
+    $datos['impuestos']['TotalImpuestosTrasladados'] = '0.00';
+    $datos['impuestos']['translados'][0]['impuesto'] = '003';
+    $datos['impuestos']['translados'][0]['tasa'] = '0.160000';
+    $datos['impuestos']['translados'][0]['importe'] = '0.00';
+    $datos['impuestos']['translados'][0]['TipoFactor'] = 'Tasa';
+}
 
-$datos['impuestos']['TotalImpuestosTrasladados'] = $sumatoriaCfdiTIvaImporte;       //sumatoria de todos los conceptos en el apartado cfdi_t_iva_importe
 //$datos['impuestos']['TotalImpuestosRetenidos'] = $sumatoriaCfdiRIvaImporte;
 
 // Se ejecuta el SDK

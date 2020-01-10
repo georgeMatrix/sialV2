@@ -29,7 +29,7 @@
                     <table class="table table-hover table-sm table-striped">
                         <thead class="table-info">
                         <tr>
-                            <th>ID</th>
+                            <th>CARTA_PORTE</th>
                             <th>TIPO</th>
                             <th>FECHA</th>
                             <th>RUTA</th>
