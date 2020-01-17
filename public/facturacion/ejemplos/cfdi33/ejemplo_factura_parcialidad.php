@@ -63,7 +63,7 @@ $datos['receptor']['UsoCFDI'] = 'P01';
     $concepto['cantidad'] = '1';
     $concepto['unidad'] = 'NO APLICA';
     $concepto['ClaveUnidad'] = "A90"; //ID, REF, CODIGO O SKU DEL PRODUCTO
-    $concepto['descripcion'] = "COBRO PARCIALIDAD DE VENTA A90";
+    $concepto['descripcion'] = "COBRO PARCIALIDAD dDE VENTA A90";
     $concepto['valorunitario'] = '1000.00'; // SIN IVA
     $concepto['importe'] = '1000.00';
 

@@ -85,7 +85,7 @@ $datos['tpe10']['datosTransito']['NumeroId']='gaar930830mcl';
 $datos['tpe10']['datosTransito']['Nacionalidad']='8';
 $datos['tpe10']['datosTransito']['EmpresaTransporte']='4';
 $datos['tpe10']['datosTransito']['IdTransporte']='oil';
-
+$datos['validacion_local']="NO";
 // Se ejecuta el SDK
 $res= mf_genera_cfdi($datos);
 

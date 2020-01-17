@@ -29,7 +29,7 @@ $datos['conf']['key'] = '../../certificados/lan7008173r5.key.pem';
 $datos['conf']['pass'] = '12345678a';
 
 // Datos de la Factura
-$datos['factura']['condicionesDePago'] = 'CONDICIONES';
+$datos['factura']['condicionesDePago'] = 'CONDICIDONES';
 $datos['factura']['descuento'] = '0.00';
 $datos['factura']['fecha_expedicion'] = date('Y-m-d\TH:i:s', time() - 120);
 $datos['factura']['folio'] = '100';

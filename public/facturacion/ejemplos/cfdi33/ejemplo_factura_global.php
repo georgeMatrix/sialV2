@@ -31,7 +31,7 @@ $datos['conf']['key'] = '../../certificados/lan7008173r5.key.pem';
 $datos['conf']['pass'] = '12345678a';
 
 // Datos de la factura
-$datos['factura']['Descuento'] = '0.00';
+//$datos['factura']['Descuento'] = '0.00';
 $datos['factura']['fecha_expedicion'] = date('Y-m-d\TH:i:s');
 $datos['factura']['Folio'] = '4764';
 $datos['factura']['FormaPago'] = '01';
@@ -39,57 +39,64 @@ $datos['factura']['LugarExpedicion'] = '91500';
 $datos['factura']['MetodoPago'] = 'PUE';
 $datos['factura']['Moneda'] = 'MXN';
 $datos['factura']['Serie'] = 'A';
-$datos['factura']['SubTotal'] = '775.00';
-$datos['factura']['TipoDeComprobante'] = 'I';
-$datos['factura']['Total'] = '899.00';
+$datos['factura']['subtotal'] = 298.00;
+$datos['factura']['tipocambio'] = 1;
+$datos['factura']['tipocomprobante'] = 'E';
+$datos['factura']['total'] = 345.68;
+$datos['factura']['RegimenFiscal'] = '601';
 
-// Datos del emisor
-$datos['emisor']['Nombre'] = 'CINDEMEX SA DE CV';
-$datos['emisor']['RegimenFiscal'] = '601';
-$datos['emisor']['Rfc'] = 'LAN7008173R5';
+// Datos del Emisor
+$datos['emisor']['rfc'] = 'LAN7008173R5'; //RFC DE PRUEBA
+$datos['emisor']['nombre'] = 'ACCEM SERVICIOS EMPRESARIALES SC';  // EMPRESA DE PRUEBA
 
-// Datos del receptor
-$datos['receptor']['Rfc'] = 'XAXX010101000';
-$datos['receptor']['UsoCFDI'] = 'P01';
+// Datos del Receptor
+$datos['receptor']['rfc'] = 'XAXX010101000';
+$datos['receptor']['nombre'] = 'Publico en General';
+$datos['receptor']['UsoCFDI'] = 'G02';
 
-// Datos del concepto
-$datos['conceptos']['0']['Cantidad'] = '1.000000';
-$datos['conceptos']['0']['ClaveProdServ'] = '01010101';
-$datos['conceptos']['0']['ClaveUnidad'] = 'ACT';
-$datos['conceptos']['0']['Descripcion'] = 'Venta';
-$datos['conceptos']['0']['Importe'] = '384.482758';
-$datos['conceptos']['0']['NoIdentificacion'] = '157231';
-$datos['conceptos']['0']['ValorUnitario'] = '384.482758';
+// Se agregan los conceptos
 
-// Impuestos del concepto
-$datos['conceptos']['0']['Impuestos']['Traslados']['0']['Base'] = '384.482758';
-$datos['conceptos']['0']['Impuestos']['Traslados']['0']['Importe'] = '61.517241';
-$datos['conceptos']['0']['Impuestos']['Traslados']['0']['Impuesto'] = '002';
-$datos['conceptos']['0']['Impuestos']['Traslados']['0']['TasaOCuota'] = '0.160000';
-$datos['conceptos']['0']['Impuestos']['Traslados']['0']['TipoFactor'] = 'Tasa';
+$datos['conceptos'][0]['cantidad'] = 1.00;
+$datos['conceptos'][0]['unidad'] = 'NA';
+$datos['conceptos'][0]['ID'] = "1726";
+$datos['conceptos'][0]['descripcion'] = "PRODUCTO DE PRUEBA 1";
+$datos['conceptos'][0]['valorunitario'] = 99.00;
+$datos['conceptos'][0]['importe'] = 99.00;
+$datos['conceptos'][0]['ClaveProdServ'] = '01010101';
+$datos['conceptos'][0]['ClaveUnidad'] = 'ACT';
 
-// Datos del concepto
-$datos['conceptos']['1']['Cantidad'] = '1.000000';
-$datos['conceptos']['1']['ClaveProdServ'] = '01010101';
-$datos['conceptos']['1']['ClaveUnidad'] = 'ACT';
-$datos['conceptos']['1']['Descripcion'] = 'Venta';
-$datos['conceptos']['1']['Importe'] = '390.517243';
-$datos['conceptos']['1']['NoIdentificacion'] = '157232';
-$datos['conceptos']['1']['ValorUnitario'] = '390.517243';
+$datos['conceptos'][0]['Impuestos']['Traslados'][0]['Base'] = 99.00;
+$datos['conceptos'][0]['Impuestos']['Traslados'][0]['Impuesto'] = '002';
+$datos['conceptos'][0]['Impuestos']['Traslados'][0]['TipoFactor'] = 'Tasa';
+$datos['conceptos'][0]['Impuestos']['Traslados'][0]['TasaOCuota'] = '0.160000';
+$datos['conceptos'][0]['Impuestos']['Traslados'][0]['Importe'] = 15.84;
 
-// Impuestos del Concepto
-$datos['conceptos']['1']['Impuestos']['Traslados']['0']['Base'] = '390.517243';
-$datos['conceptos']['1']['Impuestos']['Traslados']['0']['Importe'] = '62.482759';
-$datos['conceptos']['1']['Impuestos']['Traslados']['0']['Impuesto'] = '002';
-$datos['conceptos']['1']['Impuestos']['Traslados']['0']['TasaOCuota'] = '0.160000';
-$datos['conceptos']['1']['Impuestos']['Traslados']['0']['TipoFactor'] = 'Tasa';
 
-// Totales de impuestos
-$datos['impuestos']['TotalImpuestosTrasladados']='124.00';
-$datos['impuestos']['translados']['0']['Importe'] = '124.00';
-$datos['impuestos']['translados']['0']['Impuesto'] = '002';
-$datos['impuestos']['translados']['0']['TasaOCuota'] = '0.160000';
-$datos['impuestos']['translados']['0']['TipoFactor'] = 'Tasa';
+$datos['conceptos'][1]['cantidad'] = 1.00;
+$datos['conceptos'][1]['unidad'] = 'NA';
+$datos['conceptos'][1]['ID'] = "1586";
+$datos['conceptos'][1]['descripcion'] = "PRODUCTO DE PRUEBA 2";
+$datos['conceptos'][1]['valorunitario'] = 199.00;
+$datos['conceptos'][1]['importe'] = 199.00;
+$datos['conceptos'][1]['ClaveProdServ'] = '01010101';
+$datos['conceptos'][1]['ClaveUnidad'] = 'ACT';
+
+
+$datos['conceptos'][1]['Impuestos']['Traslados'][0]['Base'] = 199.00;
+$datos['conceptos'][1]['Impuestos']['Traslados'][0]['Impuesto'] = '002';
+$datos['conceptos'][1]['Impuestos']['Traslados'][0]['TipoFactor'] = 'Tasa';
+$datos['conceptos'][1]['Impuestos']['Traslados'][0]['TasaOCuota'] = '0.160000';
+$datos['conceptos'][1]['Impuestos']['Traslados'][0]['Importe'] = 31.84;
+
+
+// Se agregan los Impuestos
+$datos['impuestos']['translados'][0]['impuesto'] = '002';
+$datos['impuestos']['translados'][0]['tasa'] = '0.160000';
+$datos['impuestos']['translados'][0]['importe'] = 47.68;
+$datos['impuestos']['translados'][0]['TipoFactor'] = 'Tasa';
+
+
+$datos['impuestos']['TotalImpuestosTrasladados'] = 47.68;
 
 // Se envia a timbrar
 $res = mf_genera_cfdi($datos);

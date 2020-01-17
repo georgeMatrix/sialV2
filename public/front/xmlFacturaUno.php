@@ -32,6 +32,38 @@ function xmlToArray(SimpleXMLElement $xml): array
         $xml->getName() => $parser($xml)
     ];
 }
+/*function xmlToArrayAllNodes(SimpleXMLElement $xml): array
+{
+    $parser = function (SimpleXMLElement $xml, array $collection = []) use (&$parser) {
+        $attributes = $xml->attributes();
+
+        if (0 !== count($attributes)) {
+            foreach ($attributes as $attrName => $attrValue) {
+                $collection['attributes'][$attrName] = strval($attrValue);
+            }
+        }
+
+        if (0 === $xml->count()) {
+            $collection['value'] = strval($xml);
+            return $collection;
+        }
+
+        foreach ($xml as $nodeName => $nodeValue) {
+            if (count($nodeValue->xpath('../' . $nodeName)) < 2) {
+                $collection[$nodeName] = $parser($nodeValue);
+                continue;
+            }
+
+            $collection[$nodeName][] = $parser($nodeValue);
+        }
+
+        return $collection;
+    };
+
+    return [
+        $xml->getName() => $parser($xml)
+    ];
+}*/
 include ("factura.php");
 $sXml = new SimpleXMLElement($xmlOriginal);
 $ns = $sXml->getNamespaces(true);
@@ -44,11 +76,15 @@ $factura[1] = emisor($child);
 //echo "<hr>";
 $factura[2] = receptor($child);
 //echo "<hr>";
-$factura[3] = conceptos($child, $ns);
+$factura[3] = conceptos($child, $ns, $child);
 //echo "<hr>";
-$factura[4] = impuestos($child, $ns);
+if (count($child) == 4){
+    $factura[4] = "SIN IMPUESTOS";
+}else{
+    $factura[4] = impuestos($child, $ns);
+}
 //echo "<hr>";
-$factura[5] = complemento($child, $ns);
+$factura[5] = complemento($child, $ns, $child);
 //echo "<hr>";
 $factura[6] = totalImpuestosTrasladados($child);
 
@@ -82,7 +118,7 @@ function receptor($nodoHijo){
     }
 }
 
-function conceptos($nodoHijo, $nameSpace){
+function conceptos($nodoHijo, $nameSpace, $child){
     $trasladoRes = array();
     $conceptosRes = array();
 
@@ -90,35 +126,61 @@ function conceptos($nodoHijo, $nameSpace){
     $resultadoTraslados = array();
     $resultado = array();
     $conceptos = $nodoHijo[2]->children($nameSpace['cfdi']);
+    /*echo "------------------";
+    $conceptosPrueba = xmlToArray($conceptos);
+    foreach ($conceptos as $concepto){
+        var_dump($concepto);
+    }
+    echo "------------------";*/
+    //$conceptos1 = $nodoHijo[2]->children($nameSpace['cfdi']);
+        //here!!!
     $noConceptos = count($conceptos);
     //Verifica cuantos conceptos existen
     for ($i=0; $i<$noConceptos; $i++){
-        $impuestos[$i] = $conceptos[$i]->children($nameSpace['cfdi']);
-        $traslados[$i] = $impuestos[$i]->children($nameSpace['cfdi']);
-        $traslado[$i] = $traslados[$i]->children($nameSpace['cfdi']);
+        if(count($child) == 5) {
+            $impuestos[$i] = $conceptos[$i]->children($nameSpace['cfdi']);
+            $traslados[$i] = $impuestos[$i]->children($nameSpace['cfdi']);
+            $traslado[$i] = $traslados[$i]->children($nameSpace['cfdi']);
 
         $conceptosRes[$i] = xmlToArray($conceptos[$i]);
-        $trasladoRes[$i] = xmlToArray($traslado[$i]);
+            //-------------------------------------nuevo Traslados y retenciones
+            foreach ($impuestos[$i] as $impuesto){
+                foreach ($impuesto as $impuestosRes){
+                    foreach ($impuestosRes as $trasladosRetenciones){
+                        foreach (xmlToArray($trasladosRetenciones) as $k=>$trasladoRetencion) {
+                            //var_dump($tr3["attributes"]);
+                            $resultadoTraslados[$k] = $trasladoRetencion["attributes"];
+                        }
+                    }
+                }
+            }
+        //-------------------------------------nuevo Traslados y retenciones
+        }
+        /*if(count($child) == 5) {
+            $trasladoRes[$i] = xmlToArray($traslado[$i]);
+        }*/
     }
 
-    for ($j=0; $j<$noConceptos; $j++){
-        foreach ($conceptosRes[$j] as $key=>$valor)
-        {
-            //var_dump($valor["attributes"]);
-            $resultadoConceptos[$key] = $valor["attributes"];
-        }
+    if(count($child) == 5) {
+        for ($j=0; $j<$noConceptos; $j++){
+            foreach ($conceptosRes[$j] as $key=>$valor)
+            {
+                //var_dump($valor["attributes"]);
+                $resultadoConceptos[$key] = $valor["attributes"];
+            }
 
-        //echo "<hr>";
-        foreach ($trasladoRes[$j] as $key=>$valor)
-        {
-            //var_dump($valor["attributes"]);
-            $resultadoTraslados[$key] = $valor["attributes"];
+            //echo "<hr>";
+            /*foreach ($trasladoRes[$j] as $key=>$valor)
+            {
+                //var_dump($valor["attributes"]);
+                $resultadoTraslados[$key] = $valor["attributes"];
+            }*/
+            //echo "<hr>";
+            $resultado[$j] =  $resultadoConceptos;
+            $resultado[$j+$noConceptos] = $resultadoTraslados;
+
         }
-        //echo "<hr>";
-        $resultado[$j] =  $resultadoConceptos;
-        $resultado[$j+$noConceptos] = $resultadoTraslados;
     }
-
     return $resultado;
 }
 
@@ -150,8 +212,12 @@ function impuestos($nodoHijo, $nameSpace){
     }
 }
 
-function complemento($nodoHijo, $nameSpace){
-    $timbreFiscal = $nodoHijo[4]->children($nameSpace['tfd']);
+function complemento($nodoHijo, $nameSpace, $child){
+    if(count($child) == 5) {
+        $timbreFiscal = $nodoHijo[4]->children($nameSpace['tfd']);
+    }else{
+        $timbreFiscal = $nodoHijo[3]->children($nameSpace['tfd']);
+    }
     $conceptosRes = xmlToArray($timbreFiscal);
     foreach ($conceptosRes as $k=>$v){
         //var_dump($v["attributes"]);

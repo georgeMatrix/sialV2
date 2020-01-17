@@ -1,14 +1,13 @@
 <?php
 error_reporting(E_ERROR);                        
 include_once "../../sdk2.php";
-
 $datos['PAC']['usuario'] = "DEMO700101XXX";
 $datos['PAC']['pass'] = "DEMO700101XXX";
 $datos['modulo']="cancelacion2018"; 
 $datos['accion']="cancelar";                                                  
 $datos["produccion"]="NO"; 
-$datos["xml"]="../../timbrados/cfdi_ejemplo_factura.xml";
-//$datos["uuid"]="25d57a90-77cc-4fe2-acf6-67a3c2f2508d";
+//$datos["xml"]="../../timbrados/cfdi_ejemplo_factura.xml";
+$datos["uuid"]="25d57a90-77cc-4fe2-acf6-67a3c2f2508d";
 $datos["rfc"] ="LAN7008173R5";
 $datos["password"]="12345678a";
 $datos["b64Cer"]="../../certificados/lan7008173r5.cer";

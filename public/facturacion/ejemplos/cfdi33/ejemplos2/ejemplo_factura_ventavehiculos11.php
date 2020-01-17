@@ -10,7 +10,7 @@ require_once '../../../sdk2.php';
 
 // Se especifica la version de CFDi 3.3
 $datos['version_cfdi'] = '3.3';
-
+$datos['validacion_local'] = 'NO';
 // SE ESPECIFICA EL COMPLEMENTO
 $datos['complemento'] = 'ventavehiculos11';
 
@@ -40,10 +40,10 @@ $datos['factura']['LugarExpedicion'] = '45079';
 $datos['factura']['metodo_pago'] = 'PUE';
 $datos['factura']['moneda'] = 'MXN';
 $datos['factura']['serie'] = 'A';
-$datos['factura']['subtotal'] = '100.00';
+$datos['factura']['subtotal'] = 100.00;
 $datos['factura']['tipocambio'] = '1';
 $datos['factura']['tipocomprobante'] = 'I';
-$datos['factura']['total'] = '100.00';
+$datos['factura']['total'] = 116.00;
 $datos['factura']['RegimenFiscal'] = '601';
 
 // Datos del Emisor
@@ -56,42 +56,50 @@ $datos['receptor']['nombre'] = 'Publico en General';
 $datos['receptor']['UsoCFDI'] = 'G01';
 
 // Se agregan los conceptos
-for ($i = 1; $i <= 1; $i++)
-{
-    $datos['conceptos'][$i]['cantidad'] = '1.00';
-    $datos['conceptos'][$i]['unidad'] = 'PZ';
-    $datos['conceptos'][$i]['ID'] = "COD$i";
-    $datos['conceptos'][$i]['descripcion'] = "PRODUCTO $i";
-    $datos['conceptos'][$i]['valorunitario'] = '100.00';
-    $datos['conceptos'][$i]['importe'] = '100.00';
-    $datos['conceptos'][$i]['ClaveProdServ'] = '01010101';
-    $datos['conceptos'][$i]['ClaveUnidad'] = 'C81';
-}
+
+$datos['conceptos'][0]['cantidad'] = 1.00;
+$datos['conceptos'][0]['unidad'] = 'NA';
+$datos['conceptos'][0]['ID'] = "1726";
+$datos['conceptos'][0]['descripcion'] = "PRODUCTO DE PRUEBA 1";
+$datos['conceptos'][0]['valorunitario'] = 100.00;
+$datos['conceptos'][0]['importe'] =100.00;
+$datos['conceptos'][0]['ClaveProdServ'] = '01010101';
+$datos['conceptos'][0]['ClaveUnidad'] = 'ACT';
+
+$datos['conceptos'][0]['Impuestos']['Traslados'][0]['Base'] = 100.00;
+$datos['conceptos'][0]['Impuestos']['Traslados'][0]['Impuesto'] = '002';
+$datos['conceptos'][0]['Impuestos']['Traslados'][0]['TipoFactor'] = 'Tasa';
+$datos['conceptos'][0]['Impuestos']['Traslados'][0]['TasaOCuota'] = '0.160000';
+$datos['conceptos'][0]['Impuestos']['Traslados'][0]['Importe'] = 16.00;
+
+
 
 // Se agregan los Impuestos
-$datos['impuestos']['TotalImpuestosTrasladados'] = '0.00';
-$datos['impuestos']['translados'][0]['impuesto'] = '003';
+$datos['impuestos']['translados'][0]['impuesto'] = '002';
 $datos['impuestos']['translados'][0]['tasa'] = '0.160000';
-$datos['impuestos']['translados'][0]['importe'] = '0.00';
+$datos['impuestos']['translados'][0]['importe'] = 16.00;
 $datos['impuestos']['translados'][0]['TipoFactor'] = 'Tasa';
+
+
+$datos['impuestos']['TotalImpuestosTrasladados'] =16.00;
 
 // Complemento de Venta de Vehiculos
 $datos['ventavehiculos11']['ClaveVehicular']='2';
 $datos['ventavehiculos11']['Niv']='A1';
 
 $datos['ventavehiculos11']['InformacionAduanera'][0]['numero']='12';
-$datos['ventavehiculos11']['InformacionAduanera'][0]['fecha']='13-04-2017';
+$datos['ventavehiculos11']['InformacionAduanera'][0]['fecha']='2019-06-25';
 $datos['ventavehiculos11']['InformacionAduanera'][0]['aduana']='jdhe';
 
 $datos['ventavehiculos11']['InformacionAduanera'][1]['numero']='16';
-$datos['ventavehiculos11']['InformacionAduanera'][1]['fecha']='12-04-2017';
+$datos['ventavehiculos11']['InformacionAduanera'][1]['fecha']='2019-06-25';
 $datos['ventavehiculos11']['InformacionAduanera'][1]['aduana']='kjhe';
-
+/*
 $datos['ventavehiculos11']['Parte'][0]['InformacionAduanera'][0]['numero']='2';
-$datos['ventavehiculos11']['Parte'][0]['InformacionAduanera'][0]['fecha']='10-04-2017';
+$datos['ventavehiculos11']['Parte'][0]['InformacionAduanera'][0]['fecha']='2019-06-25';
 $datos['ventavehiculos11']['Parte'][0]['InformacionAduanera'][0]['aduana']='wed';
 $datos['ventavehiculos11']['Parte'][0]['InformacionAduanera'][1]['numero']='3';
-$datos['ventavehiculos11']['Parte'][0]['InformacionAduanera'][1]['fecha']='05-04-2017';
+$datos['ventavehiculos11']['Parte'][0]['InformacionAduanera'][1]['fecha']='2019-06-25';
 $datos['ventavehiculos11']['Parte'][0]['InformacionAduanera'][1]['aduana']='ntu';
 $datos['ventavehiculos11']['Parte'][0]['cantidad']='116.00';
 $datos['ventavehiculos11']['Parte'][0]['unidad']='0';
@@ -106,7 +114,7 @@ $datos['ventavehiculos11']['Parte'][1]['noIdentificacion']='098';
 $datos['ventavehiculos11']['Parte'][1]['descripcion']='kye';
 $datos['ventavehiculos11']['Parte'][1]['valorUnitario']='119.00';
 $datos['ventavehiculos11']['Parte'][1]['importe']='119.00';
-
+*/
 // Se ejecuta el SDK
 $res= mf_genera_cfdi($datos);
 

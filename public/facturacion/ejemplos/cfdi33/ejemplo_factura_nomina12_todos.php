@@ -42,7 +42,7 @@ $datos['CfdisRelacionados']['UUID'][0]='A39DA66B-52CA-49E3-879B-5C05185B0EF7';*/
 $datos['factura']['RegimenFiscal'] = '601';
 
 $datos['emisor']['rfc'] = 'LAN7008173R5'; //RFC DE PRUEBA
-$datos['emisor']['nombre'] = 'ACCEM SERVICIOS EMPRESARIALES SC';  // EMPRESA DE PRUEBA
+$datos['emisor']['nombre'] = 'ACCEMD SERVICIOS EMPRESARIALES SC';  // EMPRESA DE PRUEBA
 
 $datos['receptor']['rfc'] = 'SOHM7509289MA';
 $datos['receptor']['nombre'] = 'Publico en General';

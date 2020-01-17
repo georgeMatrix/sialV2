@@ -44,7 +44,7 @@ $datos['factura']['LugarExpedicion'] = '27000';
 $datos['factura']['RegimenFiscal'] = '601';
 
 $datos['emisor']['rfc'] = 'LAN7008173R5'; //RFC DE PRUEBA 
-$datos['emisor']['nombre'] = 'ACCEM SERVICIOS EMPRESARIALES SC';  // EMPRESA DE PRUEBA
+$datos['emisor']['nombre'] = 'ACCEM SERVICIOSS EMPRESARIALES SC';  // EMPRESA DE PRUEBA
 
 // IMPORTANTE PROBAR CON NOMBRE Y RFC REAL O GENERARA ERROR DE XML MAL FORMADO
 $datos['receptor']['rfc'] = 'SOHM7509289MA';
@@ -78,6 +78,8 @@ $translado1['TasaOCuota'] = '0.160000';
 $translado1['Importe'] = '160.00'; // iva de los productos facturados
 $translado1['TipoFactor'] = 'Tasa';
 $datos['impuestos']['translados'][0] = $translado1;
+
+$datos['validacion_local']="NO";
 
 // Se ejecuta el SDK
 $res = mf_genera_cfdi($datos);

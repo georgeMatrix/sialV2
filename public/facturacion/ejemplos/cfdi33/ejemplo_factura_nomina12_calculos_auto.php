@@ -145,6 +145,7 @@ $datos['nomina12']['Deducciones'][1]['Clave'] = '012';
 $datos['nomina12']['Deducciones'][1]['Concepto'] = 'Seguridad social';
 $datos['nomina12']['Deducciones'][1]['Importe'] = '179.34';
 
+$datos['validacion_local']='NO';
 $res = mf_genera_cfdi($datos);
 
 ///////////    MOSTRAR RESULTADOS DEL ARRAY $res   ///////////

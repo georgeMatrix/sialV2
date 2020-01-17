@@ -40,10 +40,10 @@ $datos['factura']['LugarExpedicion'] = '45079';
 $datos['factura']['metodo_pago'] = 'PUE';
 $datos['factura']['moneda'] = 'MXN';
 $datos['factura']['serie'] = 'A';
-$datos['factura']['subtotal'] = '100.00';
+$datos['factura']['subtotal'] = 298.00;
 $datos['factura']['tipocambio'] = '1';
 $datos['factura']['tipocomprobante'] = 'I';
-$datos['factura']['total'] = '100.00';
+$datos['factura']['total'] = 345.68;
 $datos['factura']['RegimenFiscal'] = '601';
 
 // Datos del Emisor
@@ -55,25 +55,45 @@ $datos['receptor']['rfc'] = 'XAXX010101000';
 $datos['receptor']['nombre'] = 'Publico en General';
 $datos['receptor']['UsoCFDI'] = 'G01';
 
-// Se agregan los conceptos
-for ($i = 1; $i <= 1; $i++)
-{
-    $datos['conceptos'][$i]['cantidad'] = '1.00';
-    $datos['conceptos'][$i]['unidad'] = 'PZ';
-    $datos['conceptos'][$i]['ID'] = "COD$i";
-    $datos['conceptos'][$i]['descripcion'] = "PRODUCTO $i";
-    $datos['conceptos'][$i]['valorunitario'] = '100.00';
-    $datos['conceptos'][$i]['importe'] = '100.00';
-    $datos['conceptos'][$i]['ClaveProdServ'] = '01010101';
-    $datos['conceptos'][$i]['ClaveUnidad'] = 'C81';
-}
+$datos['conceptos'][0]['cantidad'] = 1.00;
+$datos['conceptos'][0]['unidad'] = 'NA';
+$datos['conceptos'][0]['ID'] = "1726";
+$datos['conceptos'][0]['descripcion'] = "PRODUCTO DE PRUEBA 1";
+$datos['conceptos'][0]['valorunitario'] = 99.00;
+$datos['conceptos'][0]['importe'] = 99.00;
+$datos['conceptos'][0]['ClaveProdServ'] = '01010101';
+$datos['conceptos'][0]['ClaveUnidad'] = 'ACT';
+
+$datos['conceptos'][0]['Impuestos']['Traslados'][0]['Base'] = 99.00;
+$datos['conceptos'][0]['Impuestos']['Traslados'][0]['Impuesto'] = '002';
+$datos['conceptos'][0]['Impuestos']['Traslados'][0]['TipoFactor'] = 'Tasa';
+$datos['conceptos'][0]['Impuestos']['Traslados'][0]['TasaOCuota'] = '0.160000';
+$datos['conceptos'][0]['Impuestos']['Traslados'][0]['Importe'] = 15.84;
+
+$datos['conceptos'][1]['cantidad'] = 1.00;
+$datos['conceptos'][1]['unidad'] = 'NA';
+$datos['conceptos'][1]['ID'] = "1586";
+$datos['conceptos'][1]['descripcion'] = "PRODUCTO DE PRUEBA 2";
+$datos['conceptos'][1]['valorunitario'] = 199.00;
+$datos['conceptos'][1]['importe'] = 199.00;
+$datos['conceptos'][1]['ClaveProdServ'] = '01010101';
+$datos['conceptos'][1]['ClaveUnidad'] = 'ACT';
+
+
+$datos['conceptos'][1]['Impuestos']['Traslados'][0]['Base'] = 199.00;
+$datos['conceptos'][1]['Impuestos']['Traslados'][0]['Impuesto'] = '002';
+$datos['conceptos'][1]['Impuestos']['Traslados'][0]['TipoFactor'] = 'Tasa';
+$datos['conceptos'][1]['Impuestos']['Traslados'][0]['TasaOCuota'] = '0.160000';
+$datos['conceptos'][1]['Impuestos']['Traslados'][0]['Importe'] = 31.84;
+
 
 // Se agregan los Impuestos
-$datos['impuestos']['TotalImpuestosTrasladados'] = '0.00';
-$datos['impuestos']['translados'][0]['impuesto'] = '003';
+$datos['impuestos']['translados'][0]['impuesto'] = '002';
 $datos['impuestos']['translados'][0]['tasa'] = '0.160000';
-$datos['impuestos']['translados'][0]['importe'] = '0.00';
+$datos['impuestos']['translados'][0]['importe'] = 47.68;
 $datos['impuestos']['translados'][0]['TipoFactor'] = 'Tasa';
+$datos['impuestos']['TotalImpuestosTrasladados'] = 47.68;
+
 
 // Complemento Pago en Especie
 $datos['pagoenespecie10']['CvePIC']='A&C8317286A1-18000101-020';
@@ -83,6 +103,7 @@ $datos['pagoenespecie10']['PzaArtTecn']='Cubismo';
 $datos['pagoenespecie10']['PzaArtAProd']='2013';
 $datos['pagoenespecie10']['PzaArtDim']='50cmx100cm';
 
+$datos['validacion_local']='NO';
 // Se ejecuta el SDK
 $res= mf_genera_cfdi($datos);
 

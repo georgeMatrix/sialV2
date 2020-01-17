@@ -11,6 +11,9 @@ use App\facturacion\Facturacion;
 use App\Facturas;
 use App\Importacion;
 use App\Nacional;
+use App\Provedores;
+use App\Rutas;
+use App\Unidades;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -19,12 +22,18 @@ class CuentasPorCobrarV2Controller extends Controller
 {
     public function excel(Request $request){
         $facturables = Facturables::where('factura', '=', $request['idFactura'])->first();
+        $conceptos = Facturables::where('factura', '=', $request['idFactura'])->get();
+        $tamConceptos = count($conceptos);
+        $cartaPorte = CartaPorte::where('id', '=', $facturables->id_carta_porte)->first();
+        $unidades = Unidades::where('id', '=', $cartaPorte->unidades)->first();
+        $provedor = Provedores::where('id', '=', $unidades->provedor)->first();
+        $rutas = Rutas::where('id', '=', $cartaPorte->rutas)->first();
         $factura = Facturas::where('id', '=', $facturables->factura)->first();
         $cliente = Clientes::where('id', '=', $facturables->cliente_id)->first();
         //var_dump($facturables->updated_at);
         //return $facturables;
-        $myFile = \Excel::load('FACTURA_V2.xlsx', function($reader) use($facturables, $factura, $cliente){
-            $reader->sheet('Hoja1', function($sheet) use($facturables, $factura, $cliente){
+        $myFile = \Excel::load('FACTURA_V2.xlsx', function($reader) use($facturables, $factura, $conceptos, $tamConceptos, $cliente, $rutas, $provedor, $unidades){
+            $reader->sheet('Hoja1', function($sheet) use($facturables, $factura, $conceptos, $tamConceptos, $cliente, $rutas, $provedor, $unidades){
 
                 $sheet->cell('L1', function($cell) use($facturables) {
                     // manipulate the cell
@@ -83,6 +92,22 @@ class CuentasPorCobrarV2Controller extends Controller
                     // manipulate the cell
                     $cell->setValue($factura->metodo_pago);
                 });
+                $sheet->cell('C18', function($cell) use($rutas) {
+                    // manipulate the cell
+                    $cell->setValue($rutas->origen);
+                });
+                $sheet->cell('C19', function($cell) use($rutas) {
+                    // manipulate the cell
+                    $cell->setValue($rutas->destino);
+                });
+                $sheet->cell('C21', function($cell) use($provedor) {
+                    // manipulate the cell
+                    $cell->setValue($provedor->nombre);
+                });
+                $sheet->cell('K18', function($cell) use($unidades) {
+                    // manipulate the cell
+                    $cell->setValue($unidades->placas);
+                });
                 $sheet->cell('H18', function($cell) use($facturables) {
                     // manipulate the cell
                     $cell->setValue($facturables->USER_UNIDAD);
@@ -107,18 +132,27 @@ class CuentasPorCobrarV2Controller extends Controller
                     // manipulate the cell
                     $cell->setValue($factura->tipo_comprobante);
                 });
-                $sheet->cell('A25', function($cell) use($facturables) {
+                $sheet->cell('A25', function($cell) use($conceptos) {
                     // manipulate the cell
-                    $cell->setValue($facturables->cantidad);
+                    foreach ($conceptos as $concepto){
+                        $cell->setValue($concepto->cantidad);
+                    }
                 });
                 $sheet->cell('C25', function($cell) use($facturables) {
                     // manipulate the cell
                     $cell->setValue($facturables->unidad);
                 });
-                $sheet->cell('E25', function($cell) use($facturables) {
-                    // manipulate the cell
-                    $cell->setValue($facturables->descripcion);
-                });
+                for ($i=0; $i<$tamConceptos; $i++){
+                    $celda = 25+$i;
+                    $sheet->cell('E'.$celda, function($cell) use($conceptos, $i) {
+                        // manipulate the cell
+                        foreach ($conceptos as $k=>$concepto) {
+                            if ($i==$k){
+                                $cell->setValue($concepto->descripcion);
+                            }
+                        }
+                    });
+                }
                 $sheet->cell('K25', function($cell) use($facturables) {
                     // manipulate the cell
                     $cell->setValue($facturables->valor_unitario);
@@ -221,7 +255,6 @@ class CuentasPorCobrarV2Controller extends Controller
             'folio' => $request->datosDeFactura[0]['Folio'],
             'serie' => $request->datosDeFactura[0]['Serie'],
             'version' => $request->datosDeFactura[0]['Version'],
-            'version' => $request->datosDeFactura[0]['Version'],
             'uuid' => $request->datosDeFactura[5]['UUID'],
             'fecha_timbrado' => $request->datosDeFactura[5]['FechaTimbrado'],
             'impuestos_trasladados' => $request->datosDeFactura[6]['TotalImpuestosTrasladados'],
@@ -233,8 +266,6 @@ class CuentasPorCobrarV2Controller extends Controller
     }
 
     public function datosParaFacturar(Request $request){
-        //dd(array_count_values($request));
-        //$prueba =  join(',', json_decode($request));
         $valores =[];
         $facturables = [];
         for ($i=0; $i<count($request->valoresIds); $i++){
@@ -244,8 +275,7 @@ class CuentasPorCobrarV2Controller extends Controller
             }
         }
         return response()->json($facturables);
-
-        //return $request->valoresIds[2];
+        //return response()->json($request)
     }
 
     public function getDatosCuentasPorCobrar(Request $request ){

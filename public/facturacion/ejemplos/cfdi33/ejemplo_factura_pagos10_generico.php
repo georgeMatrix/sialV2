@@ -1,6 +1,6 @@
 <?php
 // Se desactivan los mensajes de debug
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
 
 // Se especifica la zona horaria
 date_default_timezone_set('America/Mexico_City');
@@ -59,7 +59,7 @@ $datos['conceptos'][0]['ClaveUnidad'] = 'ACT';
 $datos['conceptos'][0]['descripcion'] = "Pago";
 $datos['conceptos'][0]['valorunitario'] = '0.0';
 $datos['conceptos'][0]['importe'] = '0.0';
-
+print_r($datos);
 // Complemento de Pagos 1.0
 
 // Se ejecuta el SDK

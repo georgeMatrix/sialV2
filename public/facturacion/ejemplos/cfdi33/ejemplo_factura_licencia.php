@@ -38,7 +38,7 @@ $datos['factura']['RegimenFiscal'] = '601';
 
 // Datos del Emisor
 $datos['emisor']['rfc'] = 'LAN7008173R5'; //RFC DE PRUEBA
-$datos['emisor']['nombre'] = 'Accem Servicios Empresariales SC';  // EMPRESA DE PRUEBA
+$datos['emisor']['nombre'] = 'Accems Servicios Empresariales SC';  // EMPRESA DE PRUEBA
 
 // Datos del Receptor
 $datos['receptor']['rfc'] = 'XAXX010101000';

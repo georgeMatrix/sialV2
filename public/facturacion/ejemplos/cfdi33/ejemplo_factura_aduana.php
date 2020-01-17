@@ -61,7 +61,7 @@ $datos['receptor']['UsoCFDI'] = 'P01';
     $datos['conceptos'][0]['valorunitario'] = '1000.00'; // SIN IVA
     $datos['conceptos'][0]['importe'] = '1000.00';
 
-    $datos['conceptos'][0]['InformacionAduanera'][0]['NumeroPedimento'] = '12  34  3475  5001456';
+    $datos['conceptos'][0]['InformacionAduanera'][0]['NumeroPedimento'] = '123434755001456';
 	$datos['conceptos'][0]['Impuestos']['Traslados'][0]['Base'] = '1000.00';
 	$datos['conceptos'][0]['Impuestos']['Traslados'][0]['Impuesto'] = '002';
 	$datos['conceptos'][0]['Impuestos']['Traslados'][0]['TasaOCuota'] = '0.160000';

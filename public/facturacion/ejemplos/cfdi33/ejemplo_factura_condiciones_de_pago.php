@@ -36,46 +36,67 @@ $datos['factura']['condicionesDePago'] = 'CONTADO';
 
 $datos['factura']['metodo_pago'] = 'PUE'; // EFECTIV0, CHEQUE, TARJETA DE CREDITO, TRANSFERENCIA BANCARIA, NO IDENTIFICADO
 $datos['factura']['forma_pago'] = '01';  //PAGO EN UNA SOLA EXHIBICION, CREDITO 7 DIAS, CREDITO 15 DIAS, CREDITO 30 DIAS, ETC
-$datos['factura']['tipocomprobante'] = 'I'; //ingreso, egreso
 $datos['factura']['moneda'] = 'MXN'; // MXN USD EUR
 $datos['factura']['tipocambio'] = '1'; // OPCIONAL (MXN = 1.00, OTRAS EJ: USD = 13.45; EUR = 16.86)
 $datos['factura']['LugarExpedicion'] = '27000';
-
+$datos['factura']['subtotal'] = 298.00;
+$datos['factura']['tipocambio'] = 1;
+$datos['factura']['tipocomprobante'] = 'E';
+$datos['factura']['total'] = 345.68;
 $datos['factura']['RegimenFiscal'] = '601';
 
-$datos['emisor']['rfc'] = 'LAN7008173R5'; //RFC DE PRUEBA  
+// Datos del Emisor
+$datos['emisor']['rfc'] = 'LAN7008173R5'; //RFC DE PRUEBA
 $datos['emisor']['nombre'] = 'ACCEM SERVICIOS EMPRESARIALES SC';  // EMPRESA DE PRUEBA
 
-// IMPORTANTE PROBAR CON NOMBRE Y RFC REAL O GENERARA ERROR DE XML MAL FORMADO
-$datos['receptor']['rfc'] = 'SOHM7509289MA';
-$datos['receptor']['nombre'] = 'MIGUEL ANGEL SOSA HERNANDEZ';
-$datos['receptor']['UsoCFDI'] = 'P01';
+// Datos del Receptor
+$datos['receptor']['rfc'] = 'XAXX010101000';
+$datos['receptor']['nombre'] = 'Publico en General';
+$datos['receptor']['UsoCFDI'] = 'G02';
 
-	$concepto['ClaveProdServ'] = '84111506';
-    $concepto['cantidad'] = '1';
-    $concepto['unidad'] = 'PIEZA';
-    $concepto['ClaveUnidad'] = "ACT"; //ID, REF, CODIGO O SKU DEL PRODUCTO
-    $concepto['descripcion'] = "PRODUCTO PRUEBA 1";
-    $concepto['valorunitario'] = '1000.00'; // SIN IVA
-    $concepto['importe'] = '1000.00';
+// Se agregan los conceptos
 
-    $datos['conceptos'][0] = $concepto;
-	$datos['conceptos'][0]['Impuestos']['Traslados'][0]['Base'] = '1000.00';
-	$datos['conceptos'][0]['Impuestos']['Traslados'][0]['Impuesto'] = '002';
-	$datos['conceptos'][0]['Impuestos']['Traslados'][0]['TasaOCuota'] = '0.160000';
-	$datos['conceptos'][0]['Impuestos']['Traslados'][0]['Importe'] = '160.00'; 
-	$datos['conceptos'][0]['Impuestos']['Traslados'][0]['TipoFactor'] = 'Tasa';
+$datos['conceptos'][0]['cantidad'] = 1.00;
+$datos['conceptos'][0]['unidad'] = 'NA';
+$datos['conceptos'][0]['ID'] = "1726";
+$datos['conceptos'][0]['descripcion'] = "PRODUCTO DE PRUEBA 1";
+$datos['conceptos'][0]['valorunitario'] = 99.00;
+$datos['conceptos'][0]['importe'] = 99.00;
+$datos['conceptos'][0]['ClaveProdServ'] = '01010101';
+$datos['conceptos'][0]['ClaveUnidad'] = 'ACT';
 
-$datos['factura']['subtotal'] = 1000.00; // sin impuestos
-$datos['factura']['descuento'] = 100.00; // descuento sin impuestos
-$datos['factura']['total'] = 1060.00; // total incluyendo impuestos
+$datos['conceptos'][0]['Impuestos']['Traslados'][0]['Base'] = 99.00;
+$datos['conceptos'][0]['Impuestos']['Traslados'][0]['Impuesto'] = '002';
+$datos['conceptos'][0]['Impuestos']['Traslados'][0]['TipoFactor'] = 'Tasa';
+$datos['conceptos'][0]['Impuestos']['Traslados'][0]['TasaOCuota'] = '0.160000';
+$datos['conceptos'][0]['Impuestos']['Traslados'][0]['Importe'] = 15.84;
 
-$datos['impuestos']['TotalImpuestosTrasladados']='160.00';
-$translado1['Impuesto'] = '002';
-$translado1['TasaOCuota'] = '0.160000';
-$translado1['Importe'] = '160.00'; // iva de los productos facturados
-$translado1['TipoFactor'] = 'Tasa';
-$datos['impuestos']['translados'][0] = $translado1;
+
+$datos['conceptos'][1]['cantidad'] = 1.00;
+$datos['conceptos'][1]['unidad'] = 'NA';
+$datos['conceptos'][1]['ID'] = "1586";
+$datos['conceptos'][1]['descripcion'] = "PRODUCTO DE PRUEBA 2";
+$datos['conceptos'][1]['valorunitario'] = 199.00;
+$datos['conceptos'][1]['importe'] = 199.00;
+$datos['conceptos'][1]['ClaveProdServ'] = '01010101';
+$datos['conceptos'][1]['ClaveUnidad'] = 'ACT';
+
+
+$datos['conceptos'][1]['Impuestos']['Traslados'][0]['Base'] = 199.00;
+$datos['conceptos'][1]['Impuestos']['Traslados'][0]['Impuesto'] = '002';
+$datos['conceptos'][1]['Impuestos']['Traslados'][0]['TipoFactor'] = 'Tasa';
+$datos['conceptos'][1]['Impuestos']['Traslados'][0]['TasaOCuota'] = '0.160000';
+$datos['conceptos'][1]['Impuestos']['Traslados'][0]['Importe'] = 31.84;
+
+
+// Se agregan los Impuestos
+$datos['impuestos']['translados'][0]['impuesto'] = '002';
+$datos['impuestos']['translados'][0]['tasa'] = '0.160000';
+$datos['impuestos']['translados'][0]['importe'] = 47.68;
+$datos['impuestos']['translados'][0]['TipoFactor'] = 'Tasa';
+
+
+$datos['impuestos']['TotalImpuestosTrasladados'] = 47.68;
 
 // Se ejecuta el SDK
 $res = mf_genera_cfdi($datos);

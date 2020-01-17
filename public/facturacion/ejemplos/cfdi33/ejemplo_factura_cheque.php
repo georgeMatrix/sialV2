@@ -56,7 +56,7 @@ $concepto['ClaveProdServ'] = '84111506';
 $concepto['cantidad'] = '1';
 $concepto['unidad'] = 'PIEZA';
 $concepto['ClaveUnidad'] = "ACT"; //ID, REF, CODIGO O SKU DEL PRODUCTO
-$concepto['descripcion'] = 'tornillo 25" plateado';
+$concepto['descripcion'] = 'tornilLlo 25" plateado';
 $concepto['valorunitario'] = '1000.00'; // SIN IVA
 $concepto['importe'] = '1000.00';
 

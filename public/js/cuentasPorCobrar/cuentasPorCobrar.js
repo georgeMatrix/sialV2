@@ -1,7 +1,6 @@
 /**
  * Created by GEORGE on 8/22/19.
  */
-var valoresGlobales = [];
 
 $('#formCuentasPorPagar').submit(function(e){
     e.preventDefault()
@@ -26,10 +25,13 @@ function ajax(request, tokenCuentasPorPagar){
         .done(function(data) {
             console.log(data);
             let htmlSelect = ''
+            let contador
+            localStorage.setItem("tamRows", data[0].length)
             for (let i=0; i<data[0].length; i++){
-                htmlSelect += "<tr id='rows'>" +
-                    "<input id='idFactura' type='hidden' value="+data[0][i].id+">" +
-                    "<td><input id='inputCheckFactura"+i+"' onclick='inputChecked("+i+");' type='checkbox' name="+i+" class='form-control'></td>" +
+                contador = i+1
+                htmlSelect += "<tr id='rows"+contador+"'>" +
+                    "<input id='idFactura"+contador+"' type='hidden' value="+data[0][i].id+">" +
+                    "<td><input id='inputCheckFactura"+contador+"' onclick='inputChecked("+data[0].length+");' type='checkbox' name="+i+" class='form-control'></td>" +
                     "<td>"+data[0][i].USER_CARTA_PORTE_TIPO_ID+"</td>" +
                     // "<td>"+data[0][i].USER_CARTA_PORTE_TIPO+"</td>" +
                      "<td>"+data[1][i].id+"</td>" +
@@ -91,34 +93,28 @@ function number_format(amount, decimals) {
 function inputCheckFacturar(){
     var contador=0;
     var valoresIds = [];
-    $("#rows td").each(function(){
-        /*==============================
-        /*EL DETALLE ES QUE SOLO ENCUENTRA UN nombre de inputCheckFactura*/
-        /*datosParaFacturar es la funcion que esta en CuentasPorCobrarV2
-        /*==============================*/
-        if($(this).find("#inputCheckFactura"+contador).prop('checked')){
-            let valorActual = $(this).parent();
-            valoresIds[contador] = valorActual.find("#idFactura").val();
-            contador = contador + 1;
-        }
-    });
-console.log(valoresIds)
-
+    let valorActual
+    let tam = localStorage.getItem("tamRows")
+    for (let i = 1; i <=tam ; i++) {
+        $("#rows"+i).each(function (k, v) {
+            if ($(this).find("#inputCheckFactura" + i).prop('checked')) {
+                valorActual = $(this).parent();
+                valoresIds[contador] = valorActual.find("#idFactura"+ i).val();
+                contador ++;
+            }
+        });
+    }
     var request = {
         valoresIds:valoresIds
     };
 
-    $.ajax({
+    return $.ajax({
         url: '/api/facturar',
         type: 'POST',
         headers: {'X-CSRF-TOKEN':tokenCuentasPorPagar},
         contentType: 'application/json',
         data: JSON.stringify(request),
-    }).done(function(data) {
-        //console.log(data)
-        valoresGlobales = data;
-    })
-    return valoresGlobales
+    }).done(function(response) {})
 }
 
 $(document).ready(function(){
@@ -129,11 +125,15 @@ $(document).ready(function(){
 })
 
 function inputChecked(i) {
-    console.log(i)
-    if( $('#inputCheckFactura'+i).prop('checked') ) {
-        $("#facturar").prop("disabled", false)
-    }else{
-        $("#facturar").prop("disabled", true)
+    for (let j = 0; j <= i ; j++) {
+        if( $('#inputCheckFactura'+j).prop('checked') ) {
+            $("#facturar").prop("disabled", false)
+            $("#preV").prop("disabled", false)
+    break;
+        }else{
+            $("#facturar").prop("disabled", true)
+            $("#preV").prop("disabled", true)
+        }
     }
 }
 
@@ -153,7 +153,7 @@ function configureLoadingScreen(screen){
         });
 }
 
-function generarFactura(){
+function generarPrevisualizacionFactura(){
     let noConceptos
     let tamArreglo
     let cantidad = []
@@ -183,31 +183,10 @@ function generarFactura(){
     let peso = []
 
     var valoresParaServer = [];
-    valoresParaServer[0] = inputCheckFacturar()
-    //-----------------Solo para visializacion------------------------
-    valoresParaServer[1] = $("#lugarExpedicion").val();
-    valoresParaServer[2] = $("#metodo_pago").val();
-    valoresParaServer[3] = $("#forma_pago").val();
-    valoresParaServer[4] = $("#tipo_comprobante").val();
-    valoresParaServer[5] = $("#moneda").val();
-    valoresParaServer[6] = $("#usoCfdi").val();
-    valoresParaServer[7] = $("#peso").val();
-    valoresParaServer[8] = $("#referencia").val();
-    //-----------------Solo para visializacion------------------------
 
-    $.ajax({
-        url: '/api/guardarFacturar',
-        type: 'POST',
-        headers: {'X-CSRF-TOKEN':tokenCuentasPorPagar},
-        contentType: 'application/json',
-        data: JSON.stringify(valoresParaServer),
-    }).done(function(idFactura) {
-        console.log("---------------------------------------")
-        console.log('valores del id de factura')
-        console.log(idFactura)
-        console.log("---------------------------------------")
-        //serverExterno()
-        tamArreglo = valoresParaServer[0].length
+    inputCheckFacturar().done(function (response) {
+        valoresParaServer[0] = response
+            tamArreglo = valoresParaServer[0].length
 
         for (let i = 0; i < tamArreglo ; i++) {
             cantidad[i] = valoresParaServer[0][i][0].cantidad
@@ -268,23 +247,191 @@ function generarFactura(){
         datosParaServidor[27] = $("#usoCfdi").val();
         datosParaServidor[28] = $("#peso").val();
         datosParaServidor[29] = $("#referencia").val();
-
-        console.log(datosParaServidor[0])
-
-        /*$.each(datosParaServidor, function(k, v){
-            $.each(v, function(k1, v1){
-                console.log("datosParaServidor key: "+k1+" valor: "+v1)
-            })
-        })*/
-
-        generarXML(datosParaServidor, tamArreglo, idFactura)
+        //console.log(datosParaServidor)
+        //$("#cartaPortePre").text("hola")
+        organizacionModalPrevisualizacion(datosParaServidor)
     })
 }
 
-function previsualizacionXMLFactura(valores, tam, idFactura) {
-    console.log(valores)
-    console.log(tam)
-    console.log(idFactura)
+function organizacionModalPrevisualizacion(datosParaServidor){
+    console.log(datosParaServidor)
+    $("#cantidad").empty()
+    let tamPre = datosParaServidor[0].length
+    let emisorRfc;
+    for (let i = 0; i < tamPre ; i++) {
+        if(datosParaServidor[23] == 1 || datosParaServidor[24]){
+            emisorRfc = "RUBEN GUTIERREZ VELAZCO"
+        }else{
+            emisorRfc = "TRANSPORTES LOGIEXPRESS SA DE CV"
+        }
+        $("#cantidad").append("<h5>Concepto No. "+(i+1)+"<br></h5>" +
+            "<label><b>Cantidad: </b></label>" +
+            "<label>"+datosParaServidor[0][i]+"</label><br>" +
+            "<label><b>Unidad: </b></label>" +
+            "<label>"+datosParaServidor[1][i]+"</label><br>" +
+            "<label><b>descripcion: </b></label>" +
+            "<label>"+datosParaServidor[2][i]+"</label><br>" +
+            "<label><b>Valor Unitario: </b></label>" +
+            "<label>"+datosParaServidor[3][i]+"</label><br>" +
+            "<label><b>Importe: </b></label>" +
+            "<label>"+datosParaServidor[4][i]+"</label><br>" +
+            "<label><b>clave Producto Servicio: </b></label>" +
+            "<label>"+datosParaServidor[5][i]+"</label><br>" +
+            "<label><b>Clave Unidad: </b></label>" +
+            "<label>"+datosParaServidor[6][i]+"</label><br>" +
+            "<label><b>cfdiTIvaBase: </b></label>" +
+            "<label>"+datosParaServidor[7][i]+"</label><br>" +
+            "<label><b>cfdiTIvaImpuesto: </b></label>" +
+            "<label>"+datosParaServidor[8][i]+"</label><br>" +
+            "<label><b>cfdiTIvaTipoFactor: </b></label>" +
+            "<label>"+datosParaServidor[9][i]+"</label><br>" +
+            "<label><b>cfdiTIvaTasacuota: </b></label>" +
+            "<label>"+datosParaServidor[10][i]+"</label><br>" +
+            "<label><b>cfdiTIvaImporte: </b></label>" +
+            "<label>"+datosParaServidor[11][i]+"</label><br>" +
+            "<label><b>Metodo de Pago: </b></label>" +
+            "<label>"+datosParaServidor[13]+"</label><br>" +
+            "<label><b>Forma de Pago: </b></label>" +
+            "<label>"+datosParaServidor[14]+"</label><br>" +
+            "<label><b>Tipo de comprobante: </b></label>" +
+            "<label>"+datosParaServidor[15]+"</label><br>" +
+            "<label><b>Moneda: </b></label>" +
+            "<label>"+datosParaServidor[16]+"</label><br>" +
+            "<label><b>Emisor RFC: </b></label>" +
+            "<label>"+emisorRfc+"</label><br>" +
+            "<label><b>Emisor Razon Social: </b></label>" +
+            "<label>"+emisorRfc+"</label><br>" +
+            "<label><b>Receptor RFC: </b></label>" +
+            "<label>"+datosParaServidor[25]+"</label><br>" +
+            "<label><b>Receptor razon social: </b></label>" +
+            "<label>"+datosParaServidor[26]+"</label><br>" +
+            "<label><b>Uso Cfdi: </b></label>" +
+            "<label>"+datosParaServidor[27]+"</label><br>" +
+            "<hr>")
+    }
+}
+
+function generarFactura(){
+    let noConceptos
+    let tamArreglo
+    let cantidad = []
+    let unidad = []
+    let descripcion = []
+    let valorUnitario = []
+    let importe = []
+    let claveProdServ = []
+    let claveUnidad = []
+    let datosParaServidor = []
+    let cfdiTIvaBase = []
+
+    let cfdiTIvaImpuesto = []
+    let cfdiTIvaTipoFactor = []
+    let cfdiTIvaTasacuota = []
+    let cfdiTIvaImporte = []
+
+    let cfdiRIvaImpuesto = []
+    let cfdiRIvaImporte = []
+    let cfdiRIvaBase = []
+    let cfdiRIvaTasacuota = []
+    let cfdiRIvaTipofactor = []
+    let idFacturables = []
+
+    let usoCfdi = []
+    let referencia = []
+    let peso = []
+
+    var valoresParaServer = [];
+    inputCheckFacturar().done(function(response){
+        valoresParaServer[0] = response
+
+
+    //-----------------Solo para visializacion------------------------
+    valoresParaServer[1] = $("#lugarExpedicion").val();
+    valoresParaServer[2] = $("#metodo_pago").val();
+    valoresParaServer[3] = $("#forma_pago").val();
+    valoresParaServer[4] = $("#tipo_comprobante").val();
+    valoresParaServer[5] = $("#moneda").val();
+    valoresParaServer[6] = $("#usoCfdi").val();
+    valoresParaServer[7] = $("#peso").val();
+    valoresParaServer[8] = $("#referencia").val();
+    //-----------------Solo para visializacion------------------------
+    tamArreglo = valoresParaServer[0].length
+
+    for (let i = 0; i < tamArreglo ; i++) {
+        cantidad[i] = valoresParaServer[0][i][0].cantidad
+        unidad[i] = valoresParaServer[0][i][0].unidad
+        descripcion[i] = valoresParaServer[0][i][0].descripcion
+        valorUnitario[i] = valoresParaServer[0][i][0].valor_unitario
+        importe[i] = valoresParaServer[0][i][0].importe
+        claveProdServ[i] = valoresParaServer[0][i][0].clave_prod_serv
+        claveUnidad[i] = valoresParaServer[0][i][0].clave_unidad
+        cfdiTIvaBase[i] = valoresParaServer[0][i][0].cfdi_t_iva_base
+        cfdiTIvaImpuesto[i] = valoresParaServer[0][i][0].cfdi_t_iva_impuesto
+        cfdiTIvaTipoFactor[i] = valoresParaServer[0][i][0].cfdi_t_iva_tipofactor
+        cfdiTIvaTasacuota[i] = valoresParaServer[0][i][0].cfdi_t_iva_tasacuota
+        cfdiTIvaImporte[i] = valoresParaServer[0][i][0].cfdi_t_iva_importe
+
+        cfdiRIvaImpuesto[i] = valoresParaServer[0][i][0].cfdi_r_iva_impuesto
+        cfdiRIvaImporte[i] = valoresParaServer[0][i][0].cfdi_r_iva_importe
+        cfdiRIvaBase[i] = valoresParaServer[0][i][0].cfdi_r_iva_base
+        cfdiRIvaTasacuota[i] = valoresParaServer[0][i][0].cfdi_r_iva_tasacuota
+        cfdiRIvaTipofactor[i] = valoresParaServer[0][i][0].cfdi_r_iva_tipofactor
+        idFacturables[i] = valoresParaServer[0][i][0].id
+    }
+
+    datosParaServidor[0] = cantidad
+    datosParaServidor[1] = unidad
+    datosParaServidor[2] = descripcion
+    datosParaServidor[3] = valorUnitario
+    datosParaServidor[4] = importe
+    datosParaServidor[5] = claveProdServ
+    datosParaServidor[6] = claveUnidad
+
+    datosParaServidor[7] = cfdiTIvaBase
+    datosParaServidor[8] = cfdiTIvaImpuesto
+    datosParaServidor[9] = cfdiTIvaTipoFactor
+    datosParaServidor[10] = cfdiTIvaTasacuota
+    datosParaServidor[11] = cfdiTIvaImporte
+
+    datosParaServidor[17] = cfdiRIvaImpuesto
+    datosParaServidor[18] = cfdiRIvaImporte
+    datosParaServidor[19] = cfdiRIvaBase
+    datosParaServidor[20] = cfdiRIvaTasacuota
+    datosParaServidor[21] = cfdiRIvaTipofactor
+    datosParaServidor[22] = idFacturables
+
+    datosParaServidor[23] = valoresParaServer[0][0][0].emisor_rfc
+    datosParaServidor[24] = valoresParaServer[0][0][0].emisor_razon_social
+    datosParaServidor[25] = valoresParaServer[0][0][0].receptor_rfc
+    datosParaServidor[26] = valoresParaServer[0][0][0].receptor_razon_social
+
+    //OBTENER cfdi_r_iva_impuesto NUEVO CAMBIO "17"
+
+    datosParaServidor[12] = $("#lugarExpedicion").val();
+    datosParaServidor[13] = $("#metodo_pago").val();
+    datosParaServidor[14] = $("#forma_pago").val();
+    datosParaServidor[15] = $("#tipo_comprobante").val();
+    datosParaServidor[16] = $("#moneda").val();
+
+    datosParaServidor[27] = $("#usoCfdi").val();
+    datosParaServidor[28] = $("#peso").val();
+    datosParaServidor[29] = $("#referencia").val();
+
+    guardaFacturaEnFacturables(valoresParaServer, datosParaServidor, tamArreglo)
+    })
+}
+
+function guardaFacturaEnFacturables(valoresParaServer, datosParaServidor, tamArreglo){
+    $.ajax({
+        url: '/api/guardarFacturar',
+        type: 'POST',
+        headers: {'X-CSRF-TOKEN':tokenCuentasPorPagar},
+        contentType: 'application/json',
+        data: JSON.stringify(valoresParaServer),
+    }).done(function(idFactura) {
+        console.log("id Factura: "+idFactura)
+        generarXML(datosParaServidor, tamArreglo, idFactura)
+    })
 }
 
 function generarXML(valores, tam, idFactura){
@@ -302,7 +449,7 @@ function generarXML(valores, tam, idFactura){
         data: request,
     })
         .done(function(factura){
-            //console.log("Factura")
+            console.log("Factura")
             //console.log(JSON.parse(factura));
             pdfFactura(valores, idFactura);
             guardadoFactura(factura)
@@ -344,7 +491,7 @@ function generarXML(valores, tam, idFactura){
 }
 
 function guardadoFactura(datosDeFactura) {
-    //console.log("llegando a datos factura:")
+    console.log("GUARDADO DE DACTURA:")
     console.log(JSON.parse(datosDeFactura))
     let datosConvertidos = JSON.parse(datosDeFactura)
     let request = {datosDeFactura: datosConvertidos}
@@ -362,8 +509,8 @@ function guardadoFactura(datosDeFactura) {
 }
 
 function pdfFactura(valores, idFactura){
-    console.log(valores)
-    console.log("========================================")
+    //console.log(valores)
+    //console.log("========================================")
     let request = {valoresParaServidor: valores, idFactura: idFactura}
     $.ajax({
         url: '/facturacion/ejemplos/modulos/ejemplo_modulo_html2pdf.php',        //local
@@ -375,7 +522,7 @@ function pdfFactura(valores, idFactura){
         Swal.fire(
             'El EXCEL se creo correctamente',
         )
-        console.log("EXCEL listo!!!")
+        //console.log("EXCEL listo!!!")
         excelFacturaPrueba(idFactura);
     }).fail( function( jqXHR, textStatus, errorThrown ) {
 
@@ -425,6 +572,6 @@ function excelFacturaPrueba(idFactura){
         a.click();
         a.remove();
         //console.log(response)
-        location.reload();
+        //location.reload();
     })
 }

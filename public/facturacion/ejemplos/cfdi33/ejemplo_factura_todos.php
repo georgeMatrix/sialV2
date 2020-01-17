@@ -25,7 +25,7 @@ $datos['conf']['pass'] = '';
 
 $datos['factura']['serie'] = 'A';
 $datos['factura']['folio'] = 'A';
-$datos['factura']['fecha_expedicion'] = 'A';
+$datos['factura']['fecha_expedicion'] = 'Aa';
 $datos['factura']['metodo_pago'] = 'A';
 $datos['factura']['forma_pago'] = 'A';
 $datos['factura']['tipocomprobante'] = 'A';

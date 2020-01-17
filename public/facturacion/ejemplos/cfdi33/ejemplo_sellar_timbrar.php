@@ -11,7 +11,6 @@ $datos['modulos_inter'] = 'debug';
 
 // Se incluye el SDK
 require_once '../../sdk2.php';
-
 // Se especifica la version de CFDi 3.3
 $datos['version_cfdi'] = '3.3';
 

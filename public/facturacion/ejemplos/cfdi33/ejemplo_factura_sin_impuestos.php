@@ -67,12 +67,13 @@ for ($i = 1; $i <= 1; $i++)
 }
 
 // Se agregan los Impuestos
+/*
 $datos['impuestos']['TotalImpuestosTrasladados'] = '0.00';
 $datos['impuestos']['translados'][0]['impuesto'] = '003';
 $datos['impuestos']['translados'][0]['tasa'] = '0.160000';
 $datos['impuestos']['translados'][0]['importe'] = '0.00';
 $datos['impuestos']['translados'][0]['TipoFactor'] = 'Tasa';
-
+*/
 // Se ejecuta el SDK
 $res = mf_genera_cfdi($datos);
 

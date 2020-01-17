@@ -43,7 +43,7 @@ $datos['factura']['LugarExpedicion'] = '27000';
 $datos['factura']['RegimenFiscal'] = '601';
 
 $datos['emisor']['rfc'] = 'LAN7008173R5'; //RFC DE PRUEBA 
-$datos['emisor']['nombre'] = 'ACCEM SERVICIOS EMPRESARIALES SC';  // EMPRESA DE PRUEBA
+$datos['emisor']['nombre'] = 'ACCEM SERVICIOS EMPRESARIALEES SC';  // EMPRESA DE PRUEBA
 
 // IMPORTANTE PROBAR CON NOMBRE Y RFC REAL O GENERARA ERROR DE XML MAL FORMADO
 $datos['receptor']['rfc'] = 'SOHM7509289MA';

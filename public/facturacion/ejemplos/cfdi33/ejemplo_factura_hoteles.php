@@ -83,6 +83,7 @@ $datos['implocal10']['TotaldeTraslados']='10.00';
 $datos['implocal10']['TrasladosLocales'][0]['ImpLocTrasladado']='ISH';
 $datos['implocal10']['TrasladosLocales'][0]['TasadeTraslado']='0.03';
 $datos['implocal10']['TrasladosLocales'][0]['Importe']=10.00;
+$datos['validacion_local']="NO";
 
 // Se ejecuta el SDK
 $res = mf_genera_cfdi($datos);

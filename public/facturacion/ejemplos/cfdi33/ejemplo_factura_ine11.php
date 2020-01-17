@@ -83,6 +83,8 @@ $datos['ine11']['Entidad'][0]['ClaveEntidad'] = 'TAM';
 $datos['ine11']['Entidad'][0]['Ambito'] = 'Local';
 //$datos['ine11']['Entidad'][0]['Contabilidad'][0]['IdContabilidad'] = '010648';
 
+$datos['validacion_local']='NO';
+
 $res= mf_genera_cfdi($datos);
 
 

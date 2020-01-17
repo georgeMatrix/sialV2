@@ -69,8 +69,8 @@ $datos['conceptos'][0]['Impuestos']['Traslados'][0]['Impuesto'] = '002';
 $datos['conceptos'][0]['Impuestos']['Traslados'][0]['TipoFactor'] = 'Tasa';
 $datos['conceptos'][0]['Impuestos']['Traslados'][0]['TasaOCuota'] = '0.160000';
 $datos['conceptos'][0]['Impuestos']['Traslados'][0]['Importe'] = 15.84;
-$datos['conceptos'][0]['InformacionAduanera'][0]['NumeroPedimento'] = '9999';
-$datos['conceptos'][0]['InformacionAduanera'][1]['NumeroPedimento'] = '8888';
+$datos['conceptos'][0]['InformacionAduanera'][0]['NumeroPedimento'] = '9999999'; //poner un numero de pedimento valido ante el sat
+$datos['conceptos'][0]['InformacionAduanera'][1]['NumeroPedimento'] = '888899';  //poner un numero de pedimento valido ante el sat
 
 
 $datos['conceptos'][1]['cantidad'] = 1.00;

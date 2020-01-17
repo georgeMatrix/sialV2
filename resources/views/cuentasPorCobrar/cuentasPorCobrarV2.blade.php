@@ -9,7 +9,7 @@
                 </div>
                 <div class="col-md-6">
                     <a href="{{url('/home')}}" class="mt-3 mr-3 btn btn-info float-right"><i class="fas fa-arrow-circle-left"></i> Regresar</a>
-                    <button class="mt-3 mr-3 btn btn-info float-right" id="preV" onclick="generarPrevisualizacionFactura()"> Previsualizacion</button>
+                    <button disabled class="mt-3 mr-3 btn btn-info float-right" id="preV" onclick="generarPrevisualizacionFactura()" data-toggle="modal" data-target="#modalPrevisualizacionFacturar"> Previsualizacion</button>
                     <button disabled class="mt-3 mr-3 btn btn-info float-right" id="facturar" data-toggle="modal" data-target="#modalFacturar" onclick="inputCheckFacturar()"> Facturar</button>
                         <a href="#" id="XMLFactura" download="XMLFactura" class="btn btn-info mt-3 mr-3 float-right">XML</a>
                     {{--<a href="{{url('api/excelFactura')}}" class="btn btn-danger">excel</a>--}}
@@ -93,6 +93,7 @@
         <img src="{{asset('loader/img/spinning-circles.svg')}}">
     </div>
     @include('include.modalFacturar')
+    @include('include.modalPrevisualizacionFactura')
 @endsection
 @section('scripts')
     <script src="{{asset('js/cuentasPorCobrar/cuentasPorCobrar.js')}}"></script>
