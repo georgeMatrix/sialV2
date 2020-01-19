@@ -198,7 +198,7 @@ function impuestos($nodoHijo, $nameSpace){
     $trasladoRes = array();
     $impuestos = $nodoHijo[3]->children($nameSpace['cfdi']);
     $noConceptos = count($impuestos);
-    //Verifica cuantos conceptos existen
+
     for ($i=0; $i<$noConceptos; $i++){
         $traslados[$i] = $impuestos[$i]->children($nameSpace['cfdi']);
         $trasladoRes[$i] = xmlToArray($traslados[$i]);
@@ -207,9 +207,10 @@ function impuestos($nodoHijo, $nameSpace){
         foreach ($trasladoRes[$j] as $key=>$valor)
         {
             //var_dump($valor["attributes"]);
-            return $valor["attributes"];
+            $resultadoTraslados[$key] =$valor["attributes"];
         }
     }
+    return $resultadoTraslados;
 }
 
 function complemento($nodoHijo, $nameSpace, $child){
