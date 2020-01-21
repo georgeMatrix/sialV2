@@ -37,6 +37,11 @@
                     </div>
 
                     <div class="form-group">
+                        <h5>E-mail</h5>
+                        <input maxlength="50" required type="text" name="email" id="email" class="form-control ">
+                    </div>
+
+                    <div class="form-group">
                         <h5>Password</h5>
                         <input maxlength="8" required type="password" name="password" id="password" class="form-control">
                     </div>

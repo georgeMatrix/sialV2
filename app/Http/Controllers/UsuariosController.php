@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Actividad;
-use App\Usuarios;
+use App\User;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsuariosController extends Controller
 {
@@ -16,7 +17,7 @@ class UsuariosController extends Controller
      */
     public function index()
     {
-        $usuarios = Usuarios::orderBy('id', 'DESC')->paginate(10);
+        $usuarios = User::orderBy('id', 'DESC')->paginate(10);
         return view('usuario/usuarios')->with('usuarios' , $usuarios);
     }
 
@@ -27,7 +28,7 @@ class UsuariosController extends Controller
      */
     public function create()
     {
-        $clientes = Usuarios::all();
+        $clientes = User::all();
         $id = $clientes->last();
         return view('usuario/usuarioCreate')->with('id', $id);
     }
@@ -40,11 +41,12 @@ class UsuariosController extends Controller
      */
     public function store(Request $request)
     {
-        $usuarios = new Usuarios();
+        $usuarios = new User();
         $usuarios->apellidoPaterno = $request->apellidoPaterno;
         $usuarios->apellidoMaterno = $request->apellidoMaterno;
-        $usuarios->nombre = $request->nombre;
-        $usuarios->password = $request->password;
+        $usuarios->name = $request->nombre;
+        $usuarios->email = $request->email;
+        $usuarios->password = Hash::make($request->password);
         $usuarios->nombreCorto = $request->nombreCorto;
         $usuarios->cargo = $request->cargo;
         $usuarios->area = $request->area;
@@ -82,9 +84,9 @@ class UsuariosController extends Controller
 
         $status = 'guardado';
         $actividad = new Actividad();
-        $actividad->tabla = Usuarios::class;
+        $actividad->tabla = User::class;
         //$actividad->ref = $request->id;
-            $usuariosAll = Usuarios::all();
+            $usuariosAll = User::all();
             $last = $usuariosAll->last();
             $idActual = $last->id;
             $actividad->ref = $idActual;
@@ -116,7 +118,7 @@ class UsuariosController extends Controller
      */
     public function edit($id)
     {
-        $usuario = Usuarios::findOrFail($id);
+        $usuario = User::findOrFail($id);
         return view('usuario/usuarioEdit')->with('usuario', $usuario);
     }
 
@@ -129,11 +131,50 @@ class UsuariosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $usuarios = $request->except(['_token', '_method']);
-        Usuarios::where('id', '=', $id)->update($usuarios);
+        $usuarios = User::find($id);
+        $usuarios->apellidoPaterno = $request->apellidoPaterno;
+        $usuarios->apellidoMaterno = $request->apellidoMaterno;
+        $usuarios->name = $request->nombre;
+        $usuarios->email = $request->email;
+        $usuarios->password = Hash::make($request->password);
+        $usuarios->nombreCorto = $request->nombreCorto;
+        $usuarios->cargo = $request->cargo;
+        $usuarios->area = $request->area;
+        if ($request->modulo01 != ""){
+            $usuarios->modulo01 = $request->modulo01;
+        }
+        if ($request->modulo02 != ""){
+            $usuarios->modulo02 = $request->modulo02;
+        }
+        if ($request->modulo03 != ""){
+            $usuarios->modulo03 = $request->modulo03;
+        }
+        if ($request->modulo04 != ""){
+            $usuarios->modulo04 = $request->modulo04;
+        }
+        if ($request->modulo05 != ""){
+            $usuarios->modulo05 = $request->modulo05;
+        }
+        if ($request->modulo06 != ""){
+            $usuarios->modulo06 = $request->modulo06;
+        }
+        if ($request->modulo07 != ""){
+            $usuarios->modulo07 = $request->modulo07;
+        }
+        if ($request->modulo08 != ""){
+            $usuarios->modulo08 = $request->modulo08;
+        }
+        if ($request->modulo09 != ""){
+            $usuarios->modulo09 = $request->modulo09;
+        }
+        if ($request->modulo10 != ""){
+            $usuarios->modulo10 = $request->modulo10;
+        }
+        $usuarios->save();
+
         $status = 'actualizacion';
         $actividad = new Actividad();
-        $actividad->tabla = Usuarios::class;
+        $actividad->tabla = User::class;
         $actividad->ref = $id;
         $actividad->fecha = new DateTime();
         $actividad->status = $status;
@@ -151,10 +192,10 @@ class UsuariosController extends Controller
      */
     public function destroy($id)
     {
-        Usuarios::destroy($id);
+        User::destroy($id);
         $status = 'eliminacion';
         $actividad = new Actividad();
-        $actividad->tabla = Usuarios::class;
+        $actividad->tabla = User::class;
         $actividad->ref = $id;
         $actividad->fecha = new DateTime();
         $actividad->status = $status;

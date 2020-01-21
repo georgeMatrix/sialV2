@@ -22,9 +22,11 @@
                 <h5 for="">Apellido Materno</h5>
                 <input maxlength="20" type="text" name="apellidoMaterno" id="apellidoMaterno" class="form-control"  value="{{$usuario->apellidoMaterno}}">
                 <h5 for="">Nombre</h5>
-                <input maxlength="50" type="text" name="nombre" id="nombre" class="form-control"  value="{{$usuario->nombre}}">
+                <input maxlength="50" type="text" name="nombre" id="nombre" class="form-control"  value="{{$usuario->name}}">
+                <h5>E-mail</h5>
+                <input maxlength="50" type="text" name="email" id="email" class="form-control " value="{{$usuario->email}}">
                 <h5 for="">Password</h5>
-                <input maxlength="8" type="text" name="password" id="password" class="form-control"  value="{{$usuario->password}}">
+                <input maxlength="8" type="password" name="password" id="password" class="form-control"  value="{{$usuario->password}}">
                 <h5 for="">Nombre Corto</h5>
                 <input maxlength="20" type="text" name="nombreCorto" id="nombreCorto" class="form-control"  value="{{$usuario->nombreCorto}}">
                 <h5 for="">Cargo del usuario</h5>
@@ -65,7 +67,7 @@
                 <input type="hidden" name="modulo04" id="modulo04" value="1" />
 
                 <div class="form-group">
-                    <label>Modulo05</label>
+                    <label>Usuarios</label>
                     <div class="checkbox">
                         <input type="checkbox" id="modulo05_5"/>
                     </div>

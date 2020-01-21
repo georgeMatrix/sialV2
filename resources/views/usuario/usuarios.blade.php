@@ -25,7 +25,7 @@
                         <th>APELLIDO_PATERNO</th>
                         <th>APELLIDO_MATERNO</th>
                         <th>NOMBRE</th>
-                        <th>PASSWORD</th>
+                        {{--<th>PASSWORD</th>--}}
                         <th>NOMBRE_CORTO</th>
                         <th>CARGO_DEL_USUARIO</th>
                         <th>AREA</th>
@@ -33,13 +33,13 @@
                         <th>RUTAS</th>
                         <th>CARTA_PORTE</th>
                         <th>FACTURACION</th>
-                        <th>MODULO_05</th>
+                        <th>USUARIOS</th>
                         <th>MODULO_06</th>
                         <th>MODULO_07</th>
                         <th>MODULO_08</th>
                         <th>MODULO_09</th>
-                        <th>MODULO_10</th>
-                        <th>ELIMINAR_REGISTRO</th>
+                        <th>ADMINISTRADOR</th>
+                        {{--<th>ELIMINAR_REGISTRO</th>--}}
                         <th>ACTUALIZAR_REGISTRO</th>
                     </tr>
                     </thead>
@@ -50,7 +50,6 @@
                             <td>{{$usuario->apellidoPaterno}}</td>
                             <td>{{$usuario->apellidoMaterno}}</td>
                             <td>{{$usuario->nombre}}</td>
-                            <td>{{$usuario->password}}</td>
                             <td>{{$usuario->nombreCorto}}</td>
                             <td>{{$usuario->cargo}}</td>
                             <td>{{$usuario->area}}</td>
@@ -64,13 +63,13 @@
                             <td>{{$usuario->modulo08}}</td>
                             <td>{{$usuario->modulo09}}</td>
                             <td>{{$usuario->modulo10}}</td>
-                            <td>
-                                <form method="post" action="{{url('/usuarios/'.$usuario->id)}}">
-                                    {{csrf_field()}}
-                                    {{method_field('DELETE')}}
-                                    <button type="submit" onclick="return confirm('Eliminar');" class="btn btn-danger"><i class="far fa-trash-alt"></i> Eliminar</button>
-                                </form>
-                            </td>
+                            {{--<td>--}}
+                                {{--<form method="post" action="{{url('/usuarios/'.$usuario->id)}}">--}}
+                                    {{--{{csrf_field()}}--}}
+                                    {{--{{method_field('DELETE')}}--}}
+                                    {{--<button type="submit" onclick="return confirm('Eliminar');" class="btn btn-danger"><i class="far fa-trash-alt"></i> Eliminar</button>--}}
+                                {{--</form>--}}
+                            {{--</td>--}}
                             <td>
                                 <a href="{{url('/usuarios/'.$usuario->id.'/edit')}}" class="btn btn-primary"><i class="far fa-edit"></i> Editar</a>
                             </td>
