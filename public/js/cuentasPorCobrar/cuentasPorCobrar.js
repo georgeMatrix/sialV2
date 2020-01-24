@@ -181,6 +181,8 @@ function generarPrevisualizacionFactura(){
     let usoCfdi = []
     let referencia = []
     let peso = []
+    let tipoCambio = []
+    let condicionesPago = []
 
     var valoresParaServer = [];
 
@@ -245,8 +247,9 @@ function generarPrevisualizacionFactura(){
         datosParaServidor[16] = $("#moneda").val();
 
         datosParaServidor[27] = $("#usoCfdi").val();
-        datosParaServidor[28] = $("#peso").val();
         datosParaServidor[29] = $("#referencia").val();
+        datosParaServidor[30] = $("#tipoCambio").val();
+        datosParaServidor[31] = $("#condicionesPago").val();
         //console.log(datosParaServidor)
         //$("#cartaPortePre").text("hola")
         organizacionModalPrevisualizacion(datosParaServidor)
@@ -307,6 +310,12 @@ function organizacionModalPrevisualizacion(datosParaServidor){
             "<label>"+datosParaServidor[26]+"</label><br>" +
             "<label><b>Uso Cfdi: </b></label>" +
             "<label>"+datosParaServidor[27]+"</label><br>" +
+            "<label><b>Referencia: </b></label>" +
+            "<label>"+datosParaServidor[29]+"</label><br>" +
+            "<label><b>Tipo de cambio: </b></label>" +
+            "<label>"+datosParaServidor[30]+"</label><br>" +
+            "<label><b>Condiciones Pago: </b></label>" +
+            "<label>"+datosParaServidor[31]+"</label><br>" +
             "<hr>")
     }
 }
@@ -339,6 +348,9 @@ function generarFactura(){
     let usoCfdi = []
     let referencia = []
     let peso = []
+    let tipoCambio = []
+    let condicionesPago = []
+
 
     var valoresParaServer = [];
     inputCheckFacturar().done(function(response){
@@ -354,6 +366,8 @@ function generarFactura(){
     valoresParaServer[6] = $("#usoCfdi").val();
     valoresParaServer[7] = $("#peso").val();
     valoresParaServer[8] = $("#referencia").val();
+    valoresParaServer[9] = $("#tipoCambio").val();
+    valoresParaServer[10] = $("#condicionesPago").val();
     //-----------------Solo para visializacion------------------------
     tamArreglo = valoresParaServer[0].length
 
@@ -416,6 +430,8 @@ function generarFactura(){
     datosParaServidor[27] = $("#usoCfdi").val();
     datosParaServidor[28] = $("#peso").val();
     datosParaServidor[29] = $("#referencia").val();
+    datosParaServidor[30] = $("#tipoCambio").val();
+    datosParaServidor[31] = $("#condicionesPago").val();
 
     guardaFacturaEnFacturables(valoresParaServer, datosParaServidor, tamArreglo)
     })
@@ -451,8 +467,8 @@ function generarXML(valores, tam, idFactura){
         .done(function(factura){
             console.log("Factura")
             //console.log(JSON.parse(factura));
-            pdfFactura(valores, idFactura);
-            guardadoFactura(factura)
+            //pdfFactura(valores, idFactura);
+            guardadoFactura(factura, idFactura)
             //alert(factura);
 
         })
@@ -490,7 +506,7 @@ function generarXML(valores, tam, idFactura){
     });
 }
 
-function guardadoFactura(datosDeFactura) {
+function guardadoFactura(datosDeFactura, idFactura) {
     console.log("GUARDADO DE DACTURA:")
     console.log(JSON.parse(datosDeFactura))
     let datosConvertidos = JSON.parse(datosDeFactura)
@@ -503,18 +519,19 @@ function guardadoFactura(datosDeFactura) {
         data: JSON.stringify(request),
         //data: datosDeFactura,
     }).done(function (response) {
+        excelFacturaPrueba(idFactura)
         //console.log(response)
     })
 
 }
 
-function pdfFactura(valores, idFactura){
+/*function pdfFactura(valores, idFactura){
     //console.log(valores)
     //console.log("========================================")
     let request = {valoresParaServidor: valores, idFactura: idFactura}
     $.ajax({
-        url: '/facturacion/ejemplos/modulos/ejemplo_modulo_html2pdf.php',        //local
-        type: 'post',
+        url: 'api/uno',        //local
+        type: 'get',
         data: request,
     }).done(function(response) {
             $("#XMLFactura").prop("href", "facturacion\\timbrados\\cfdi_factura"+idFactura+".xml");
@@ -556,7 +573,7 @@ function pdfFactura(valores, idFactura){
         }
 
     });
-}
+}*/
 
 function excelFacturaPrueba(idFactura){
     let request = {idFactura: idFactura}

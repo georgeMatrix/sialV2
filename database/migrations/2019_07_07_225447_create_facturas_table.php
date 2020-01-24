@@ -20,11 +20,11 @@ class CreateFacturasTable extends Migration
             $table->string('tipo_comprobante')->nullable();
             $table->string('total')->nullable();
             $table->string('moneda')->nullable();
-            $table->string('certificado')->nullable();
+            $table->string('certificado', 3000)->nullable();
             $table->string('subtotal')->nullable();
             $table->string('numero_de_certificado')->nullable();
             $table->string('forma_pago')->nullable();
-            $table->string('sello')->nullable();
+            $table->string('sello', 400)->nullable();
             $table->string('fecha')->nullable();
             $table->string('folio')->nullable();
             $table->string('serie')->nullable();
@@ -34,6 +34,14 @@ class CreateFacturasTable extends Migration
             $table->string('contrarecibo')->nullable();
             $table->string('revicion')->nullable();
             $table->string('importe_pagado')->nullable();
+            $table->string('uso_cfdi')->nullable();
+            $table->string('peso')->nullable();
+            $table->string('referencia')->nullable();
+            $table->string('impuestos_trasladados')->nullable();
+            $table->string('impuestos_retenidos')->nullable();
+            $table->string('selloCFD', 400)->nullable();
+            $table->string('condicionesPago')->nullable();
+            $table->string('tipoCambio')->nullable();
             $table->timestamps();
         });
     }

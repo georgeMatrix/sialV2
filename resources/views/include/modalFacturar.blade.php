@@ -68,6 +68,10 @@
                     <input type="text" class="form-control" id="peso" name="peso">
                     <label for="">Referencia</label>
                     <input type="text" class="form-control" id="referencia" name="referencia">
+                    <label for="">Tipo de Cambio</label>
+                    <input type="text" class="form-control" id="tipoCambio" name="tipoCambio">
+                    <label for="">Condiciones de Pago</label>
+                    <input type="text" class="form-control" id="condicionesPago" name="condicionesPago">
 
                 </form>
             </div>
