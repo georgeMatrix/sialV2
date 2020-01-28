@@ -120,7 +120,7 @@ include 'ejemploFacturaAPI/api.php';
 //===============================================================================================//
 //======I N I C I O === C A B E Z A === F A C T U R A========================================//
 //===============================================================================================//
-$datos['factura']['condicionesDePago'] = 'CONDICIONES';     //DEL MODAL ppd
+$datos['factura']['condicionesDePago'] = $valores[31];     //DEL MODAL ppd
 $datos['factura']['fecha_expedicion'] = date('Y-m-d\TH:i:s', time() - 120); //new date
 //$datos['factura']['folio'] = '100';     //preguntar a Peter folio de factura MODAL
 $datos['factura']['folio'] = $idFactura;
@@ -131,7 +131,7 @@ $datos['factura']['moneda'] = $valores[16];        //forma de pago MODAL
 $datos['factura']['serie'] = 'A';           //'A' en duro para todos
 $datos['factura']['subtotal'] = $sumatoriaImporte;         //SUMATORIA $datos['conceptos'][0]['importe']
 
-$datos['factura']['tipocambio'] = 1;            //1 en duro para todos
+$datos['factura']['tipocambio'] = $valores[30];;            //1 en duro para todos
 $datos['factura']['tipocomprobante'] = 'I';     //'I' en duro para todos
 $datos['factura']['total'] = $sumatoriaImporte + ($sumatoriaCfdiTIvaImporte - $sumatoriaCfdiRIvaImporte);     //SUMATORIA SUBTOTALES DE TODOS LOS CONCEPTOS $datos['conceptos'][0]['importe'] + $datos['conceptos'][0]['Impuestos']['Traslados'][0]['Importe']
 $datos['factura']['RegimenFiscal'] = '601';     //601 en duro
