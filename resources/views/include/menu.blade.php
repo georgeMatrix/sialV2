@@ -73,8 +73,15 @@
 
                 <li class="lightli">
                     <a href="{{route('cuentasPorCobrarV2.index')}}">
-                        <i class="fa fa-file-alt fa-lg text-danger"></i>
+                        <i class="fa fa-money-check fa-lg text-danger"></i>
                         <span class="nav-text">Cuentas Por Cobrar</span>
+                    </a>
+                </li>
+
+                <li class="lightli">
+                    <a href="{{route('facturas.index')}}">
+                        <i class="fa fa-file-invoice-dollar fa-lg text-danger"></i>
+                        <span class="nav-text">Facturas</span>
                     </a>
                 </li>
 

@@ -465,11 +465,8 @@ function generarXML(valores, tam, idFactura){
         data: request,
     })
         .done(function(factura){
-            console.log("Factura")
-            //console.log(JSON.parse(factura));
-            //pdfFactura(valores, idFactura);
-            guardadoFactura(factura, idFactura)
-            //alert(factura);
+            let valoresCovertidos = JSON.parse(factura)
+            guardadoFactura(factura, valoresCovertidos[0].Folio)
 
         })
         .fail( function( jqXHR, textStatus, errorThrown ) {
@@ -519,8 +516,12 @@ function guardadoFactura(datosDeFactura, idFactura) {
         data: JSON.stringify(request),
         //data: datosDeFactura,
     }).done(function (response) {
-        excelFacturaPrueba(idFactura)
-        //console.log(response)
+        $("#XMLFactura").prop("href", "facturacion\\timbrados\\cfdi_factura"+idFactura+".xml");
+        localStorage.setItem("direccionXML", "facturacion\\timbrados\\cfdi_factura"+idFactura+".xml");
+        Swal.fire(
+            'Documento creado correctamente',
+        )
+        excelFacturaPrueba(response)
     })
 
 }

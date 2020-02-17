@@ -20,6 +20,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CartaPorteController extends Controller
 {
@@ -72,6 +73,202 @@ class CartaPorteController extends Controller
         return $pdf->download('cartaPorte.pdf');
 
         //return view('cartaPorte/cartaPortePDF', ['cartaPorte'=> $cartaPorte, 'fecha'=>$fecha]);
+    }
+
+    public function getExcelCartaPorte($id){
+        $cartaPorte = CartaPorte::where('id', '=', $id)->first();
+        if ($cartaPorte->tipo == 'N'){
+            $tipo = Nacional::where('cartaPorte', '=', $cartaPorte->id)->first();
+        }
+        if ($cartaPorte->tipo == 'I'){
+            $tipo = Importacion::where('cartaPorte', '=', $cartaPorte->id)->first();
+        }
+        if ($cartaPorte->tipo == 'E'){
+            $tipo = Exportacion::where('cartaPorte', '=', $cartaPorte->id)->first();
+        }
+        if ($cartaPorte->tipo == 'C'){
+            $tipo = Cruce::where('cartaPorte', '=', $cartaPorte->id)->first();
+        }
+        $rutas = Rutas::where('id', '=', $cartaPorte->rutas)->first();
+        $clientes = Clientes::where('id', '=', $rutas->clientes)->first();
+        $operadores = Operadores::where('id', '=', $cartaPorte->operadores)->first();
+        $unidades = Unidades::where('id', '=', $cartaPorte->unidades)->first();
+        $remolques = Unidades::where('id', '=', $cartaPorte->remolques)->first();
+
+        //dd(substr($cartaPorte->fechaDeEmbarque, 0, 4));
+
+
+        \Excel::load('REMISION.xlsx', function($reader) use($cartaPorte, $tipo, $rutas, $clientes, $operadores, $unidades, $remolques){
+            $reader->sheet('hoja1', function($sheet) use($cartaPorte, $tipo, $rutas, $clientes, $operadores, $unidades, $remolques) {
+
+                $sheet->cell('K3', function($cell) use($tipo) {
+                    // manipulate the cell
+                    $cell->setValue($tipo->cartaPorte);
+                });
+                $sheet->cell('J3', function($cell) use($cartaPorte) {
+                    // manipulate the cell
+                    $cell->setValue($cartaPorte->tipo);
+                });
+                $sheet->cell('E11', function($cell) use($rutas) {
+                    // manipulate the cell
+                    $cell->setValue($rutas->lugar_exp);
+                });
+                $sheet->cell('H11', function($cell) use($cartaPorte) {
+                    // manipulate the cell
+                    $cell->setValue(substr($cartaPorte->fechaDeEmbarque, 8, 2));
+                    //substr($cartaPorte->fechaDeEmbarque, 5, 2)
+                });
+                $sheet->cell('J11', function($cell) use($cartaPorte) {
+                    // manipulate the cell
+                    $cell->setValue($this->meses(substr($cartaPorte->fechaDeEmbarque, 5, 2)));
+                });
+                $sheet->cell('L11', function($cell) use($cartaPorte) {
+                    // manipulate the cell
+                    $cell->setValue(substr($cartaPorte->fechaDeEmbarque, 0, 4));
+                });
+                $sheet->cell('C13', function($cell) use($clientes) {
+                    // manipulate the cell
+                    $cell->setValue($clientes->nombre);
+                });
+                $sheet->cell('C13', function($cell) use($clientes) {
+                    // manipulate the cell
+                    $cell->setValue($clientes->nombre);
+                });
+                $sheet->cell('C14', function($cell) use($rutas) {
+                    // manipulate the cell
+                    $cell->setValue($rutas->dom_remitente);
+                });
+                $sheet->cell('C17', function($cell) use($rutas) {
+                    // manipulate the cell
+                    $cell->setValue($rutas->recoge);
+                });
+                $sheet->cell('H17', function($cell) use($rutas) {
+                    // manipulate the cell
+                    $cell->setValue($rutas->destinatario);
+                });
+                $sheet->cell('H18', function($cell) use($rutas) {
+                    // manipulate the cell
+                    $cell->setValue($rutas->dom_destinatario);
+                });
+                $sheet->cell('C23', function($cell) use($cartaPorte) {
+                    // manipulate the cell
+                    $cell->setValue($cartaPorte->fechaDeEmbarque);
+                });
+                $sheet->cell('E23', function($cell) use($cartaPorte) {
+                    // manipulate the cell
+                    $cell->setValue($cartaPorte->fechaDeEmbarque);
+                });
+                $sheet->cell('H23', function($cell) use($cartaPorte) {
+                    // manipulate the cell
+                    $cell->setValue($cartaPorte->fechaDeEntrega);
+                });
+                $sheet->cell('A30', function($cell) use($rutas) {
+                    // manipulate the cell
+                    $cell->setValue($rutas->cantidad);
+                });
+                $sheet->cell('C30', function($cell) use($rutas) {
+                    // manipulate the cell
+                    $cell->setValue($rutas->embalaje);
+                });
+                $sheet->cell('E40', function($cell) use($cartaPorte) {
+                    // manipulate the cell
+                    $cell->setValue($cartaPorte->referencia);
+                });
+                $sheet->cell('E30', function($cell) use($rutas) {
+                    // manipulate the cell
+                    $cell->setValue($rutas->concepto);
+                });
+                $sheet->cell('K26', function($cell) use($rutas) {
+                    // manipulate the cell
+                    $cell->setValue($rutas->importe);
+                });
+                $sheet->cell('K23', function($cell) use($cartaPorte) {
+                    // manipulate the cell
+                    $cell->setValue(substr($cartaPorte->fechaDeEntrega, 11, 8));
+                });
+                $sheet->cell('K34', function($cell) use($rutas) {
+                    // manipulate the cell
+                    $cell->setValue($rutas->importe);
+                });
+                $sheet->cell('G25', function($cell) use($rutas) {
+                    // manipulate the cell
+                    $cell->setValue($rutas->valor_declarado);
+                });
+                $sheet->cell('D30', function($cell) use($rutas) {
+                    // manipulate the cell
+                    $cell->setValue($rutas->destinatario);
+                });
+                $sheet->cell('K37', function($cell) use($rutas) {
+                    // manipulate the cell
+                    $cell->setValue($rutas->importe);
+                });
+                $sheet->cell('D36', function($cell) use($operadores) {
+                    // manipulate the cell
+                    $cell->setValue($operadores->nombre_corto);
+                });
+                $sheet->cell('C38', function($cell) use($unidades) {
+                    // manipulate the cell
+                    $cell->setValue($unidades->economico);
+                });
+                $sheet->cell('D38', function($cell) use($unidades) {
+                    // manipulate the cell
+                    $cell->setValue($unidades->placas);
+                });
+                $sheet->cell('F38', function($cell) use($remolques) {
+                    // manipulate the cell
+                    $cell->setValue($remolques->economico);
+                });
+                $sheet->cell('G38', function($cell) use($remolques) {
+                    // manipulate the cell
+                    $cell->setValue($remolques->placas);
+                });
+                $sheet->cell('D44', function($cell) use($rutas) {
+                    // manipulate the cell
+                    $cell->setValue($rutas->obs);
+                });
+            });
+        })->download();
+    }
+
+    private function meses($mes){
+        switch ($mes) {
+            case "01":
+                return "ENERO";
+                break;
+            case "02":
+                return "FEBRERO";
+                break;
+            case "03":
+                return "MARZO";
+                break;
+            case "04":
+                return "ABRIL";
+                break;
+            case "05":
+                return "MAYO";
+                break;
+            case "06":
+                return "JUNIO";
+                break;
+            case "07":
+                return "JULIO";
+                break;
+            case "08":
+                return "AGOSTO";
+                break;
+            case "09":
+                return "SEPTIEMBRE";
+                break;
+            case "10":
+                return "SEPTIEMBRE";
+                break;
+            case "11":
+                return "NOVIEMBRE";
+                break;
+            case "12":
+                return "DICIEMBRE";
+                break;
+        }
     }
 
     /**

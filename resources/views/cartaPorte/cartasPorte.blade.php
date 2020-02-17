@@ -43,7 +43,7 @@
                             <th>ULTIMO_STATUS</th>
                             <th>FECHA_STATUS</th>
                             <th>EDITAR_REGISTRO</th>
-                            <th>PDF</th>
+                            <th>CARTA_PORTE</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -110,7 +110,8 @@
                                 <td>
                                     <a href="{{url('/cartaPorte/'.$cP->id.'/edit')}}" class="btn btn-primary"><i class="far fa-edit"></i> Editar</a>
                                 </td>
-                                <td><a href="{{url('pdf/'.$cP->id)}}" class="btn btn-secondary" >PDF</a></td>
+                                    {{--<td><a href="{{url('pdf/'.$cP->id)}}" class="btn btn-secondary" >PDF</a></td>--}}
+                                    <td><a href="{{url('excel/'.$cP->id)}}" class="btn btn-secondary" >Carta Porte</a></td>
                             </tr>
                         </tbody>
                         @endforeach

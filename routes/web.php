@@ -18,6 +18,7 @@ Route::get('/', function () {
 //, 'administracion'
 Route::group(['middleware'=>['auth', 'noCache']], function (){
     Route::get('pdf/{ruta}', 'CartaPorteController@getPdfCartaPorte')->name('cartaPorte');
+    Route::get('excel/{id}', 'CartaPorteController@getExcelCartaPorte')->name('cartaPorteE');
     Route::post('cartaPorte/release', 'CartaPorteController@abiertaToRelease')->name('release');
     Route::resource('clientes', 'ClientesController')->middleware('administrador');
     Route::resource('operadores', 'OperadoresController')->middleware('administrador');
@@ -33,7 +34,7 @@ Route::group(['middleware'=>['auth', 'noCache']], function (){
     Route::resource('cuentasPorCobrarV2', 'CuentasPorCobrarV2Controller')->middleware('administrador');
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('prueba', 'PruebasController');
-    Route::resource('facturas', 'FacturasController');
+    Route::resource('facturas', 'FacturasController')->middleware('administrador');
     Route::resource('error', 'PaginaErrorController');
 });
 

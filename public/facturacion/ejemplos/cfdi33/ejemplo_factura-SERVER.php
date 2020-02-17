@@ -192,7 +192,7 @@ foreach ($res AS $variable => $valor) {
     $valor = str_replace('&lt;', '<', $valor);
     $valor = str_replace('&gt;', '>', $valor);
     $valor = str_replace('&quot;', '"', $valor);
-    $resultante = $resultante.$valor;
+    //$resultante = $resultante.$valor;
     fwrite($file, $valor);
     fwrite($file, "XML;" . PHP_EOL);
     fwrite($file, "?>");

@@ -362,9 +362,9 @@ class CuentasPorCobrarV2Controller extends Controller
     }
 
     public function datosAGuardarEnFactura(Request $request){
+        //dd($request[0][0][0]['emisor_razon_social']);
         //return count($request[0]);
         //return count($request[0]);
-
         $guardadoFactura = Facturas::create([
             'lugar_expedicion' => $request[1],
             'metodo_pago' => $request[2],
@@ -375,7 +375,10 @@ class CuentasPorCobrarV2Controller extends Controller
             'peso' => $request[7],
             'referencia' => $request[8],
             'tipoCambio' => $request[9],
-            'condicionesPago' => $request[10]
+            'condicionesPago' => $request[10],
+            'emisor_razon_social' => $request[0][0][0]['emisor_razon_social'],
+            'receptor_razon_social' => $request[0][0][0]['receptor_razon_social'],
+            'status' => 'GENERADO'
         ]);
         //$facturables = new Facturables();
         //$facturables->factura = $guardadoFactura->id;
@@ -387,7 +390,10 @@ class CuentasPorCobrarV2Controller extends Controller
     }
 
     public function datosLlenosAGuardarEnFactura(Request $request){
-        //dd($request->datosDeFactura[0]);
+        //$verificador = count($request->datosDeFactura[6]);
+        /*dd($request->datosDeFactura[6]);
+        $verificador = null;*/
+        if($request->datosDeFactura[6] != null){
         Facturas::where('id', '=', $request->datosDeFactura[0]['Folio'])->update([
             'total' => $request->datosDeFactura[0]['Total'],
             'certificado' => $request->datosDeFactura[0]['Certificado'],
@@ -404,6 +410,25 @@ class CuentasPorCobrarV2Controller extends Controller
             'impuestos_retenidos' => $request->datosDeFactura[6]['TotalImpuestosRetenidos'],
             'selloCFD' => $request->datosDeFactura[5]['SelloCFD']
             ]);
+        }
+        if($request->datosDeFactura[6] == null){
+            Facturas::where('id', '=', $request->datosDeFactura[0]['Folio'])->update([
+                'total' => $request->datosDeFactura[0]['Total'],
+                'certificado' => $request->datosDeFactura[0]['Certificado'],
+                'subtotal' => $request->datosDeFactura[0]['SubTotal'],
+                'numero_de_certificado' => $request->datosDeFactura[0]['NoCertificado'],
+                'sello' => $request->datosDeFactura[5]['SelloSAT'],
+                'fecha' => $request->datosDeFactura[0]['Fecha'],
+                'folio' => $request->datosDeFactura[0]['Folio'],
+                'serie' => $request->datosDeFactura[0]['Serie'],
+                'version' => $request->datosDeFactura[0]['Version'],
+                'uuid' => $request->datosDeFactura[5]['UUID'],
+                'fecha_timbrado' => $request->datosDeFactura[5]['FechaTimbrado'],
+                'impuestos_trasladados' => $request->datosDeFactura[6]['TotalImpuestosTrasladados'],
+                'selloCFD' => $request->datosDeFactura[5]['SelloCFD']
+            ]);
+        }
+        return $request->datosDeFactura[0]['Folio'];
         //return $request->datosDeFactura;
         //return "llegando";
         //Facturas::where('id', )

@@ -42,6 +42,9 @@ class CreateFacturasTable extends Migration
             $table->string('selloCFD', 400)->nullable();
             $table->string('condicionesPago')->nullable();
             $table->string('tipoCambio')->nullable();
+            $table->string('emisor_razon_social')->nullable();
+            $table->string('receptor_razon_social')->nullable();
+            $table->string('status')->default('GENERADO');
             $table->timestamps();
         });
     }
