@@ -5,6 +5,7 @@ use App\CartaPorte;
 use App\Clientes;
 use App\Cruce;
 use App\CuentasPorCobrarV2;
+use App\Emisores;
 use App\Exportacion;
 use App\Facturables;
 use App\facturacion\Facturacion;
@@ -14,6 +15,7 @@ use App\Nacional;
 use App\Provedores;
 use App\Rutas;
 use App\Unidades;
+use PHPExcel_Worksheet_Drawing;
 use function Couchbase\defaultDecoder;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -32,16 +34,23 @@ class CuentasPorCobrarV2Controller extends Controller
         $rutas = Rutas::where('id', '=', $cartaPorte->rutas)->first();
         $factura = Facturas::where('id', '=', $facturablesFirst->factura)->first();
         $cliente = Clientes::where('id', '=', $facturablesFirst->cliente_id)->first();
+        $emisores = Emisores::where('id', '=', 1)->first();
         //var_dump($facturables->updated_at);
         //return $facturables;
-        $myFile = \Excel::load('FACTURA_V3.xlsx', function($reader) use($facturablesFirst, $facturables, $factura, $conceptos, $tamConceptos, $cliente, $rutas, $provedor, $unidades){
+        $myFile = \Excel::load('FACTURA_V3.xlsx', function($reader) use($facturablesFirst, $facturables, $factura, $conceptos, $tamConceptos, $cliente, $rutas, $provedor, $unidades, $emisores){
+            $reader->sheet('Hoja1', function($sheet) use($facturablesFirst){
+                $objDrawing = new PHPExcel_Worksheet_Drawing;
+                $objDrawing->setPath(public_path('facturacion\timbrados\cfdi_factura'.$facturablesFirst->factura.'.png')); //your image path
+                $objDrawing->setCoordinates('A50');
+                $objDrawing->setWorksheet($sheet);
+            });
         //$myFile = \Excel::load('FACTURA_V2.xlsx', function($reader) use($facturables, $conceptos, $tamConceptos){
-            $reader->sheet('Hoja1', function($sheet) use($facturablesFirst, $facturables, $factura, $conceptos, $tamConceptos, $cliente, $rutas, $provedor, $unidades){
+            $reader->sheet('Hoja1', function($sheet) use($facturablesFirst, $facturables, $factura, $conceptos, $tamConceptos, $cliente, $rutas, $provedor, $unidades, $emisores){
             //$reader->sheet('Hoja1', function($sheet) use($facturables, $conceptos, $tamConceptos){
 
                 $sheet->cell('L1', function($cell) use($facturablesFirst) {
                     // manipulate the cell
-                    $cell->setValue($facturablesFirst->id);
+                    $cell->setValue($facturablesFirst->factura);
                 });
                 $sheet->cell('J3', function($cell) use($factura) {
                     // manipulate the cell
@@ -83,6 +92,10 @@ class CuentasPorCobrarV2Controller extends Controller
                 $sheet->cell('A15', function($cell) use($cliente) {
                     // manipulate the cell
                     $cell->setValue($cliente->estado);
+                });
+                $sheet->cell('H9', function($cell) use($emisores) {
+                    // manipulate the cell
+                    $cell->setValue($emisores->regimen);
                 });
                 $sheet->cell('G12', function($cell) use($factura) {
                     // manipulate the cell
@@ -393,7 +406,26 @@ class CuentasPorCobrarV2Controller extends Controller
         //$verificador = count($request->datosDeFactura[6]);
         /*dd($request->datosDeFactura[6]);
         $verificador = null;*/
-        if($request->datosDeFactura[6] != null){
+        //dd(count($request->datosDeFactura[6]));
+        if($request->datosDeFactura[6] != null && count($request->datosDeFactura[6]) == 1){
+            Facturas::where('id', '=', $request->datosDeFactura[0]['Folio'])->update([
+                'total' => $request->datosDeFactura[0]['Total'],
+                'certificado' => $request->datosDeFactura[0]['Certificado'],
+                'subtotal' => $request->datosDeFactura[0]['SubTotal'],
+                'numero_de_certificado' => $request->datosDeFactura[0]['NoCertificado'],
+                'sello' => $request->datosDeFactura[5]['SelloSAT'],
+                'fecha' => $request->datosDeFactura[0]['Fecha'],
+                'folio' => $request->datosDeFactura[0]['Folio'],
+                'serie' => $request->datosDeFactura[0]['Serie'],
+                'version' => $request->datosDeFactura[0]['Version'],
+                'uuid' => $request->datosDeFactura[5]['UUID'],
+                'fecha_timbrado' => $request->datosDeFactura[5]['FechaTimbrado'],
+                'impuestos_trasladados' => $request->datosDeFactura[6]['TotalImpuestosTrasladados'],
+                'selloCFD' => $request->datosDeFactura[5]['SelloCFD']
+            ]);
+        }
+        //=====================RETENCION============================
+        if($request->datosDeFactura[6] != null && count($request->datosDeFactura[6]) == 2){
         Facturas::where('id', '=', $request->datosDeFactura[0]['Folio'])->update([
             'total' => $request->datosDeFactura[0]['Total'],
             'certificado' => $request->datosDeFactura[0]['Certificado'],
@@ -411,6 +443,7 @@ class CuentasPorCobrarV2Controller extends Controller
             'selloCFD' => $request->datosDeFactura[5]['SelloCFD']
             ]);
         }
+        //=====================SIN IMPUESTOS============================
         if($request->datosDeFactura[6] == null){
             Facturas::where('id', '=', $request->datosDeFactura[0]['Folio'])->update([
                 'total' => $request->datosDeFactura[0]['Total'],

@@ -7,6 +7,7 @@ use App\CartaPorte;
 use App\Clientes;
 use App\Cruce;
 use App\DatosFacturacion;
+use App\Emisores;
 use App\Exportacion;
 use App\Facturables;
 use App\Http\Requests\CartaPorteRequest;
@@ -21,6 +22,7 @@ use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use PHPExcel_Worksheet_Drawing;
 
 class CartaPorteController extends Controller
 {
@@ -89,6 +91,7 @@ class CartaPorteController extends Controller
         if ($cartaPorte->tipo == 'C'){
             $tipo = Cruce::where('cartaPorte', '=', $cartaPorte->id)->first();
         }
+
         $rutas = Rutas::where('id', '=', $cartaPorte->rutas)->first();
         $clientes = Clientes::where('id', '=', $rutas->clientes)->first();
         $operadores = Operadores::where('id', '=', $cartaPorte->operadores)->first();
@@ -98,7 +101,10 @@ class CartaPorteController extends Controller
         //dd(substr($cartaPorte->fechaDeEmbarque, 0, 4));
 
 
+
+
         \Excel::load('REMISION.xlsx', function($reader) use($cartaPorte, $tipo, $rutas, $clientes, $operadores, $unidades, $remolques){
+
             $reader->sheet('hoja1', function($sheet) use($cartaPorte, $tipo, $rutas, $clientes, $operadores, $unidades, $remolques) {
 
                 $sheet->cell('K3', function($cell) use($tipo) {
@@ -152,15 +158,22 @@ class CartaPorteController extends Controller
                 });
                 $sheet->cell('C23', function($cell) use($cartaPorte) {
                     // manipulate the cell
-                    $cell->setValue($cartaPorte->fechaDeEmbarque);
+                    $agno = substr($cartaPorte->fechaDeEmbarque, 0, 4);
+                    $mes = substr($cartaPorte->fechaDeEmbarque, 5, 2);
+                    $dia = substr($cartaPorte->fechaDeEmbarque, 8, 2);
+                    $cell->setValue($dia."/".$mes."/".$agno);
                 });
                 $sheet->cell('E23', function($cell) use($cartaPorte) {
                     // manipulate the cell
-                    $cell->setValue($cartaPorte->fechaDeEmbarque);
+                    $hora = substr($cartaPorte->fechaDeEmbarque, 11, 5);
+                    $cell->setValue($hora);
                 });
                 $sheet->cell('H23', function($cell) use($cartaPorte) {
                     // manipulate the cell
-                    $cell->setValue($cartaPorte->fechaDeEntrega);
+                    $agno = substr($cartaPorte->fechaDeEntrega, 0, 4);
+                    $mes = substr($cartaPorte->fechaDeEntrega, 5, 2);
+                    $dia = substr($cartaPorte->fechaDeEntrega, 8, 2);
+                    $cell->setValue($dia."/".$mes."/".$agno);
                 });
                 $sheet->cell('A30', function($cell) use($rutas) {
                     // manipulate the cell
@@ -184,7 +197,8 @@ class CartaPorteController extends Controller
                 });
                 $sheet->cell('K23', function($cell) use($cartaPorte) {
                     // manipulate the cell
-                    $cell->setValue(substr($cartaPorte->fechaDeEntrega, 11, 8));
+                    $hora = substr($cartaPorte->fechaDeEntrega, 11, 5);
+                    $cell->setValue($hora);
                 });
                 $sheet->cell('K34', function($cell) use($rutas) {
                     // manipulate the cell
@@ -194,10 +208,10 @@ class CartaPorteController extends Controller
                     // manipulate the cell
                     $cell->setValue($rutas->valor_declarado);
                 });
-                $sheet->cell('D30', function($cell) use($rutas) {
-                    // manipulate the cell
+                /*$sheet->cell('D30', function($cell) use($rutas) {
+                    // manipulate the cell No va dijo el Peter
                     $cell->setValue($rutas->destinatario);
-                });
+                });*/
                 $sheet->cell('K37', function($cell) use($rutas) {
                     // manipulate the cell
                     $cell->setValue($rutas->importe);
@@ -226,6 +240,45 @@ class CartaPorteController extends Controller
                     // manipulate the cell
                     $cell->setValue($rutas->obs);
                 });
+
+
+                //=============================editando=========================
+                /*$objDrawing = new PHPExcel_Worksheet_Drawing;
+                $objDrawing->setPath(public_path('cfdi_factura3.png')); //your image path
+                $objDrawing->setCoordinates('A2');*/
+//                $sheet->cell('I16', function($cell) use($rutas) {
+//                    // manipulate the cell
+//                    $objDrawing = new PHPExcel_Worksheet_Drawing;
+//                    $objDrawing->setPath(public_path('cfdi_factura3.png')); //your image path
+//                    //$cell->setValue($rutas->obs);
+//                    //$objDrawing->setCoordinates('A2');
+//                });
+
+                /*public function drawings()
+                {
+                    $drawing = new PHPExcel_Worksheet_Drawing;
+                    $drawing->setName('Logo');
+                    $drawing->setDescription('Logo');
+                    $drawing->setPath(public_path('/img/your-logo.png'));
+                    $drawing->setHeight(90);
+
+                    return $drawing;
+                }*/
+
+                /*$sheet->cell('D44', function($cell) use($rutas) {
+                    // manipulate the cell
+                    //$cell->setValue($rutas->obs);
+                    $objDrawing = new PHPExcel_Worksheet_Drawing;
+                    $objDrawing->setPath(public_path('cfdi_factura3.png')); //your image path
+                });*/
+
+                /*$sheet('hoja1', function($sheet){
+                    $objDrawing = new PHPExcel_Worksheet_Drawing;
+                    $objDrawing->setPath(public_path('cfdi_factura3.png')); //your image path
+                    $objDrawing->setCoordinates('A2');
+                    $objDrawing->setWorksheet($sheet);
+                });*/
+                //=============================editando=========================
             });
         })->download();
     }
